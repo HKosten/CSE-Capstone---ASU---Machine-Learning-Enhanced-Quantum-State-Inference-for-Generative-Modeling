@@ -16,7 +16,6 @@ import matplotlib_inline.backend_inline
 
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 
-
 # In[2]:
 
 
