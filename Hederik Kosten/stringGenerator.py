@@ -1,18 +1,18 @@
 import numpy as np
 
 def generate_string(probability0, probability1, length):
-    str = [np.random.choice(range(1, 7)).item()]
+    str = [np.random.choice(range(0, 6)).item()]
     for i in range(1, length):
-        if str[i - 1] <= 3:
+        if str[i - 1] <= 2:
             if(np.random.rand() < probability0):
-                str.append(np.random.choice(range(4, 7)).item())
+                str.append(np.random.choice(range(3, 6)).item())
             else:
-                str.append(np.random.choice(range(1, 4)).item())
+                str.append(np.random.choice(range(0, 3)).item())
         else:
             if(np.random.rand() < probability1):
-                str.append(np.random.choice(range(4, 7)).item())
+                str.append(np.random.choice(range(3, 6)).item())
             else:
-                str.append(np.random.choice(range(1, 4)).item())
+                str.append(np.random.choice(range(0, 3)).item())
 
     return str
 
