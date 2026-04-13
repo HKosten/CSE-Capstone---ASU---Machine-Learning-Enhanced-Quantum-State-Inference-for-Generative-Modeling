@@ -1,17 +1,19 @@
+from tkinter.filedialog import test
+
 import torch.nn as nn
 import torch
 from torch.utils.data import Dataset, DataLoader
 import stringGenerator as sg
 from torch.distributions.categorical import Categorical
 
-p1 = 0.9
-p2 = 0.1
+p1 = 0.99
+p2 = 0.01
 
 text = sg.generate_string(p1, p2, 1000)
 text_encoded = text
 chars = set(text)
 
-seq_length = 40
+seq_length = 100
 chunk_size = seq_length + 1
 text_chunks = [text_encoded[i:i+chunk_size]
 for i in range(len(text_encoded)-chunk_size)]
@@ -44,7 +46,7 @@ class RNN(nn.Module):
     def forward(self, x, hidden, cell):
         out = self.embedding(x).unsqueeze(1)
         out, (hidden, cell) = self.rnn(out, (hidden, cell))
-        out = self.fc(out).reshape(out.size(0), -1)
+        out = self.fc(out.squeeze(1))
         return out, hidden, cell
 
     def init_hidden(self, batch_size):
@@ -67,6 +69,8 @@ num_epochs = 1000
 torch.manual_seed(1)
 for epoch in range(num_epochs):
     hidden, cell = model.init_hidden(batch_size)
+    hidden = hidden.detach()
+    cell = cell.detach()
     seq_batch, target_batch = next(iter(seq_dl))
     optimizer.zero_grad()
     loss = 0
@@ -81,16 +85,23 @@ for epoch in range(num_epochs):
     if epoch % 50 == 0:
         print(f'Epoch {epoch} loss: {loss:.4f}')
 
-sample_seq = torch.tensor(sg.generate_string(p1, p2, seq_length)[:seq_length])
-hidden, cell = model.init_hidden(1)
-for c in range(len(sample_seq)):
-    x = sample_seq[c].unsqueeze(0)  # shape: (1,)
-    logits, hidden, cell = model(x, hidden, cell)
+for j in range(100):
+    sample_seq = torch.tensor(sg.generate_string(p1, p2, seq_length)[:seq_length])
 
-print('Probabilities:', nn.functional.softmax(logits, dim=1).detach().numpy()[0])
+    for i in range(12):
+        hidden, cell = model.init_hidden(1)
+        for c in range(i, len(sample_seq)):
+            x = sample_seq[c].unsqueeze(0)  # shape: (1,)
+            logits, hidden, cell = model(x, hidden, cell)
 
-print(sample_seq)
-print('Samples:')
-m = Categorical(logits=logits)
-samples = m.sample((10,))
-print(samples.detach().numpy())
+        print('Probabilities:', nn.functional.softmax(logits, dim=1).detach().numpy()[0])
+
+        print(sample_seq)
+        print('Samples:')
+        m = Categorical(logits=logits)
+        samples = m.sample((10,))
+        print(samples.detach().numpy())
+        sample_seq = torch.cat([sample_seq, samples[-1].view(-1)])
+
+    with open("test.txt", 'a') as f:
+        f.write(str(j) + ": " + str(sample_seq[-12:].numpy()) + '\n')
