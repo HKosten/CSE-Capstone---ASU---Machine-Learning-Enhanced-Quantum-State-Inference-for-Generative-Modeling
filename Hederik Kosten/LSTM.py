@@ -5,9 +5,16 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import stringGenerator as sg
 from torch.distributions.categorical import Categorical
+import mmd
 
-p1 = 0.99
-p2 = 0.01
+with open(f"LSTM_predictions.txt", 'w') as f:
+    f.write("")
+
+with open(f"string_generator_samples.txt", 'w') as f:
+    f.write("")
+
+p1 = 0.9
+p2 = 0.1
 
 text = sg.generate_string(p1, p2, 1000)
 text_encoded = text
@@ -94,14 +101,26 @@ for j in range(100):
             x = sample_seq[c].unsqueeze(0)  # shape: (1,)
             logits, hidden, cell = model(x, hidden, cell)
 
-        print('Probabilities:', nn.functional.softmax(logits, dim=1).detach().numpy()[0])
+        # print('Probabilities:', nn.functional.softmax(logits, dim=1).detach().numpy()[0])
 
-        print(sample_seq)
-        print('Samples:')
+        # print(sample_seq)
+        # print('Samples:')
         m = Categorical(logits=logits)
         samples = m.sample((10,))
-        print(samples.detach().numpy())
+        # print(samples.detach().numpy())
         sample_seq = torch.cat([sample_seq, samples[-1].view(-1)])
 
-    with open("test.txt", 'a') as f:
-        f.write(str(j) + ": " + str(sample_seq[-12:].numpy()) + '\n')
+    with open("LSTM_predictions.txt", 'a') as f:
+        f.write(str(sample_seq[-12:].numpy()) + '\n')
+
+for i in range(100):
+    with open(f"string_generator_samples.txt", 'a') as f:
+        f.write(str(sg.generate_string(p1, p2, 12)) + "\n")
+
+with open(f"LSTM_predictions.txt", 'r') as f:
+    lstm_predictions = [list(map(int, line.strip()[1:-1].split())) for line in f.readlines()]
+
+with open(f"string_generator_samples.txt", 'r') as f:
+    samples = [list(map(int, line.strip()[1:-1].split(','))) for line in f.readlines()]
+
+print(mmd.mmd(samples, lstm_predictions))
