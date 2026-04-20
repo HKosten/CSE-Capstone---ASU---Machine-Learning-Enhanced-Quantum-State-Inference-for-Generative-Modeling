@@ -123,4 +123,5 @@ with open(f"LSTM_predictions.txt", 'r') as f:
 with open(f"string_generator_samples.txt", 'r') as f:
     samples = [list(map(int, line.strip()[1:-1].split(','))) for line in f.readlines()]
 
-print(mmd.mmd(samples, lstm_predictions))
+print(f"MMD (Gaussian Kernel): {mmd.mmd(samples, lstm_predictions, 'gaussian')}")
+print(f"MMD (Spectrum Kernel): {mmd.mmd(samples, lstm_predictions, 'spectrum')}")
