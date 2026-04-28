@@ -65,3 +65,6 @@ The Autoregressive Coin Flip Model is a sequential neural network that predicts 
 - Compare Model 1 results against Model 2 (LSTM) and Model 3 (Encoder-Decoder Transformer)
 - Investigate scalability of the autoregressive approach as the number of qubits increases
 - Apply model to quantum circuit data provided by the project sponsor
+
+- (Will update later.)
+
