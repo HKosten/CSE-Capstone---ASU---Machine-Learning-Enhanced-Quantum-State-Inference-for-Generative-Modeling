@@ -5,7 +5,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import stringGenerator as sg
 from torch.distributions.categorical import Categorical
-import mmd
+import pytorchMMD
 
 with open(f"LSTM_predictions.txt", 'w') as f:
     f.write("")
@@ -123,5 +123,4 @@ with open(f"LSTM_predictions.txt", 'r') as f:
 with open(f"string_generator_samples.txt", 'r') as f:
     samples = [list(map(int, line.strip()[1:-1].split(','))) for line in f.readlines()]
 
-print(f"MMD (Gaussian Kernel): {mmd.mmd(samples, lstm_predictions, 'gaussian')}")
-print(f"MMD (Spectrum Kernel): {mmd.mmd(samples, lstm_predictions, 'spectrum')}")
+pytorchMMD.mmd_test(torch.tensor(samples), torch.tensor(lstm_predictions))
