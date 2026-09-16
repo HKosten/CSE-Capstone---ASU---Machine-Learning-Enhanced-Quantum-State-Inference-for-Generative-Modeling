@@ -75,7 +75,6 @@ print(f"  P(first bit = 1) = {p_first_hat:.4f}  (error {abs(p_first_hat - P_FIRS
 print(f"  P(1 | 0)         = {transitions_hat[0][1]:.4f}  (error {abs(transitions_hat[0][1] - P_1_GIVEN_0):.4f})")
 print(f"  P(1 | 1)         = {transitions_hat[1][1]:.4f}  (error {abs(transitions_hat[1][1] - P_1_GIVEN_1):.4f})")
 
-# how much accuracy each order of magnitude of samples actually buys
 print("\nSample-count sweep")
 print(f"{'samples':>10}  {'P(1|0) err':>11}  {'P(1|1) err':>11}  {'TVD':>9}")
 for n_samples in SAMPLE_SIZES:
