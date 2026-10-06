@@ -22,14 +22,16 @@ The sponsor suggested considering a VAE or Wasserstein GAN (WGAN). My comparison
 
 VAE is my chosen direction because it provides a straightforward way to model binary data and fits the time available for implementation. This is an implementation decision, not a claim that it will outperform the other models.
 
-## Planned Model Design
+## Model Design
 
-1. **Encoder:** Takes a binary input and produces the parameters of a latent probability distribution.
-2. **Latent sampling:** Samples a latent representation using the reparameterization trick during training.
-3. **Decoder:** Converts the latent representation into a probability for each output bit.
-4. **Binary generation:** Samples each output bit from its predicted Bernoulli probability.
+1. **Encoder:** Takes a binary input and produces the parameters (mean and log-variance) of a latent Gaussian.
+2. **Latent sampling:** Samples a latent vector with the reparameterization trick during training.
+3. **Decoder:** Converts the latent vector into one probability (logit) per output bit.
+4. **Binary generation:** Draws `z ~ N(0, I)`, decodes it, and samples each bit from its predicted Bernoulli probability.
 
-The planned training objective combines binary reconstruction loss with KL divergence, which regularizes the latent distribution.
+Training minimizes the negative ELBO: binary cross-entropy reconstruction loss + `beta` × KL divergence.
+
+Settings used (all are arguments of `run_vae`): one hidden layer of 256 units in the encoder and decoder, 32 latent dimensions, `beta = 2.0`, Adam (lr 1e-3), batch size 64, 500 epochs. These were picked from a small sweep that used a validation split carved only from the *training* rows, so the held-out set was never used for tuning. They were tuned on Bars-and-Stripes only.
 
 ## Dataset
 
@@ -37,34 +39,88 @@ The initial dataset is the Bars-and-Stripes dataset prepared for the project:
 
 - Grid size: 8 × 16.
 - Bitstring length: 128.
-- Number of unique samples: 1,000.
+- Number of unique samples: 1,000 (764 vertical-bar type, 238 horizontal-stripe type, 2 all-0/all-1).
 - Dataset-generation seed: 50.
 - Patterns: Horizontal stripes or vertical bars.
 
-The model will train on a selected portion of the data, with held-out samples reserved for evaluation.
+The split is 80/20 using `train_test_split(random_state=seed)`, the same call the other scripts use, so seed 50 gives the **same** 800/200 split as the Bayesian and transformer scripts.
 
-## Implementation Goals
+## Files
 
-- Implement the VAE in PyTorch.
-- Train it on a shared binary dataset.
-- Generate 1,000 bitstrings matching the input length.
-- Evaluate the generated samples using the team’s shared MMD implementation.
-- Commit the implementation and document the experiment settings.
+| File | Purpose |
+| --- | --- |
+| `vae_model.py` | The `VAE` class, the loss, the training loop, and sampling |
+| `vae_interface.py` | `run_vae(...)`: the function for the team’s evaluation framework (kept separate so it is easy to change), plus CSV helpers |
+| `run_vae_experiment.py` | Trains, generates, computes MMD and baselines, checks reproducibility, appends a row to `vae_results.csv` |
+| `vae_results.csv` | Created when you run the experiment (one row per run) |
 
-## Evaluation Plan
+## How to Run
 
-Compare the generated samples with held-out data using maximum mean discrepancy (MMD).
+Requirements: `torch`, `numpy`, `scikit-learn` (tested with Python 3.12 and PyTorch 2.14). `pytorch-ignite` is optional (only used to report the team’s ignite MMD).
 
-Also evaluate a baseline of 1,000 random bitstrings using the same reference data and MMD settings. The target is for the VAE to achieve a lower MMD than the random baseline.
+```bash
+cd "Faisal Al-Qahtani/CSE486/VAE"
+python run_vae_experiment.py                      # seed 50, Bars-and-Stripes (roughly 1 minute on one CPU core, including the reproducibility check)
+python run_vae_experiment.py --seeds 50 51 52     # several splits
+python run_vae_experiment.py --data other.csv --epochs 300 --save-samples generated.csv
+```
 
-Record the training loss, MMD results, random seed, training split, and epoch count. Results are pending.
+By default it reads `../Bayesian Model/bars_stripes_128.csv`. Any CSV with a `bitstring` column works.
 
-## Team Integration
+## Interface for the Evaluation Framework
 
-Provide a function that accepts the team’s agreed inputs and returns generated bitstrings and training-loss information.
+```python
+from vae_interface import load_bitstrings, run_vae
 
-Check that repeated runs with the same seed produce identical outputs under the same execution settings. Keep the interface in a separate file so it can be updated easily if the team’s requirements change.
+data = load_bitstrings("bars_stripes_128.csv")             # (N, n_bits) tensor of 0/1
+out = run_vae(data, seed=50, train_frac=0.8, epochs=500)   # all other settings have defaults
+
+out["generated_samples"]   # (1000, n_bits) tensor of 0./1.  -> pass to the MMD code
+out["test_data"]           # held-out real samples to compare against
+out["final_train_loss"]    # loss for the results CSV (also out["test_loss"], out["train_loss"] per epoch)
+out["settings"]            # every setting used
+```
+
+- Input: array/tensor of 0/1 (or a list of `"0101..."` strings), plus `seed`, `train_frac`, `epochs`, `n_samples` and model settings.
+- If the framework already splits the data, pass the training part with `train_frac=1.0`.
+- Same seed + same settings gives identical output (checked below). `run_vae` does not disturb the caller’s global random state.
+- **The argument and output names are a proposal.** Confirm them with the team; only `vae_interface.py` needs to change.
+
+## Evaluation
+
+Generated samples are compared with the held-out data using MMD. The same comparison is run for a baseline of 1,000 random bitstrings. The target is a lower MMD than the random baseline.
+
+Two MMD versions are reported because the choice of kernel bandwidth matters a lot at 128 bits:
+
+- **MMD² (gaussian):** unbiased, bandwidth taken from the data (median heuristic, 3 scales). It can be slightly negative, which just means about 0.
+- **MMD (ignite, `var=1.0`):** the setting the other scripts use. Sample sets are trimmed to equal size, as ignite requires. Note that ignite returns the *square root* of MMD², so its numbers are not directly comparable with MMD² values.
+
+Bars-and-Stripes also has an exact validity check: a sample is valid if every row is constant (stripes) or every column is constant (bars). The script reports the share of valid samples and the average number of bits (out of 128) away from the nearest valid pattern.
+
+## Results
+
+Seeds 50–54 (five different 80/20 splits), 500 epochs, CPU. The “floor” is real training rows vs. held-out rows (what a perfect generator would score).
+
+| Seed | MMD² VAE | MMD² random | Bits wrong, VAE / random | Valid patterns |
+| --- | --- | --- | --- | --- |
+| 50 | 0.00032 | 0.00423 | 13.6 / 46.1 | 0.7% |
+| 51 | 0.00144 | 0.00549 | 14.0 / 45.9 | 0.1% |
+| 52 | 0.00026 | 0.00445 | 15.0 / 46.1 | 0.4% |
+| 53 | −0.00007 | 0.00423 | 15.0 / 46.2 | 0.5% |
+| 54 | 0.00139 | 0.00466 | 14.3 / 46.2 | 0.7% |
+| **Mean** | **0.00067** | **0.00461** | **14.4 / 46.1** | **0.5%** |
+
+- The VAE beat the random baseline on MMD² in 5 of 5 runs. The mean floor is −0.00019 (about 0).
+- Final training loss was about 36 and held-out loss about 38–39 (negative ELBO per bitstring), so there is no large overfitting gap.
+- Reproducibility: running seed 50 twice gave identical samples and identical loss curves (same machine and settings).
+
+## Limitations
+
+- **Samples are noisy.** They have the right overall structure (about 14 of 128 bits wrong on average, versus about 46 for random bits), but fewer than 1% are exactly valid patterns. In an earlier diagnostic run with different settings (`beta=1`, 16 latent dims, 200 epochs), reconstructions of held-out data were mostly valid while samples drawn from `N(0, I)` mostly were not, which points to generation from the prior rather than to learning, but this was not studied further.
+- **How good the VAE looks depends on the MMD kernel, so the team should agree on one setting.** On the seed-50 split, the VAE's MMD² is roughly 80% of the random baseline's under ignite `var=1.0` (compared after squaring ignite's output), about 23% under the default sigmas (0.5, 1, 2) in Khashim's `mmd.py`, and about 8% with bandwidths scaled to the data. All three rank the VAE better than random, but the narrow kernels see little of the structure at 128 bits, because typical pairs of real strings are about 8 apart (Euclidean distance). This is one seed on one dataset.
+- `beta = 2.0` is not the textbook VAE (`beta = 1.0`). It did best on the validation split, but defaults were tuned on Bars-and-Stripes only; re-check on other datasets.
+- Reproducibility holds under the same execution settings (CPU, same PyTorch version).
 
 ## Current Status
 
-VAE is the selected direction. Implementation, training results, and integration checks still need to be documented.
+VAE is implemented, tested on Bars-and-Stripes with five seeds, and wrapped in a function for the evaluation framework. Next: confirm the interface with the team, then run it through the shared framework on the other datasets (DNA, sine-wave bitstrings).
