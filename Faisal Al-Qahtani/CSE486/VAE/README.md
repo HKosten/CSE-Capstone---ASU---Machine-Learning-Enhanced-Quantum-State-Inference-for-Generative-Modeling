@@ -50,24 +50,47 @@ The split is 80/20 using `train_test_split(random_state=seed)`, the same call th
 | File | Purpose |
 | --- | --- |
 | `vae_model.py` | The `VAE` class, the loss, the training loop, and sampling |
-| `vae_interface.py` | `run_vae(...)`: the function for the team’s evaluation framework (kept separate so it is easy to change), plus CSV helpers |
+| `vae_interface.py` | `run_vae(...)`: the full wrapped model (split, train, generate, losses, settings), plus CSV helpers. Kept separate from the model so it is easy to change |
+| `vae_wrapper.py` | `vae_function(trainingData)`: the team-format wrapper, with the same shape as the transformer’s `transformer_function(trainingData)` |
+| `vae_wrapper_test.py` | Quick check of the wrapper: runs it on a CSV, checks the output format, prints the generated bitstrings |
 | `run_vae_experiment.py` | Trains, generates, computes MMD and baselines, checks reproducibility, appends a row to `vae_results.csv` |
+| `Sprint8_VAE_Bars_Stripes.ipynb` | Google Colab notebook that runs all of the above and shows the plots and results |
 | `vae_results.csv` | Created when you run the experiment (one row per run) |
 
 ## How to Run
 
-Requirements: `torch`, `numpy`, `scikit-learn` (tested with Python 3.12 and PyTorch 2.14). `pytorch-ignite` is optional (only used to report the team’s ignite MMD).
+Requirements: `torch`, `numpy`, `scikit-learn` (tested with Python 3.12 and 3.13, and PyTorch 2.14). `pytorch-ignite` is optional (only used to report the team’s ignite MMD).
 
 ```bash
 cd "Faisal Al-Qahtani/CSE486/VAE"
 python run_vae_experiment.py                      # seed 50, Bars-and-Stripes (roughly 1 minute on one CPU core, including the reproducibility check)
 python run_vae_experiment.py --seeds 50 51 52     # several splits
 python run_vae_experiment.py --data other.csv --epochs 300 --save-samples generated.csv
+python vae_wrapper_test.py path/to/bitstrings.csv  # checks the team-format wrapper and prints generated bitstrings
 ```
 
-By default it reads `../Bayesian Model/bars_stripes_128.csv`. Any CSV with a `bitstring` column works.
+By default the experiment reads `../Bayesian Model/bars_stripes_128.csv`. Any CSV with a `bitstring` column works.
+
+**On Google Colab:** open `Sprint8_VAE_Bars_Stripes.ipynb`, choose `Runtime → Run all`, and upload `bars_stripes_128.csv` when asked. The notebook writes the `.py` files itself, so nothing else has to be uploaded.
 
 ## Interface for the Evaluation Framework
+
+The model is wrapped in a function so the shared framework can call it like the other models. `vae_function` follows the format of the transformer wrapper (`transformer_function(trainingData)`): one input, and it returns the bitstrings the model generates.
+
+```python
+from vae_wrapper import vae_function
+
+output = vae_function("bitstrings.csv")      # CSV with a "bitstring" column
+for r in output:
+    print("".join(map(str, r.tolist())))     # one generated bitstring per line
+```
+
+- **Input:** `trainingData` is a path to a CSV with a `bitstring` column (or an array, tensor, or list of `"0101..."` strings). Optional keyword arguments: `seed` (default 50), `epochs` (500), `n_samples`, and the model settings (`latent_dim`, `hidden_dim`, `batch_size`, `lr`, `beta`).
+- **Output:** a `torch.long` tensor of shape `(n_samples, n_bits)` with values 0/1, the same dtype and layout as the transformer wrapper. By default there is one generated bitstring per input row, so the output can be compared with the input in ignite’s MMD, which needs two sets of the same size.
+- It trains on **every** row it is given, so the framework should pass the training split. The same seed gives identical output.
+- Checked with the ignite MMD call used in the team’s testing framework, and on both the Bars-and-Stripes data and the transformer’s `bitstrings.csv`.
+
+For more detail (loss curves, held-out data, the settings used), call `run_vae` in `vae_interface.py`:
 
 ```python
 from vae_interface import load_bitstrings, run_vae
@@ -81,10 +104,8 @@ out["final_train_loss"]    # loss for the results CSV (also out["test_loss"], ou
 out["settings"]            # every setting used
 ```
 
-- Input: array/tensor of 0/1 (or a list of `"0101..."` strings), plus `seed`, `train_frac`, `epochs`, `n_samples` and model settings.
-- If the framework already splits the data, pass the training part with `train_frac=1.0`.
-- Same seed + same settings gives identical output (checked below). `run_vae` does not disturb the caller’s global random state.
-- **The argument and output names are a proposal.** Confirm them with the team; only `vae_interface.py` needs to change.
+- `run_vae` does the train/test split itself (`train_frac`, using the same `train_test_split(random_state=seed)` call as the other scripts) and does not disturb the caller’s global random state.
+- The exact format the framework expects is still the team’s decision. If it changes, only `vae_wrapper.py` and `vae_interface.py` need to change.
 
 ## Evaluation
 
@@ -112,7 +133,7 @@ Seeds 50–54 (five different 80/20 splits), 500 epochs, CPU. The “floor” is
 
 - The VAE beat the random baseline on MMD² in 5 of 5 runs. The mean floor is −0.00019 (about 0).
 - Final training loss was about 36 and held-out loss about 38–39 (negative ELBO per bitstring), so there is no large overfitting gap.
-- Reproducibility: running seed 50 twice gave identical samples and identical loss curves (same machine and settings).
+- Reproducibility: running seed 50 twice gave identical samples and identical loss curves (same machine and settings). The whole table was also reproduced in a second environment (Python 3.12 and then 3.13, both with PyTorch 2.14, CPU) with the same numbers.
 
 ## Limitations
 
@@ -123,4 +144,4 @@ Seeds 50–54 (five different 80/20 splits), 500 epochs, CPU. The “floor” is
 
 ## Current Status
 
-VAE is implemented, tested on Bars-and-Stripes with five seeds, and wrapped in a function for the evaluation framework. Next: confirm the interface with the team, then run it through the shared framework on the other datasets (DNA, sine-wave bitstrings).
+VAE is implemented, tested on Bars-and-Stripes with five seeds, and wrapped in `vae_function(trainingData)` in the team’s wrapper format. Next: confirm with the team that the framework works with it, then run it through the shared framework on the other datasets (DNA, sine-wave bitstrings).
