@@ -108,6 +108,6 @@ def LSTM(inputArray):
             # print(samples.detach().numpy())
             sample_seq = torch.cat([sample_seq, samples[-1].view(-1)])
 
-        lstm_predictions.append(sample_seq.numpy())
+        lstm_predictions.append(sample_seq[0-seq_length:].tolist())
 
     return lstm_predictions

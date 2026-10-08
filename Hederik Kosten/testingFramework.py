@@ -3,6 +3,7 @@ import random
 import LSTM
 import pytorchMMD
 import torch
+import random
 
 with open("Hederik Kosten\\chr1.fa", 'r') as f:
     lines = f.readlines()
@@ -47,6 +48,24 @@ training_sequences = [
     for sequence in training_sequences
 ]
 
-generated_data = LSTM.LSTM(training_sequences)
+def generate_dna_sequences():
+    bases = ['A', 'C', 'G', 'T']
 
-pytorchMMD.mmd_test(torch.tensor(training_sequences), torch.tensor(generated_data))
+    return [
+        ''.join(random.choice(bases) for _ in range(50))
+        for _ in range(1000)
+    ]
+
+random_dna_sequences = generate_dna_sequences()
+# print("Random DNA sequences:", random_dna_sequences[0:5])
+
+random_dna_sequences = [
+    encode(sequence)
+    for sequence in random_dna_sequences
+]
+
+print("Generated vs Random:")
+pytorchMMD.mmd_test(generated, random_data)
+
+print("Training vs Generated:")
+pytorchMMD.mmd_test(training, generated)

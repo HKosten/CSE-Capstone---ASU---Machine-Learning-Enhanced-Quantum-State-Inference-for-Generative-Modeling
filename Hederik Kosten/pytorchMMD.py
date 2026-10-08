@@ -7,7 +7,7 @@ def mmd_test(sample, generated):
         return batch
 
     default_evaluator = ignite.engine.Engine(eval_step)
-    metric = met.MaximumMeanDiscrepancy()
+    metric = met.MaximumMeanDiscrepancy(var=10.0)
     metric.attach(default_evaluator, "mmd")
     state = default_evaluator.run([[sample, generated]])
     print(state.metrics["mmd"])
