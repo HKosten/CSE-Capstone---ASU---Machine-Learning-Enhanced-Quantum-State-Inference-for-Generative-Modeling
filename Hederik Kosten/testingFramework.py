@@ -64,8 +64,10 @@ random_dna_sequences = [
     for sequence in random_dna_sequences
 ]
 
+generated_data = LSTM.LSTM(training_sequences)
+
 print("Generated vs Random:")
-pytorchMMD.mmd_test(generated, random_data)
+pytorchMMD.mmd_test(torch.tensor(generated_data), torch.tensor(random_dna_sequences))
 
 print("Training vs Generated:")
-pytorchMMD.mmd_test(training, generated)
+pytorchMMD.mmd_test(torch.tensor(training_sequences), torch.tensor(generated_data))
