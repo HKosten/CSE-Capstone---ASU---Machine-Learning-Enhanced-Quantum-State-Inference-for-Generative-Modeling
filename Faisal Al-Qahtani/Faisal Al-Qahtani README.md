@@ -32,19 +32,19 @@ The Autoregressive Coin Flip Model is a sequential neural network that predicts 
 1. Open `Coin Flip Code` in Google Colab or Jupyter Notebook
 2. Run all cells from top to bottom
 3. The model will train and print:
-   - Training loss at each epoch interval
-   - Predictions vs actual outcomes for test sequences
-   - Full probability distribution over all possible outcomes
-   - Probability distribution sum (should equal 1.000000)
+   - Training loss at each epoch interval.
+   - Predictions vs actual outcomes for test sequences.
+   - Full probability distribution over all possible outcomes.
+   - Probability distribution sum (should equal 1.000000).
 
 ---
 
 ## Output Explanation
-- **Training loss:** Shows how well the model is learning — lower is better
-- **Predictions:** Shows model's predicted outcome vs the actual outcome for each test sequence
-- **Probability distribution:** Lists every possible bitstring outcome and its assigned probability
-- **Distribution sum:** Confirms mathematical validity — must equal 1.0
-- **Unseen outcomes:** Any sequence not in the training data receives a prior probability
+- **Training loss:** Shows how well the model is learning — lower is better.
+- **Predictions:** Shows model's predicted outcome vs the actual outcome for each test sequence.
+- **Probability distribution:** Lists every possible bitstring outcome and its assigned probability.
+- **Distribution sum:** Confirms mathematical validity — must equal 1.0.
+- **Unseen outcomes:** Any sequence not in the training data receives a prior probability.
 
 ---
 
