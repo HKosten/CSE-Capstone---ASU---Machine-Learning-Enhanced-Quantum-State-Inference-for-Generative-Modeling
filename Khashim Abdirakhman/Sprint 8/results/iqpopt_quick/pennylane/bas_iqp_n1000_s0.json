@@ -1,0 +1,66 @@
+{
+  "config": {
+    "dataset": "bas",
+    "data_dir": "data",
+    "ansatz": "iqp",
+    "layers": 10,
+    "steps": 30,
+    "lr": 0.05,
+    "sigmas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "patience": 80,
+    "test_shots": 500,
+    "smooth_alpha": 0.5,
+    "seed": 0,
+    "log_every": 100,
+    "out_dir": "C:\\Users\\sk9tt\\Desktop\\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\\Khashim Abdirakhman\\Sprint 8\\results\\iqpopt_quick\\pennylane",
+    "tag": ""
+  },
+  "dataset_meta": {
+    "name": "bas",
+    "n_bits": 9,
+    "size": 3,
+    "valid_patterns": 14
+  },
+  "n_train": 1000,
+  "n_parameters": 45,
+  "steps_run": 30,
+  "best_step": 30,
+  "train_seconds": 1.2,
+  "final_train_mmd": 0.0404836892001134,
+  "qcbm": {
+    "mmd": 0.03958549448317678,
+    "tvd": 0.9722987435182809,
+    "kl": 4.201032215896284,
+    "fidelity": 0.021314356840657012,
+    "validity": 0.02770125648171704,
+    "coverage": 0.5714285714285714,
+    "test_mmd_samples": 0.03996582412545957
+  },
+  "counting": {
+    "mmd": 0.0006112389168933658,
+    "tvd": 0.03899999999999999,
+    "kl": 0.0054664263378506415,
+    "fidelity": 0.9973001353566415,
+    "validity": 1.0000000000000002,
+    "coverage": 1.0,
+    "test_mmd_samples": 0.00031150174150451626
+  },
+  "smoothed": {
+    "mmd": 0.001996638485887143,
+    "tvd": 0.19824840764331203,
+    "kl": 0.22634508264425954,
+    "fidelity": 0.7996174924489184,
+    "validity": 0.8017515923566879,
+    "coverage": 1.0,
+    "test_mmd_samples": 0.004033498746170205
+  },
+  "loss_history_every_10": [
+    0.3119666672899634,
+    0.0462560641277722,
+    0.0408276887534267
+  ]
+}

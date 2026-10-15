@@ -1,0 +1,69 @@
+{
+  "args": {
+    "n_train": 1000,
+    "test_shots": 500,
+    "steps": 30,
+    "iqpopt_lr": 0.02,
+    "n_ops": 200,
+    "n_mc": 200,
+    "sigmas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "seed": 0,
+    "scale": [],
+    "max_exact_qubits": 16,
+    "skip_small": false,
+    "quick": true
+  },
+  "small": {
+    "n_qubits": 9,
+    "n_params": 45,
+    "max_prob_diff_equivalence": 4.336808689942018e-18,
+    "pennylane": {
+      "mmd": 0.03958549448317678,
+      "tvd": 0.9722987435182809,
+      "kl": 4.201032215896284,
+      "fidelity": 0.021314356840657012,
+      "validity": 0.02770125648171704,
+      "coverage": 0.5714285714285714,
+      "test_mmd_samples": 0.03996582412545957,
+      "test_mmd_iqpopt_est": 0.03307667251784855,
+      "seconds": 1.2,
+      "steps": 30
+    },
+    "iqpopt": {
+      "mmd": 0.03662989407739607,
+      "tvd": 0.9521071126677056,
+      "kl": 3.2792617047079924,
+      "fidelity": 0.04364035495721428,
+      "validity": 0.04789288733229227,
+      "coverage": 0.8571428571428571,
+      "test_mmd_samples": 0.03547481136445224,
+      "test_mmd_iqpopt_est": 0.027941528159489307,
+      "seconds": 7.5,
+      "steps": 30,
+      "final_train_loss": 0.039910288592896144
+    },
+    "counting": {
+      "mmd": 0.0006112389168933658,
+      "tvd": 0.03899999999999999,
+      "kl": 0.0054664263378506415,
+      "fidelity": 0.9973001353566415,
+      "validity": 1.0000000000000002,
+      "coverage": 1.0,
+      "test_mmd_samples": 0.00031150174150451626
+    },
+    "smoothed": {
+      "mmd": 0.001996638485887143,
+      "tvd": 0.19824840764331203,
+      "kl": 0.22634508264425954,
+      "fidelity": 0.7996174924489184,
+      "validity": 0.8017515923566879,
+      "coverage": 1.0,
+      "test_mmd_samples": 0.004033498746170205
+    }
+  },
+  "scale": []
+}

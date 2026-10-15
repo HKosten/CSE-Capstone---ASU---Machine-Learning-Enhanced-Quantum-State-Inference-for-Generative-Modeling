@@ -1,0 +1,64 @@
+{
+  "config": {
+    "dataset": "quantum",
+    "data_dir": "data",
+    "ansatz": "strong",
+    "layers": 10,
+    "steps": 40,
+    "lr": 0.05,
+    "sigmas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "patience": 80,
+    "test_shots": 2000,
+    "smooth_alpha": 0.5,
+    "seed": 0,
+    "log_every": 1000000000,
+    "out_dir": "C:\\Users\\sk9tt\\Desktop\\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\\Khashim Abdirakhman\\Sprint 8\\results\\stability_quick",
+    "tag": ""
+  },
+  "dataset_meta": {
+    "name": "quantum",
+    "n_bits": 8,
+    "n_layers": 2,
+    "seed": 7
+  },
+  "n_train": 50,
+  "n_parameters": 240,
+  "steps_run": 40,
+  "best_step": 40,
+  "train_seconds": 4.3,
+  "final_train_mmd": 0.0020216056280412693,
+  "qcbm": {
+    "mmd": 0.009225543666601412,
+    "tvd": 0.42960845850550866,
+    "kl": 0.8081025086683639,
+    "fidelity": 0.6701698245103797,
+    "coverage": 0.12109375,
+    "test_mmd_samples": 0.008647300068729158
+  },
+  "counting": {
+    "mmd": 0.01144072043353122,
+    "tvd": 0.5001443337310019,
+    "kl": 9.001346573234173,
+    "fidelity": 0.46827717492235144,
+    "coverage": 0.140625,
+    "test_mmd_samples": 0.012308765859320392
+  },
+  "smoothed": {
+    "mmd": 0.007261806627983464,
+    "tvd": 0.4953015646383919,
+    "kl": 0.7037666331314839,
+    "fidelity": 0.6530576500584018,
+    "coverage": 0.16015625,
+    "test_mmd_samples": 0.00783553050311625
+  },
+  "loss_history_every_10": [
+    0.024508494496398463,
+    0.005735968437530053,
+    0.002984190084147032,
+    0.002214722182387204
+  ]
+}

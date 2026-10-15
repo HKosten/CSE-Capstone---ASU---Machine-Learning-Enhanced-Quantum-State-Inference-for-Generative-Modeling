@@ -1,0 +1,10 @@
+{
+  "name": "markov",
+  "n_bits": 8,
+  "p_first_1": 0.5,
+  "p_1_given_0": 0.3,
+  "p_1_given_1": 0.8,
+  "n_samples": 1000,
+  "seed": 0,
+  "support_size": 256
+}

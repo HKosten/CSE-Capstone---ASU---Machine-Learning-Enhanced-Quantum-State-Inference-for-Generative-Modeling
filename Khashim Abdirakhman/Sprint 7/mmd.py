@@ -8,7 +8,7 @@ import torch
 # MMD = how different 2 distributions are. 0 -> same, bigger -> more different
 # kernel is gaussian: k(x,y) = exp(-||x-y||^2 / (2*sigma^2))
 # for 0/1 strings ||x-y||^2 is just the # of bits that differ (hamming dist.)
-# same kernel form as De Luca's iqpopt so we can compare numbers w/ it
+# same kernel form as Sponsor's iqpopt so we can compare numbers w/ it
 # using a few sigmas and averaging them -> small sigma cares about exact matches, big sigma about overall shape
 DEFAULT_SIGMAS = (0.5, 1.0, 2.0)
 

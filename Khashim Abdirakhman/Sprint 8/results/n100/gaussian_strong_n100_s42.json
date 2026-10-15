@@ -1,0 +1,74 @@
+{
+  "config": {
+    "dataset": "gaussian",
+    "data_dir": "C:\\Users\\sk9tt\\Desktop\\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\\Khashim Abdirakhman\\Sprint 8\\data\\n100",
+    "ansatz": "strong",
+    "layers": 10,
+    "steps": 40,
+    "lr": 0.05,
+    "sigmas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "patience": 80,
+    "test_shots": 2000,
+    "smooth_alpha": 0.5,
+    "seed": 42,
+    "log_every": 100,
+    "out_dir": "C:\\Users\\sk9tt\\Desktop\\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\\Khashim Abdirakhman\\Sprint 8\\results\\n100",
+    "tag": ""
+  },
+  "dataset_meta": {
+    "name": "gaussian",
+    "n_bits": 8,
+    "centers": [
+      0.3,
+      0.7
+    ],
+    "width": 0.06,
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "n_samples": 100,
+    "seed": 0,
+    "support_size": 256
+  },
+  "n_train": 100,
+  "n_parameters": 240,
+  "steps_run": 40,
+  "best_step": 40,
+  "train_seconds": 4.0,
+  "final_train_mmd": 0.0011710723993972475,
+  "qcbm": {
+    "mmd": 0.00413262941448265,
+    "tvd": 0.3753108582371859,
+    "kl": 0.631336765041018,
+    "fidelity": 0.7429777878460394,
+    "coverage": 0.25390625,
+    "test_mmd_samples": 0.004350019210154432
+  },
+  "counting": {
+    "mmd": 0.004940907177524724,
+    "tvd": 0.4266264140637543,
+    "kl": 8.837417914482684,
+    "fidelity": 0.5525417778134657,
+    "coverage": 0.2890625,
+    "test_mmd_samples": 0.004170318775045034
+  },
+  "smoothed": {
+    "mmd": 0.003776558665762206,
+    "tvd": 0.35332953406616935,
+    "kl": 0.4890612345021955,
+    "fidelity": 0.7327958886083004,
+    "coverage": 0.30859375,
+    "test_mmd_samples": 0.003247088575144663
+  },
+  "loss_history_every_10": [
+    0.016487308569761733,
+    0.003369847683160244,
+    0.0016478370219833627,
+    0.001263756615443657
+  ]
+}

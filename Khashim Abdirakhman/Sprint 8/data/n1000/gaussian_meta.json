@@ -1,0 +1,16 @@
+{
+  "name": "gaussian",
+  "n_bits": 8,
+  "centers": [
+    0.3,
+    0.7
+  ],
+  "width": 0.06,
+  "weights": [
+    0.5,
+    0.5
+  ],
+  "n_samples": 1000,
+  "seed": 0,
+  "support_size": 256
+}

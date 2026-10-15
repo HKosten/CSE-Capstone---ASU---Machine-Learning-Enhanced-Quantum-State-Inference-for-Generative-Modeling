@@ -1,0 +1,69 @@
+{
+  "config": {
+    "dataset": "bas",
+    "data_dir": "data",
+    "ansatz": "iqp",
+    "layers": 10,
+    "steps": 30,
+    "lr": 0.05,
+    "sigmas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "patience": 80,
+    "test_shots": 2000,
+    "smooth_alpha": 0.5,
+    "seed": 42,
+    "log_every": 50,
+    "out_dir": "results",
+    "tag": ""
+  },
+  "dataset_meta": {
+    "name": "bas",
+    "n_bits": 9,
+    "size": 3,
+    "valid_patterns": 14,
+    "n_samples": 1000,
+    "seed": 0,
+    "support_size": 14
+  },
+  "n_train": 1000,
+  "n_parameters": 45,
+  "steps_run": 30,
+  "best_step": 30,
+  "train_seconds": 0.8,
+  "final_train_mmd": 0.0393332734621209,
+  "qcbm": {
+    "mmd": 0.03867284375700912,
+    "tvd": 0.9747717500367492,
+    "kl": 4.323909072783203,
+    "fidelity": 0.018976953257896112,
+    "validity": 0.025228249963249114,
+    "coverage": 0.7142857142857143,
+    "test_mmd_samples": 0.03804904675685167
+  },
+  "counting": {
+    "mmd": 0.0006112389168933658,
+    "tvd": 0.03899999999999999,
+    "kl": 0.0054664263378506415,
+    "fidelity": 0.9973001353566415,
+    "validity": 1.0000000000000002,
+    "coverage": 1.0,
+    "test_mmd_samples": 0.0006372896676315465
+  },
+  "smoothed": {
+    "mmd": 0.001996638485887143,
+    "tvd": 0.19824840764331203,
+    "kl": 0.22634508264425954,
+    "fidelity": 0.7996174924489184,
+    "validity": 0.8017515923566879,
+    "coverage": 1.0,
+    "test_mmd_samples": 0.002451649951919155
+  },
+  "loss_history_every_10": [
+    0.17908579795363827,
+    0.0424873119792417,
+    0.0395896122965677
+  ]
+}

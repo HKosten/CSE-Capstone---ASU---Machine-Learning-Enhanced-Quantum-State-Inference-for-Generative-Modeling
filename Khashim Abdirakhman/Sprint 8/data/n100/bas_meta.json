@@ -1,0 +1,9 @@
+{
+  "name": "bas",
+  "n_bits": 9,
+  "size": 3,
+  "valid_patterns": 14,
+  "n_samples": 100,
+  "seed": 0,
+  "support_size": 14
+}

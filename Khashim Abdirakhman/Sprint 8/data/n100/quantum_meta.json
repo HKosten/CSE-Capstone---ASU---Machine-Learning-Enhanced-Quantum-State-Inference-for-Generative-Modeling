@@ -1,0 +1,8 @@
+{
+  "name": "quantum",
+  "n_bits": 8,
+  "n_layers": 2,
+  "seed": 0,
+  "n_samples": 100,
+  "support_size": 256
+}

@@ -1,0 +1,65 @@
+{
+  "config": {
+    "dataset": "markov",
+    "data_dir": "data",
+    "ansatz": "strong",
+    "layers": 10,
+    "steps": 40,
+    "lr": 0.05,
+    "sigmas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "patience": 80,
+    "test_shots": 2000,
+    "smooth_alpha": 0.5,
+    "seed": 1,
+    "log_every": 1000000000,
+    "out_dir": "C:\\Users\\sk9tt\\Desktop\\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\\Khashim Abdirakhman\\Sprint 8\\results\\stability_quick",
+    "tag": ""
+  },
+  "dataset_meta": {
+    "name": "markov",
+    "n_bits": 8,
+    "p_first_1": 0.5,
+    "p_1_given_0": 0.3,
+    "p_1_given_1": 0.8
+  },
+  "n_train": 1000,
+  "n_parameters": 240,
+  "steps_run": 40,
+  "best_step": 40,
+  "train_seconds": 4.4,
+  "final_train_mmd": 0.0009624826225551876,
+  "qcbm": {
+    "mmd": 0.000999780991172114,
+    "tvd": 0.2184899595322581,
+    "kl": 0.21841125809262726,
+    "fidelity": 0.8936077821373118,
+    "coverage": 0.77734375,
+    "test_mmd_samples": 0.0012464161348516578
+  },
+  "counting": {
+    "mmd": 0.00042099258020467036,
+    "tvd": 0.14181649999999996,
+    "kl": 0.9478079331475624,
+    "fidelity": 0.9206842572033648,
+    "coverage": 0.65625,
+    "test_mmd_samples": 0.00067954106718493
+  },
+  "smoothed": {
+    "mmd": 0.0006178932981502113,
+    "tvd": 0.14514859929078014,
+    "kl": 0.08504407588292148,
+    "fidelity": 0.956686520278907,
+    "coverage": 0.75390625,
+    "test_mmd_samples": 0.00048152333000273106
+  },
+  "loss_history_every_10": [
+    0.02989983147560132,
+    0.0037676979593303035,
+    0.001847137997331775,
+    0.0011277923662135335
+  ]
+}

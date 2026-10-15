@@ -1,0 +1,66 @@
+{
+  "config": {
+    "dataset": "quantum",
+    "data_dir": "C:\\Users\\sk9tt\\Desktop\\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\\Khashim Abdirakhman\\Sprint 8\\data\\n1000",
+    "ansatz": "hea",
+    "layers": 10,
+    "steps": 40,
+    "lr": 0.05,
+    "sigmas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "patience": 80,
+    "test_shots": 2000,
+    "smooth_alpha": 0.5,
+    "seed": 42,
+    "log_every": 100,
+    "out_dir": "C:\\Users\\sk9tt\\Desktop\\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\\Khashim Abdirakhman\\Sprint 8\\results\\n1000",
+    "tag": ""
+  },
+  "dataset_meta": {
+    "name": "quantum",
+    "n_bits": 8,
+    "n_layers": 2,
+    "seed": 0,
+    "n_samples": 1000,
+    "support_size": 256
+  },
+  "n_train": 1000,
+  "n_parameters": 160,
+  "steps_run": 40,
+  "best_step": 40,
+  "train_seconds": 3.3,
+  "final_train_mmd": 0.001026981046597743,
+  "qcbm": {
+    "mmd": 0.001365080134428072,
+    "tvd": 0.29484916235894104,
+    "kl": 0.41367609175717257,
+    "fidelity": 0.7960808744693895,
+    "coverage": 0.765625,
+    "test_mmd_samples": 0.0012410041459048893
+  },
+  "counting": {
+    "mmd": 0.0005317334892559831,
+    "tvd": 0.13109279701485116,
+    "kl": 1.0045685549939594,
+    "fidelity": 0.9227631722581158,
+    "coverage": 0.5546875,
+    "test_mmd_samples": 0.0004655110049410771
+  },
+  "smoothed": {
+    "mmd": 0.0005970753094285742,
+    "tvd": 0.13934500451466073,
+    "kl": 0.09097251126776199,
+    "fidelity": 0.9515565009908603,
+    "coverage": 0.6640625,
+    "test_mmd_samples": 0.00037702489624924507
+  },
+  "loss_history_every_10": [
+    0.015884619531756704,
+    0.003114055361194785,
+    0.0016335582305519831,
+    0.0011514045034682133
+  ]
+}
