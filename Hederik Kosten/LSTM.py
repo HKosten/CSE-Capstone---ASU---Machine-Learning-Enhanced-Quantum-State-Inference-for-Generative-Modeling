@@ -6,10 +6,23 @@ from torch.utils.data import Dataset, DataLoader
 import stringGenerator as sg
 from torch.distributions.categorical import Categorical
 
-def LSTM(inputArray):
+def LSTM(inputCSV, num_epochs, seed, epsilon, num_samples):
+    torch.manual_seed(seed)
+
+    def read_csv(filename):
+        data = []
+
+        with open(filename, "r") as file:
+            for line in file:
+                line = line.strip()
+                row = line.split(",")
+                data.append(row)
+
+        return data
+
+    inputArray = read_csv(inputCSV)
 
     text = torch.tensor(inputArray)
-    num_samples = len(inputArray)
     text_encoded = text
     vocab_size = int(torch.max(text).item()) + 1
 
@@ -38,7 +51,6 @@ def LSTM(inputArray):
     seq_dataset = TextDataset(text_chunks)
 
     batch_size = 64
-    torch.manual_seed(1)
     seq_dl = DataLoader(seq_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
 
     class RNN(nn.Module):
