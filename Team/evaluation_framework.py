@@ -41,8 +41,11 @@ def evaluate_model(model_function, settings):
 
     print("Ouput:\n")
 
+    #works for both list and tensor
     for r in generated_samples:
-        print("".join(map(str, r.tolist())))
+        if isinstance(r, torch.Tensor):
+            r = r.tolist()
+    print("".join(map(str, r)))
     
     print("MMD:", mmd)
 

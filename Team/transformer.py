@@ -219,12 +219,14 @@ def main_training_logic(training_data, num_epochs, seed=None, epsilon=None):
         np.random.seed(seed)
         random.seed(seed)
 
+    train_data = training_data
+
     #Split data - training and eval
-    train_data, test_data = train_test_split(training_data, train_size = epsilon, random_state=50)
+    #train_data, test_data = train_test_split(training_data, train_size = epsilon, random_state=seed)
 
     #Print shapes (rows, columns)
     print("TRAINING DATA: ", train_data.shape)
-    print("TESTING DATA: ", test_data.shape)
+    #print("TESTING DATA: ", test_data.shape)
 
     #Remember than MMD EVAL will use test_data, not train_data!
     src_data = train_data
