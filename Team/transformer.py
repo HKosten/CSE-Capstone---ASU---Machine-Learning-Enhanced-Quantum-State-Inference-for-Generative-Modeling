@@ -211,7 +211,7 @@ class Transformer(nn.Module):
         return output
 
 
-#PREPARE DATA FOR TRAINING !
+#wrap 
 def main_training_logic(training_data, num_epochs, seed=None, epsilon=None):
 
     if seed is not None:
