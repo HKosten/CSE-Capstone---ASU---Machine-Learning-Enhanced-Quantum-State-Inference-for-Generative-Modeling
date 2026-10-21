@@ -211,22 +211,13 @@ class Transformer(nn.Module):
         return output
 
 
-#wrap 
+#wrap training loop/logic for using settings
 def main_training_logic(training_data, num_epochs, seed=None, epsilon=None):
-
-    if seed is not None:
-        torch.manual_seed(seed)
-        np.random.seed(seed)
-        random.seed(seed)
 
     train_data = training_data
 
-    #Split data - training and eval
-    #train_data, test_data = train_test_split(training_data, train_size = epsilon, random_state=seed)
-
     #Print shapes (rows, columns)
     print("TRAINING DATA: ", train_data.shape)
-    #print("TESTING DATA: ", test_data.shape)
 
     #Remember than MMD EVAL will use test_data, not train_data!
     src_data = train_data
@@ -234,8 +225,6 @@ def main_training_logic(training_data, num_epochs, seed=None, epsilon=None):
 
     #TRAINING !
 
-    #CHANGED from qubit to seq_length: length of each bitstring
-    #vocab_size is size for binary strings
     src_vocab_size = 2
     tgt_vocab_size = 2
     seq_length = src_data.shape[1]
