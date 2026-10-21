@@ -3,17 +3,18 @@ from tkinter.filedialog import test
 import torch.nn as nn
 import torch
 from torch.utils.data import Dataset, DataLoader
-import stringGenerator as sg
 from torch.distributions.categorical import Categorical
 
-def LSTM(inputCSV, num_epochs, seed, epsilon, num_samples):
-    torch.manual_seed(seed)
+def LSTM(**model_settings):
+    print("Training data:", repr(model_settings["training_data"]))
+    print("Type:", type(model_settings["training_data"]))
+    torch.manual_seed(model_settings["seed"])
 
     def read_csv(filename):
         data = []
 
         with open(filename, "r") as file:
-            for i in range(num_samples*epsilon):
+            for i in range(int(model_settings["num_samples"]*model_settings["epsilon"])):
                 line = file.readline()
                 line = line.strip()
                 row = [int(value) for value in line.split(",")]
@@ -21,7 +22,7 @@ def LSTM(inputCSV, num_epochs, seed, epsilon, num_samples):
 
         return data
 
-    inputArray = read_csv(inputCSV)
+    inputArray = read_csv(model_settings["training_data"])
 
     text = torch.tensor(inputArray)
     text_encoded = text
@@ -83,7 +84,7 @@ def LSTM(inputCSV, num_epochs, seed, epsilon, num_samples):
     loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-    for epoch in range(num_epochs):
+    for epoch in range(model_settings["num_epochs"]):
         hidden, cell = model.init_hidden(batch_size)
         hidden = hidden.detach()
         cell = cell.detach()
@@ -102,7 +103,7 @@ def LSTM(inputCSV, num_epochs, seed, epsilon, num_samples):
             print(f'Epoch {epoch} loss: {loss:.4f}')
 
     lstm_predictions = []
-    for j in range(num_samples):
+    for j in range(model_settings["num_samples"]):
         sample_seq = torch.randint(0, vocab_size, (1,))
 
         while len(sample_seq) < seq_length:
