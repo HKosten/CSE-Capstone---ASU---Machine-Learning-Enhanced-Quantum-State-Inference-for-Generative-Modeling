@@ -6,7 +6,8 @@ import torch
 import random
 import Qubit_String_Generator as qsg
 
-with open("Hederik Kosten\\chr1.fa", 'r') as f:
+random.seed(0)
+with open("chr1.fa", 'r') as f:
     lines = f.readlines()
 
 def encode(text):
@@ -49,6 +50,10 @@ training_sequences = [
     for sequence in training_sequences
 ]
 
+with open("training_sequences_DNA.csv", 'w') as f:
+    for sequence in training_sequences:
+        f.write(','.join(map(str, sequence)) + '\n')
+
 def generate_dna_sequences():
     bases = ['A', 'C', 'G', 'T']
 
@@ -65,7 +70,7 @@ random_dna_sequences = [
     for sequence in random_dna_sequences
 ]
 
-generated_data = LSTM.LSTM(training_sequences)
+generated_data = LSTM.LSTM("training_sequences_DNA.csv", num_epochs=1000, seed=0, epsilon=0.5, num_samples=1000)
 
 print("Generated DNA vs Random DNA:")
 pytorchMMD.mmd_test(torch.tensor(generated_data), torch.tensor(random_dna_sequences))
@@ -75,9 +80,14 @@ pytorchMMD.mmd_test(torch.tensor(training_sequences), torch.tensor(generated_dat
 
 
 input_array = qsg.generate_qubit_samples(1000, 12)
+
+with open("training_sequences_qubit.csv", 'w') as f:
+    for sequence in input_array:
+        f.write(','.join(map(str, sequence)) + '\n')
+
 alternate_qubit_samples = qsg.generate_qubit_samples(1000, 12, decay=2)
 
-lstm_generated_data = LSTM.LSTM(input_array.tolist())
+lstm_generated_data = LSTM.LSTM("training_sequences_qubit.csv", num_epochs=1000, seed=0, epsilon=0.5, num_samples=1000)
 
 print("Generated Qubit vs Alternate Qubit:")
 pytorchMMD.mmd_test(torch.tensor(lstm_generated_data), torch.tensor(alternate_qubit_samples))

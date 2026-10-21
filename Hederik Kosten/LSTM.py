@@ -13,9 +13,10 @@ def LSTM(inputCSV, num_epochs, seed, epsilon, num_samples):
         data = []
 
         with open(filename, "r") as file:
-            for line in file:
+            for i in range(num_samples):
+                line = file.readline()
                 line = line.strip()
-                row = line.split(",")
+                row = [int(value) for value in line.split(",")]
                 data.append(row)
 
         return data
@@ -49,6 +50,7 @@ def LSTM(inputCSV, num_epochs, seed, epsilon, num_samples):
             text_chunks.append(row)
 
     seq_dataset = TextDataset(text_chunks)
+    print(seq_dataset)
 
     batch_size = 64
     seq_dl = DataLoader(seq_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
@@ -75,15 +77,12 @@ def LSTM(inputCSV, num_epochs, seed, epsilon, num_samples):
     
     embed_dim = 8
     rnn_hidden_size = 64
-    torch.manual_seed(1)
     model = RNN(vocab_size, embed_dim, rnn_hidden_size)
     print(model)
 
     loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-    num_epochs = 1000
-    torch.manual_seed(1)
     for epoch in range(num_epochs):
         hidden, cell = model.init_hidden(batch_size)
         hidden = hidden.detach()
