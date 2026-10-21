@@ -26,10 +26,7 @@ def evaluate_model(model_function, settings):
 
     data = torch.tensor(pd.read_csv(settings["training_data"], header=None).values,dtype=torch.long)
 
-    train_data, test_data = train_test_split(data, test_size=settings["epsilon"], random_state=settings["seed"])
-
-    num_train = max(1, int(len(train_data) * settings["epsilon"]))
-    train_data = train_data[:num_train]
+    train_data, test_data = train_test_split(data, train_size=settings["epsilon"], random_state=settings["seed"])
 
     model_settings = {**settings, "training_data": train_data}
     generated_samples = model_function(**model_settings)
