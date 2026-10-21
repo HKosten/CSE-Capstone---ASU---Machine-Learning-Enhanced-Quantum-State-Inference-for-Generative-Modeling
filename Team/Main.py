@@ -15,3 +15,10 @@ ef.evaluate_model(LSTM.LSTM, settings)
 ef.evaluate_model(tw.transformer_function, settings)
 # ef.evaluate_model(<faisal function here>, settings) 
 # ef.evaluate_model(<Khashim function here>, settings) 
+
+settings["training_data"] = "sin_bitstrings.csv"
+
+ef.evaluate_model(LSTM.LSTM, settings)
+ef.evaluate_model(tw.transformer_function, settings)
+# ef.evaluate_model(<faisal function here>, settings) 
+# ef.evaluate_model(<Khashim function here>, settings) 
