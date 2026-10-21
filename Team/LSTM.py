@@ -6,25 +6,9 @@ from torch.utils.data import Dataset, DataLoader
 from torch.distributions.categorical import Categorical
 
 def LSTM(**model_settings):
-    print("Training data:", repr(model_settings["training_data"]))
-    print("Type:", type(model_settings["training_data"]))
-    torch.manual_seed(model_settings["seed"])
+    inputArray = model_settings["training_data"]
 
-    def read_csv(filename):
-        data = []
-
-        with open(filename, "r") as file:
-            for i in range(int(model_settings["num_samples"]*model_settings["epsilon"])):
-                line = file.readline()
-                line = line.strip()
-                row = [int(value) for value in line.split(",")]
-                data.append(row)
-
-        return data
-
-    inputArray = read_csv(model_settings["training_data"])
-
-    text = torch.tensor(inputArray)
+    text = inputArray
     text_encoded = text
     vocab_size = int(torch.max(text).item()) + 1
 
