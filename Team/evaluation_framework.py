@@ -36,13 +36,14 @@ def evaluate_model(model_function, settings):
 
     torch.set_printoptions(threshold=float("inf"))
 
-    print("Ouput:\n")
+    if settings["show_output"]:
+        print("Ouput:\n")
 
-    #works for both list and tensor
-    for r in generated_samples:
-        if isinstance(r, torch.Tensor):
-            r = r.tolist()
-        print("".join(map(str, r)))
+        #works for both list and tensor
+        for r in generated_samples:
+            if isinstance(r, torch.Tensor):
+                r = r.tolist()
+            print("".join(map(str, r)))
     
     print("MMD:", mmd)
 

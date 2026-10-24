@@ -122,6 +122,9 @@ def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: 
             f"(2^n numbers, memory doubles with every bit), so use a smaller dataset, like 3x3 (9-bit) "
             f"bars and stripes.")
 
+    settings = settings.copy()
+    settings.pop("show_output", None)
+    
     cfg = Config(seed=seed, steps=steps, ansatz=ansatz, layers=layers, **settings)
     model = fit(x, cfg, verbose=verbose)
     with torch.no_grad():
