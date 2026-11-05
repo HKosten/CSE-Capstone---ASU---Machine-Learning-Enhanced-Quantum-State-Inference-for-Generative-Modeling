@@ -10,7 +10,7 @@ Install Python 3.12 or newer, then install the libraries:
 python -m pip install -r Team/requirements.txt
 ```
 
-The MMD comes from the `pytorch-ignite` package. Don't install the package called `ignite`: it's an unrelated library with the same import name, and the tests fail with `No module named 'ignite.metrics'` if it's installed.
+The tests need the `pytorch-ignite` package. Don't install the package called `ignite`: it's an unrelated library with the same import name, and the tests fail with `No module named 'ignite.metrics'` if it's installed.
 
 ### Running the Tests
 
@@ -23,22 +23,23 @@ python Main.py
 
 Use `python3` if `python` isn't found. Running it from any other folder (for example `python Team/Main.py` from the main project folder) fails with `FileNotFoundError`, because the dataset files are looked up in the folder the program runs from. In VS Code, either open the `Team` folder itself (File > Open Folder) before pressing Run, or turn on the setting **Python › Terminal: Execute In File Dir** (`python.terminal.executeInFileDir`).
 
-`Main.py` runs every enabled model on every dataset, one after the other. Each test prints a heading, the model's training progress, and then its score:
+`Main.py` runs every enabled model on every dataset, one after the other. Each test prints a heading with its number and settings, the model's training progress, and then its score:
 
 ```
- ------------------------------------------------ Model: LSTM, Test: DNA --------------------------------------------------
-...training output...
-MMD: 0.000321
+ --------------------------------- Test #1 | Model: LSTM | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | -----------------------------------
+Epoch 0, Loss: 0.697050
+Epoch 50, Loss: 0.688408
+MMD: 0.000026
 ```
 
-A full run with the default settings takes about 11 minutes on a 2-core machine, mostly the Transformer training. To check a change quickly, lower `num_epochs` (with `num_epochs` at 2, the same full run takes about 2 minutes) and comment out the tests you don't need (see below).
+A full run with the default settings takes about 12 minutes on a 2-core machine, mostly the Transformer training. To check a change quickly, lower `num_epochs` (with `num_epochs` at 2, the same full run takes about 3 minutes) and comment out the tests you don't need (see below).
 
 ### What a Run Produces
 
 Besides the terminal output, each test saves two things in the folder you ran it from (`Team`):
 
 - **The generated bitstrings**, in a file named like `LSTM_DNA_generated_data_epsilon_0.3_epochs_100_seed_33_samples_1000` (model, dataset, then the settings). It has every bitstring the model generated, one per row, bits separated by commas, no header. It has no file extension but is plain CSV text. Running again with the same settings overwrites it.
-- **The score**, as a new row in `<Dataset>_mmd_scores.csv` (for example `DNA_mmd_scores.csv`). The columns are `Model`, `MMD`, `Epsilon`, `Epochs`, `Seed` and `Samples` (how many bitstrings each model generated, which isn't always how many the score used; see Understanding the Results). Every run **adds** rows to this file instead of replacing it, so delete or rename it when you want to start a fresh table.
+- **The score**, as a new row in `<Dataset>_mmd_scores.csv` (for example `DNA_mmd_scores.csv`). The columns are `Model`, `MMD`, `Epsilon`, `Epochs`, `Seed` and `Samples` (how many bitstrings each model generated). Every run **adds** rows to this file instead of replacing it, so delete or rename it when you want to start a fresh table.
 
 The results we've already uploaded are in `Team/Generated Data` and `Team/Test Scores`. New runs don't write there, so move the new files into those folders when you want to upload them.
 
@@ -73,7 +74,7 @@ The same dictionary is used for the whole file, and `Main.py` only swaps `traini
 Each test in `Main.py` is two lines: one that prints the heading, and one that runs the model.
 
 ```python
-print_separators("VAE", "DNA")
+print_separators("VAE", settings)
 ef.evaluate_model(vw.vae_function, settings, "VAE", "DNA")
 ```
 
@@ -99,7 +100,7 @@ Save the data as a CSV in the `Team` folder, in the same format as the existing 
 ```python
 settings["training_data"] = "my_dataset.csv"
 
-print_separators("LSTM", "MyDataset")
+print_separators("LSTM", settings)
 ef.evaluate_model(LSTM.LSTM, settings, "LSTM", "MyDataset")
 ```
 
@@ -126,23 +127,20 @@ def my_model_function(**settings):
 ```python
 import my_model_wrapper as mw
 
-print_separators("MyModel", "DNA")
+print_separators("MyModel", settings)
 ef.evaluate_model(mw.my_model_function, settings, "MyModel", "DNA")
 ```
 
 ### Understanding the Results
 
-The MMD measures how different the generated bitstrings are from the test rows. Lower is closer, and 0 means the two sets look the same.
+The MMD measures how different the generated bitstrings are from the test rows. Lower is closer, and about 0 means the two sets look the same. It comes from `mmd_samples` in `mmd.py`, which compares all the generated bitstrings with all the test rows (1000 with 700 by default), so the two sets don't need to be the same size. It's an unbiased estimate of the squared MMD, so a score can come out slightly below 0, which also means the sets look the same.
 
-An MMD value depends on how many samples went into it, so every model has to be scored on the same number:
+How noisy a score is depends on how many samples went into it, so every model has to generate the same number:
 
 - Every model generates exactly `num_samples` bitstrings (1000 by default). `check_sample_counts.py` checks this (see below).
-- The MMD can only compare two sets of the same size, so `evaluation_framework.py` uses the first N generated bitstrings and the first N test rows, where N is whichever is smaller: `num_samples` or the number of test rows. With the default settings N is 700 (1000 generated, 700 test rows). The generated-data file still has all 1000, and the `Samples` column in the scores file says 1000, but each score was calculated on 700.
 - The test rows are the same for every model, because the split depends only on the seed and `epsilon`.
 
-If a model returned fewer than N bitstrings, the framework would quietly score it on fewer, and its score couldn't be compared with the others. That's what the check below is for.
-
-To have the score use every generated bitstring, set `num_samples` to at most the number of test rows (700 with the default `epsilon`).
+If a model returned a different number of bitstrings, the framework would still score it without any warning, but the comparison with the other models wouldn't be fair. That's what the check below is for.
 
 When comparing scores, only compare rows that have the same dataset, `Epsilon`, `Epochs`, `Seed` and `Samples`.
 
