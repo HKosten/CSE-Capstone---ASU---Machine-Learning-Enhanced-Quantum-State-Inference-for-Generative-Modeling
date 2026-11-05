@@ -216,8 +216,9 @@ def main_training_logic(training_data, num_epochs, seed=None, epsilon=None):
 
     train_data = training_data
 
+    #silenced!
     #Print shapes (rows, columns)
-    print("TRAINING DATA: ", train_data.shape)
+    #print("TRAINING DATA: ", train_data.shape)
 
     #Remember than MMD EVAL will use test_data, not train_data!
     src_data = train_data
@@ -268,7 +269,8 @@ def main_training_logic(training_data, num_epochs, seed=None, epsilon=None):
 
         optimizer.step()
 
-        print(f"Epoch {epoch+1}, Loss: {loss.item()}")
+        if epoch % 50 == 0:
+            print(f"Epoch {epoch}, Loss: {loss.item():.6f}")
 
     return transformer
 

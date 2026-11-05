@@ -61,6 +61,6 @@ def evaluate_model(model_function, settings, model_name, test_name):
             #    r = r.tolist()
             print("".join(map(str, r)))
     
-    print("MMD:", mmd)
+    print(f"MMD: {mmd:.6f}")
 
     return mmd

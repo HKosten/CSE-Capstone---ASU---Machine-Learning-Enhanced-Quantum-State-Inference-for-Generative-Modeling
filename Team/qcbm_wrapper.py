@@ -91,8 +91,9 @@ def to_bits(trainingData) -> torch.Tensor:
 
 
 # WRAPPER
+# verbose changed to True here so QCBM prints loss like other models for universal evaluation framework!!!!
 def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: str = "strong",
-                  layers: int = 10, n_samples: int | None = None, max_qubits: int = 16, verbose: bool = False,
+                  layers: int = 10, n_samples: int | None = None, max_qubits: int = 16, verbose: bool = True,
                   *, trainingData=None, num_epochs: int | None = None, num_samples: int | None = None,
                   epsilon: float | None = None, **settings) -> torch.Tensor:
     """Train a QCBM on the bitstrings and return new bitstrings sampled from it.

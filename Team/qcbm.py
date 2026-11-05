@@ -170,10 +170,11 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
     # cosine lr - big steps at first, small at the end so it settles down
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=cfg.steps, eta_min=cfg.lr * 0.05)
 
+    #Silenced this header from printing out to universal eval. framework!!!
     title = f"QCBM | {n} qubits, {n_train} training samples | " \
             f"ansatz={cfg.ansatz} | {model.theta.numel()} parameters | seed={cfg.seed}"
-    log("=" * len(title) + f"\n{title}\n" + "=" * len(title))
-    log(f"{'step':>6} {'train MMD':>11}" + (f" {'TVD vs truth':>13}" if p_true is not None else "") + f" {'lr':>9}")
+    #log("=" * len(title) + f"\n{title}\n" + "=" * len(title))
+    #log(f"{'step':>6} {'train MMD':>11}" + (f" {'TVD vs truth':>13}" if p_true is not None else "") + f" {'lr':>9}")
 
     best = {"loss": float("inf"), "theta": None, "step": 0}
     history, t0 = [], time.time()
@@ -188,8 +189,14 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
         # keep the best params (by train loss) in case it gets worse later
         if loss.item() < best["loss"] - 1e-9:
             best = {"loss": loss.item(), "theta": model.theta.detach().clone(), "step": step}
-        if verbose and (step % cfg.log_every == 0 or step == 1):
-            line = f"{step:>6} {loss.item():>11.6f}"
+
+        #formatted printing differently for universal eval. framework!
+        if verbose and step % 50 == 0:
+            print(f"Epoch {step}, Loss: {loss.item():.6f}")
+
+        """
+        SILENCED FOR UNIVERSAL EVAL. FRAMEWORK !!!!
+
             if p_true is not None:
                 with torch.no_grad():
                     tvd = 0.5 * (model() - p_true).abs().sum().item()   # just printing, doesnt affect training
@@ -198,6 +205,7 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
         if step - best["step"] >= cfg.patience:
             log(f"early stop at step {step} (no improvement for {cfg.patience} steps)")
             break
+        """
 
     with torch.no_grad():
         model.theta.copy_(best["theta"])

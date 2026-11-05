@@ -35,7 +35,9 @@ def LSTM(**model_settings):
             text_chunks.append(row)
 
     seq_dataset = TextDataset(text_chunks)
-    print(seq_dataset)
+
+    #silenced from printing for now, for universal eval. framework!
+    #print(seq_dataset)
 
     batch_size = 64
     seq_dl = DataLoader(seq_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
@@ -63,7 +65,9 @@ def LSTM(**model_settings):
     embed_dim = 8
     rnn_hidden_size = 64
     model = RNN(vocab_size, embed_dim, rnn_hidden_size)
-    print(model)
+
+    #silenced from printing for now, for universal eval. framework!
+    #print(model)
 
     loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -83,8 +87,9 @@ def LSTM(**model_settings):
         loss.backward()
         optimizer.step()
         loss = loss.item()/(seq_length-1)
+
         if epoch % 50 == 0:
-            print(f'Epoch {epoch} loss: {loss:.4f}')
+            print(f'Epoch {epoch}, Loss: {loss:.6f}')
 
     lstm_predictions = []
     for j in range(model_settings["num_samples"]):

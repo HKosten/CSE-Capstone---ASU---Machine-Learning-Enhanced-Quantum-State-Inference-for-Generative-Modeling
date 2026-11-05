@@ -125,8 +125,13 @@ def train_vae(
         history["total"].append(avg[0])
         history["recon"].append(avg[1])
         history["kl"].append(avg[2])
-        if verbose and (epoch == 1 or epoch % max(1, epochs // 10) == 0):
-            print(f"  epoch {epoch:4d}/{epochs} | loss {avg[0]:8.3f} | recon {avg[1]:8.3f} | kl {avg[2]:7.3f}")
+
+        #silenced output for now!
+        #if verbose and (epoch == 1 or epoch % max(1, epochs // 10) == 0):
+            #print(f"  epoch {epoch:4d}/{epochs} | loss {avg[0]:8.3f} | recon {avg[1]:8.3f} | kl {avg[2]:7.3f}")
+
+        if verbose and epoch % 50 == 0:
+            print(f"Epoch {epoch}, Loss: {avg[0]:.6f}")
 
     return history
 
