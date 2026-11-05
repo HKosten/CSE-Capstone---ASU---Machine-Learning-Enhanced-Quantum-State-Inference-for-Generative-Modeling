@@ -7,7 +7,7 @@ The tests train each model on part of a dataset, have it generate new bitstrings
 Install Python 3.12 or newer, then install the libraries:
 
 ```
-python -m pip install -r requirements.txt
+python -m pip install -r Team/requirements.txt
 ```
 
 The MMD comes from the `pytorch-ignite` package. Don't install the package called `ignite`: it's an unrelated library with the same import name, and the tests fail with `No module named 'ignite.metrics'` if it's installed.
