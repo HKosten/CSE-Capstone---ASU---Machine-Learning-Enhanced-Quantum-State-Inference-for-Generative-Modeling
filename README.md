@@ -4,7 +4,7 @@ The tests train each model on part of a dataset, have it generate new bitstrings
 
 ### Setup
 
-Install Python 3.11 or newer, then install the libraries:
+Install Python 3.12 or newer, then install the libraries:
 
 ```
 python -m pip install torch pandas numpy scikit-learn pytorch-ignite pennylane
@@ -29,7 +29,6 @@ Use `python3` if `python` isn't found. Running it from any other folder (for exa
  ------------------------------------------------ Model: LSTM, Test: DNA --------------------------------------------------
 ...training output...
 MMD: 0.000321
-MMD samples: 700 generated vs 700 test rows (num_samples is 1000, but the test split only has 700 rows)
 ```
 
 A full run with the default settings takes about 11 minutes on a 2-core machine, mostly the Transformer training. To check a change quickly, lower `num_epochs` (with `num_epochs` at 2, the same full run takes about 2 minutes) and comment out the tests you don't need (see below).
@@ -39,7 +38,7 @@ A full run with the default settings takes about 11 minutes on a 2-core machine,
 Besides the terminal output, each test saves two things in the folder you ran it from (`Team`):
 
 - **The generated bitstrings**, in a file named like `LSTM_DNA_generated_data_epsilon_0.3_epochs_100_seed_33_samples_1000` (model, dataset, then the settings). It has every bitstring the model generated, one per row, bits separated by commas, no header. It has no file extension but is plain CSV text. Running again with the same settings overwrites it.
-- **The score**, as a new row in `<Dataset>_mmd_scores.csv` (for example `DNA_mmd_scores.csv`). The columns are `Model`, `MMD`, `Epsilon`, `Epochs`, `Seed`, `Samples` (how many bitstrings the model generated) and `MMD Samples` (how many of them were used for the score). Every run **adds** rows to this file instead of replacing it, so delete or rename it when you want to start a fresh table.
+- **The score**, as a new row in `<Dataset>_mmd_scores.csv` (for example `DNA_mmd_scores.csv`). The columns are `Model`, `MMD`, `Epsilon`, `Epochs`, `Seed` and `Samples` (how many bitstrings each model generated, which isn't always how many the score used; see Understanding the Results). Every run **adds** rows to this file instead of replacing it, so delete or rename it when you want to start a fresh table.
 
 The results we've already uploaded are in `Team/Generated Data` and `Team/Test Scores`. New runs don't write there, so move the new files into those folders when you want to upload them.
 
@@ -120,7 +119,7 @@ def my_model_function(**settings):
 
 - `training_data` is already just the training rows (the framework has applied `epsilon`), so don't split it again.
 - The function receives every setting (`training_data`, `num_epochs`, `seed`, `epsilon`, `num_samples`, `show_output`). Keep the `**settings` so it accepts the ones it doesn't use.
-- It must return exactly `num_samples` rows, each as long as the dataset's rows, containing only 0s and 1s. Otherwise the test stops with an error (see below).
+- It must return exactly `num_samples` rows, each as long as the dataset's rows, containing only 0s and 1s. Add it to `MODELS` in `check_sample_counts.py` and run that to make sure (see Checking Sample Counts).
 
 `vae_wrapper.py` and `qcbm_wrapper.py` are short examples of this. Then import your file at the top of `Main.py` and add a test to each dataset section:
 
@@ -135,24 +134,38 @@ ef.evaluate_model(mw.my_model_function, settings, "MyModel", "DNA")
 
 The MMD measures how different the generated bitstrings are from the test rows. Lower is closer, and 0 means the two sets look the same.
 
-An MMD value depends on how many samples went into it, so the framework scores every model on the same number of samples:
+An MMD value depends on how many samples went into it, so every model has to be scored on the same number:
 
-- Every model must generate exactly `num_samples` bitstrings. If one returns a different number, rows of the wrong length, or values other than 0 and 1, the run stops with an error such as `LSTM returned samples with shape (300, 12), expected (1000, 12)` instead of quietly scoring that model on fewer samples.
-- The MMD always compares the same number of generated bitstrings and test rows: whichever is smaller, `num_samples` or the number of test rows. With the default settings that's 700 (1000 generated, but only 700 test rows), so the score uses the first 700 generated bitstrings and all 700 test rows. The generated-data file still contains all 1000.
+- Every model generates exactly `num_samples` bitstrings (1000 by default). `check_sample_counts.py` checks this (see below).
+- The MMD can only compare two sets of the same size, so `evaluation_framework.py` uses the first N generated bitstrings and the first N test rows, where N is whichever is smaller: `num_samples` or the number of test rows. With the default settings N is 700 (1000 generated, 700 test rows). The generated-data file still has all 1000, and the `Samples` column in the scores file says 1000, but each score was calculated on 700.
 - The test rows are the same for every model, because the split depends only on the seed and `epsilon`.
-- The terminal prints the count after each score (`MMD samples: ...`), and the scores file records it in the `MMD Samples` column.
+
+If a model returned fewer than N bitstrings, the framework would quietly score it on fewer, and its score couldn't be compared with the others. That's what the check below is for.
 
 To have the score use every generated bitstring, set `num_samples` to at most the number of test rows (700 with the default `epsilon`).
 
-When comparing scores, only compare rows that have the same dataset, `Epsilon`, `Epochs`, `Seed` and `MMD Samples`.
+When comparing scores, only compare rows that have the same dataset, `Epsilon`, `Epochs`, `Seed` and `Samples`.
+
+### Checking Sample Counts
+
+`Team/check_sample_counts.py` checks that every model returns exactly the number of bitstrings it's asked for, on every dataset. Run it from the `Team` folder after you add or change a model:
+
+```
+cd Team
+python check_sample_counts.py
+```
+
+It trains each model for 1 epoch and asks it for 1000 bitstrings and then for 37, so a model that ignores `num_samples` gets caught. It takes about 3 minutes and doesn't write any files. Each line ends in `OK` or `<-- PROBLEM`, and the last lines either confirm that all models return the right number or list the problems.
+
+When you add a model, add it to `MODELS` at the top of the file. If you change `num_samples`, `seed` or `epsilon` in `Main.py`, change them at the top of this file too.
 
 ### Troubleshooting
 
 | Message | What to do |
 | --- | --- |
 | `FileNotFoundError: ... 'training_sequences_DNA.csv'` | Run `Main.py` from inside the `Team` folder (see Running the Tests). |
+| `SyntaxError: f-string: unmatched '['` | Your Python is older than 3.12. Install Python 3.12 or newer. |
 | `ModuleNotFoundError: No module named 'tkinter'` | The first line of `LSTM.py` (`from tkinter.filedialog import test`) imports something it never uses. Delete that line, or install tkinter (`sudo apt install python3-tk` on Ubuntu; on macOS with Homebrew, `brew install python-tk@3.12`, using your Python version). |
 | `ModuleNotFoundError: No module named 'ignite'` or `No module named 'ignite.metrics'` | Run `python -m pip uninstall ignite`, then `python -m pip install --force-reinstall pytorch-ignite`. |
 | `ModuleNotFoundError: No module named 'pennylane'` | Run `python -m pip install pennylane`. `Main.py` imports the QCBM even when its tests are commented out. |
 | `QCBM skipped: 100 bits > 16-qubit simulation limit ...` | Expected. The QCBM only runs on datasets with 16 bits per row or fewer. |
-| `ValueError: <Model> returned samples with shape (...), expected (...)` | That model's function didn't return exactly `num_samples` rows of the right length. Fix its wrapper (see Adding a Model). |
