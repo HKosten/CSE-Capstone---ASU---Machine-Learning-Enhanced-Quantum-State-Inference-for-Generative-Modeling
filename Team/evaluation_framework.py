@@ -1,9 +1,12 @@
+import ignite
 from sklearn.model_selection import train_test_split
 from ignite.metrics import MaximumMeanDiscrepancy
+import ignite.metrics as met
 import torch
 import random
 import pandas as pd
 import numpy as np
+from mmd import mmd_samples
 
 def set_seed(seed):
     
@@ -30,8 +33,11 @@ def evaluate_model(model_function, settings, model_name, test_name):
     model_settings = {**settings, "training_data": train_data}
     generated_samples = model_function(**model_settings)
 
+    generated_samples = torch.as_tensor(generated_samples, dtype=torch.float64)
+    test_data = torch.as_tensor(test_data, dtype=torch.float64)
+
     count = min(len(generated_samples), len(test_data))
-    mmd = calculate_mmd(generated_samples[:count], test_data[:count])
+    mmd = mmd_samples(generated_samples, test_data)
 
     if isinstance(generated_samples, torch.Tensor):
         generated_samples = generated_samples.detach().cpu().numpy()

@@ -4,9 +4,11 @@ import transformer_wrapper as tw
 import vae_wrapper as vw
 import qcbm_wrapper as qw
 
-def print_separators(model_name, test_name):
-    
-    print(f"\n ------------------------------------------------ Model: {model_name}, Test: {test_name} -------------------------------------------------- \n")
+count = 1
+def print_separators(model_name, settings):
+    global count
+    print(f"\n --------------------------------- Test #{count} | Model: {model_name} | dataset: {settings['training_data']} | epochs count: {settings['num_epochs']} | seed: {settings['seed']} | epsilon: {settings['epsilon']} | sample count: {settings['num_samples']} | show_output: {settings['show_output']} | ----------------------------------- \n")
+    count += 1
 
 def run_qcbm(settings, test_name):
     """
@@ -21,45 +23,45 @@ def run_qcbm(settings, test_name):
 
 settings = {"training_data": "training_sequences_DNA.csv", "num_epochs": 100, "seed": 33, "epsilon": 0.3, "num_samples": 1000, "show_output": False}
 
-print_separators("LSTM", "DNA")
+print_separators("LSTM", settings)
 ef.evaluate_model(LSTM.LSTM, settings, "LSTM", "DNA")
-print_separators("Transformer", "DNA")
+print_separators("Transformer", settings)
 ef.evaluate_model(tw.transformer_function, settings, "Transformer", "DNA")
 
-print_separators("VAE", "DNA")
+print_separators("VAE", settings)
 ef.evaluate_model(vw.vae_function, settings, "VAE", "DNA")
-print_separators("QCBM", "DNA")
+print_separators("QCBM", settings)
 run_qcbm(settings, "DNA")
 
 settings["training_data"] = "training_sequences_qubit.csv"
 
-print_separators("LSTM", "Qubit")
+print_separators("LSTM", settings)
 ef.evaluate_model(LSTM.LSTM, settings, "LSTM", "Qubit")
-print_separators("Transformer", "Qubit")
+print_separators("Transformer", settings)
 ef.evaluate_model(tw.transformer_function, settings, "Transformer", "Qubit")
-print_separators("VAE", "Qubit")
+print_separators("VAE", settings)
 ef.evaluate_model(vw.vae_function, settings, "VAE", "Qubit")
-print_separators("QCBM", "Qubit")
+print_separators("QCBM", settings)
 run_qcbm(settings, "Qubit")
 
 settings["training_data"] = "sin_bitstrings.csv"
 
-print_separators("LSTM", "Sin")
+print_separators("LSTM", settings)
 ef.evaluate_model(LSTM.LSTM, settings, "LSTM", "Sin")
-print_separators("Transformer", "Sin")
+print_separators("Transformer", settings)
 ef.evaluate_model(tw.transformer_function, settings, "Transformer", "Sin")
-print_separators("VAE", "Sin")
+print_separators("VAE", settings)
 ef.evaluate_model(vw.vae_function, settings, "VAE", "Sin")
-print_separators("QCBM", "Sin")
+print_separators("QCBM", settings)
 run_qcbm(settings, "Sin")
 
 settings["training_data"] = "bars_stripes_bitstrings.csv"
 
-print_separators("LSTM", "Bars+Stripes")
+print_separators("LSTM", settings)
 ef.evaluate_model(LSTM.LSTM, settings, "LSTM", "Bars+Stripes")
-print_separators("Transformer", "Bars+Stripes")
+print_separators("Transformer", settings)
 ef.evaluate_model(tw.transformer_function, settings, "Transformer", "Bars+Stripes")
-print_separators("VAE", "Bars+Stripes")
+print_separators("VAE", settings)
 ef.evaluate_model(vw.vae_function, settings, "VAE", "Bars+Stripes")
-print_separators("QCBM", "Bars+Stripes")
+print_separators("QCBM", settings)
 run_qcbm(settings, "Bars+Stripes")
