@@ -37,7 +37,7 @@ def evaluate_model(model_function, settings, model_name, test_name):
     test_data = torch.as_tensor(test_data, dtype=torch.float64)
 
     count = min(len(generated_samples), len(test_data))
-    mmd = mmd_samples(generated_samples, test_data)
+    mmd = mmd_samples(generated_samples, test_data).item()
 
     if isinstance(generated_samples, torch.Tensor):
         generated_samples = generated_samples.detach().cpu().numpy()
@@ -53,7 +53,7 @@ def evaluate_model(model_function, settings, model_name, test_name):
 
     scores_file_name = (f"{test_name}_mmd_scores.csv")
 
-    results = {"Model": model_name, "MMD": mmd, "Epsilon": settings["epsilon"], 
+    results = {"Model": model_name, "MMD": f"{mmd: 10f}", "Epsilon": settings["epsilon"], 
     "Epochs": settings["num_epochs"], "Seed": settings["seed"], "Samples": settings["num_samples"]}
 
     pd.DataFrame([results]).to_csv(scores_file_name, mode="a", index=False, header=not pd.io.common.file_exists(scores_file_name))
