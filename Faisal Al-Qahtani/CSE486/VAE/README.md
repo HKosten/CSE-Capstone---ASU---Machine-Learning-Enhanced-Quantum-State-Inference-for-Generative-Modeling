@@ -1,6 +1,6 @@
 # Variational Autoencoder (VAE)
 
-**Contributor:** Faisal Al-Qahtani  
+**Contributor:** Faisal Ahmed Al-Qahtani  
 **Project:** Machine Learning-Enhanced Quantum State Inference for Generative Modeling
 
 ## Overview
