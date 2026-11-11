@@ -13,28 +13,29 @@ def print_separators(model_name, settings):
 
 def run_qcbm(settings, test_name):
     """
-    the QCBM simulates 2^n numbers, so it only runs on data up to 16 bits (the 12-bit qubit set).
-    wider data raises a ValueError before training starts; print it and keep going with the other models
+    the QCBM simulates 2^n numbers, so one circuit only handles up to 18 bits (the 12-bit qubit set).
+    wider data runs as overlapping 20-bit iqpopt windows (iqp_windows.py), see Sprint 10 HOWTO for the packages it needs.
+    a ValueError, or jax/iqpopt not installed, is printed and the other models keep going
     """
     try:
         ef.evaluate_model(qw.qcbm_function, settings, "QCBM", test_name)
-    except ValueError as e:
+    except (ValueError, ImportError) as e:
         print(f"QCBM skipped: {e}")
 
 # EPSILON TEST: varies epsilon from 0.1 to 0.9, incrementing by 0.1 each time
 def epsilon_test(model, settings, model_name, test_name):
     
-    test_settings = settings
+    test_settings = dict(settings) # copy, so the tests after this still get the original settings
 
     for i in np.arange(0.1, 1.0, 0.1):
-        test_settings["epsilon"] = i
+        test_settings["epsilon"] = round(float(i), 1) # np.arange gives 0.30000000000000004
         print_separators(model_name, test_settings)
         ef.evaluate_model(model, test_settings, model_name, test_name)
 
 # EPOCHS TEST: varies num_epochs from 0 to 10000, incrementing every 100 for now to test for flattening
 def epochs_test(model, settings, model_name, test_name):
     
-    test_settings = settings
+    test_settings = dict(settings) # copy, so the tests after this still get the original settings
     
     for i in range(0, 10000, 100):
         test_settings["num_epochs"] = i

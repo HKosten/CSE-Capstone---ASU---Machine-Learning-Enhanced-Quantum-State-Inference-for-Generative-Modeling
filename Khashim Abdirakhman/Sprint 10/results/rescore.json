@@ -1,0 +1,395 @@
+{
+  "qubit": {
+    "LSTM (team, 30% train)": {
+      "framework (ignite, var=1)": 0.45287010073661804,
+      "shared default (0.5, 1, 2)": 0.391916503498407,
+      "median heuristic (1.19)": 0.45485630146192324,
+      "iqpopt sigma_heuristic x3 (1.1, 1.1, 1.2)": 0.45577504973243155,
+      "checks": {
+        "bit_mean_error": 0.24116666666666664,
+        "adjacent_corr": 0.0289098065318763,
+        "adjacent_corr_real": 0.028712927425528688,
+        "mean_hamming": 5.4216053511705695,
+        "mean_hamming_real": 2.260958751393534,
+        "valid_rows": 0.11
+      }
+    },
+    "Transformer (team, 30% train)": {
+      "framework (ignite, var=1)": 0.05018915981054306,
+      "shared default (0.5, 1, 2)": 0.049760729411535004,
+      "median heuristic (1.19)": 0.04397647720365338,
+      "iqpopt sigma_heuristic x3 (1.1, 1.1, 1.2)": 0.04522309158438055,
+      "checks": {
+        "bit_mean_error": 0.012166666666666671,
+        "adjacent_corr": 0.04242888484328123,
+        "adjacent_corr_real": 0.028712927425528688,
+        "mean_hamming": 2.307536231884058,
+        "mean_hamming_real": 2.260958751393534,
+        "valid_rows": 0.99
+      }
+    },
+    "VAE (team, 30% train)": {
+      "framework (ignite, var=1)": 0.05982242524623871,
+      "shared default (0.5, 1, 2)": 0.1084677937130118,
+      "median heuristic (1.19)": 0.045753682413721276,
+      "iqpopt sigma_heuristic x3 (1.1, 1.1, 1.2)": 0.048198221123071955,
+      "checks": {
+        "bit_mean_error": 0.014666666666666675,
+        "adjacent_corr": 0.03469421924128719,
+        "adjacent_corr_real": 0.028712927425528688,
+        "mean_hamming": 2.3283835005574134,
+        "mean_hamming_real": 2.260958751393534,
+        "valid_rows": 0.498
+      }
+    },
+    "QCBM (team, 30% train)": {
+      "framework (ignite, var=1)": 0.47060686349868774,
+      "shared default (0.5, 1, 2)": 0.4107118872566391,
+      "median heuristic (1.19)": 0.49418596379768825,
+      "iqpopt sigma_heuristic x3 (1.1, 1.1, 1.2)": 0.4910840737653618,
+      "checks": {
+        "bit_mean_error": 0.29716666666666675,
+        "adjacent_corr": 0.0794677037692966,
+        "adjacent_corr_real": 0.028712927425528688,
+        "mean_hamming": 5.92726867335563,
+        "mean_hamming_real": 2.260958751393534,
+        "valid_rows": 0.114
+      }
+    },
+    "qcbm (sprint 10, 50% train)": {
+      "framework (ignite, var=1)": 0.43145298957824707,
+      "shared default (0.5, 1, 2)": 0.3762991233281221,
+      "median heuristic (1.19)": 0.45374812012339527,
+      "iqpopt sigma_heuristic x3 (1.1, 1.1, 1.2)": 0.45079674937666997,
+      "checks": {
+        "bit_mean_error": 0.274,
+        "adjacent_corr": 0.11391974059268026,
+        "adjacent_corr_real": 0.028712927425528688,
+        "mean_hamming": 5.855652173913044,
+        "mean_hamming_real": 2.260958751393534,
+        "valid_rows": 0.154
+      }
+    },
+    "REF coin flips": {
+      "framework (ignite, var=1)": 0.5583051443099976,
+      "shared default (0.5, 1, 2)": 0.49173945861055784,
+      "median heuristic (1.19)": 0.5894284051204478,
+      "iqpopt sigma_heuristic x3 (1.1, 1.1, 1.2)": 0.5850744156022153,
+      "checks": {
+        "bit_mean_error": 0.36566666666666664,
+        "adjacent_corr": 0.037319972076018275,
+        "adjacent_corr_real": 0.028712927425528688,
+        "mean_hamming": 6.004057971014493,
+        "mean_hamming_real": 2.260958751393534,
+        "valid_rows": 0.032
+      }
+    },
+    "REF copy of training rows": {
+      "framework (ignite, var=1)": 0.0,
+      "shared default (0.5, 1, 2)": 0.0,
+      "median heuristic (1.19)": 0.0,
+      "iqpopt sigma_heuristic x3 (1.1, 1.1, 1.2)": 0.0,
+      "checks": {
+        "bit_mean_error": 0.0,
+        "adjacent_corr": 0.028712927425528688,
+        "adjacent_corr_real": 0.028712927425528688,
+        "mean_hamming": 2.260958751393534,
+        "mean_hamming_real": 2.260958751393534,
+        "valid_rows": 1.0
+      }
+    }
+  },
+  "dna": {
+    "LSTM (team, 30% train)": {
+      "framework (ignite, var=1)": 0.0,
+      "shared default (0.5, 1, 2)": 0.004646851012572299,
+      "median heuristic (2.66)": 0.019914525002083936,
+      "iqpopt sigma_heuristic x3 (3.5, 3.1, 2.7)": 0.025241938928554943,
+      "checks": {
+        "bit_mean_error": 0.03562000000000003,
+        "adjacent_corr": 0.06353216168519013,
+        "adjacent_corr_real": 0.09269005692042283,
+        "mean_hamming": 49.832151616499445,
+        "mean_hamming_real": 49.99172798216277
+      }
+    },
+    "Transformer (team, 30% train)": {
+      "framework (ignite, var=1)": 0.05485959351062775,
+      "shared default (0.5, 1, 2)": 0.05454967881237827,
+      "median heuristic (2.66)": 0.05691491373419482,
+      "iqpopt sigma_heuristic x3 (3.5, 3.1, 2.7)": 0.05622594892594264,
+      "checks": {
+        "bit_mean_error": 0.025060000000000002,
+        "adjacent_corr": 0.09806622234073185,
+        "adjacent_corr_real": 0.09269005692042283,
+        "mean_hamming": 49.84546265328874,
+        "mean_hamming_real": 49.99172798216277
+      }
+    },
+    "VAE (team, 30% train)": {
+      "framework (ignite, var=1)": 0.0,
+      "shared default (0.5, 1, 2)": 0.005302294653696308,
+      "median heuristic (2.66)": 0.022738437612523157,
+      "iqpopt sigma_heuristic x3 (3.5, 3.1, 2.7)": 0.028901053336565178,
+      "checks": {
+        "bit_mean_error": 0.023799999999999998,
+        "adjacent_corr": 0.03619235478534202,
+        "adjacent_corr_real": 0.09269005692042283,
+        "mean_hamming": 49.838439241917506,
+        "mean_hamming_real": 49.99172798216277
+      }
+    },
+    "bitflip (sprint 10, 50% train)": {
+      "framework (ignite, var=1)": 0.0,
+      "shared default (0.5, 1, 2)": 0.004324934478050999,
+      "median heuristic (2.66)": 0.01689034657134341,
+      "iqpopt sigma_heuristic x3 (3.5, 3.1, 2.7)": 0.020381677914596493,
+      "checks": {
+        "bit_mean_error": 0.01788000000000001,
+        "adjacent_corr": 0.038283223707276916,
+        "adjacent_corr_real": 0.09269005692042283,
+        "mean_hamming": 49.93322185061315,
+        "mean_hamming_real": 49.99172798216277
+      }
+    },
+    "iqpwindows (sprint 10, 50% train)": {
+      "framework (ignite, var=1)": 0.0,
+      "shared default (0.5, 1, 2)": 0.004274951694681085,
+      "median heuristic (2.66)": 0.017921951303394242,
+      "iqpopt sigma_heuristic x3 (3.5, 3.1, 2.7)": 0.022475048697661433,
+      "checks": {
+        "bit_mean_error": 0.017920000000000005,
+        "adjacent_corr": 0.06277883031198939,
+        "adjacent_corr_real": 0.09269005692042283,
+        "mean_hamming": 49.86358974358975,
+        "mean_hamming_real": 49.99172798216277
+      }
+    },
+    "REF coin flips": {
+      "framework (ignite, var=1)": 0.0,
+      "shared default (0.5, 1, 2)": 0.0033609353367563023,
+      "median heuristic (2.66)": 0.011367105696323288,
+      "iqpopt sigma_heuristic x3 (3.5, 3.1, 2.7)": 0.012057736154460636,
+      "checks": {
+        "bit_mean_error": 0.02540000000000002,
+        "adjacent_corr": 0.037981934604947976,
+        "adjacent_corr_real": 0.09269005692042283,
+        "mean_hamming": 49.96769230769231,
+        "mean_hamming_real": 49.99172798216277
+      }
+    },
+    "REF copy of training rows": {
+      "framework (ignite, var=1)": 0.0009905063780024648,
+      "shared default (0.5, 1, 2)": 0.0016442856876722725,
+      "median heuristic (2.66)": 0.0037828053460158134,
+      "iqpopt sigma_heuristic x3 (3.5, 3.1, 2.7)": 0.0020546399552504886,
+      "checks": {
+        "bit_mean_error": 0.0,
+        "adjacent_corr": 0.09269005692042283,
+        "adjacent_corr_real": 0.09269005692042283,
+        "mean_hamming": 49.99172798216277,
+        "mean_hamming_real": 49.99172798216277
+      }
+    }
+  },
+  "sin": {
+    "LSTM (team, 30% train)": {
+      "framework (ignite, var=1)": 0.1311151087284088,
+      "shared default (0.5, 1, 2)": 0.17135910448487474,
+      "median heuristic (2.83)": 0.32577425547999916,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.33609698208696415,
+      "checks": {
+        "bit_mean_error": 0.09635937499999998,
+        "adjacent_corr": 0.4428861069404253,
+        "adjacent_corr_real": 0.9686526111090047,
+        "mean_hamming": 61.74178372352286,
+        "mean_hamming_real": 64.11384615384615,
+        "valid_rows": 0.0
+      }
+    },
+    "Transformer (team, 30% train)": {
+      "framework (ignite, var=1)": 0.05094560235738754,
+      "shared default (0.5, 1, 2)": 0.050566628089714204,
+      "median heuristic (2.83)": 0.05072840531797829,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.052076122464321487,
+      "checks": {
+        "bit_mean_error": 0.011140624999999998,
+        "adjacent_corr": 0.9624221729898695,
+        "adjacent_corr_real": 0.9686526111090047,
+        "mean_hamming": 63.80735785953178,
+        "mean_hamming_real": 64.11384615384615,
+        "valid_rows": 0.82
+      }
+    },
+    "VAE (team, 30% train)": {
+      "framework (ignite, var=1)": 0.12827882170677185,
+      "shared default (0.5, 1, 2)": 0.13924451549453595,
+      "median heuristic (2.83)": 0.17756747631866027,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.1654539852110854,
+      "checks": {
+        "bit_mean_error": 0.020515624999999996,
+        "adjacent_corr": 0.5250336544342171,
+        "adjacent_corr_real": 0.9686526111090047,
+        "mean_hamming": 63.237859531772585,
+        "mean_hamming_real": 64.11384615384615,
+        "valid_rows": 0.0
+      }
+    },
+    "bitflip (sprint 10, 50% train)": {
+      "framework (ignite, var=1)": 0.1310545802116394,
+      "shared default (0.5, 1, 2)": 0.16866138553882506,
+      "median heuristic (2.83)": 0.35536948930902096,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.40793145902083966,
+      "checks": {
+        "bit_mean_error": 0.29196875,
+        "adjacent_corr": 0.2988511486044984,
+        "adjacent_corr_real": 0.9686526111090047,
+        "mean_hamming": 35.85025641025641,
+        "mean_hamming_real": 64.11384615384615,
+        "valid_rows": 0.0
+      }
+    },
+    "iqpwindows (sprint 10, 50% train)": {
+      "framework (ignite, var=1)": 0.13114804029464722,
+      "shared default (0.5, 1, 2)": 0.19253554246581822,
+      "median heuristic (2.83)": 0.4788577997648589,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.5412057691916219,
+      "checks": {
+        "bit_mean_error": 0.35084375,
+        "adjacent_corr": 0.4095877657613868,
+        "adjacent_corr_real": 0.9686526111090047,
+        "mean_hamming": 32.756856187290964,
+        "mean_hamming_real": 64.11384615384615,
+        "valid_rows": 0.0
+      }
+    },
+    "REF coin flips": {
+      "framework (ignite, var=1)": 0.1311151087284088,
+      "shared default (0.5, 1, 2)": 0.171492472022727,
+      "median heuristic (2.83)": 0.3254948345568427,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.3321999607503061,
+      "checks": {
+        "bit_mean_error": 0.023890625000000016,
+        "adjacent_corr": 0.0331546716715024,
+        "adjacent_corr_real": 0.9686526111090047,
+        "mean_hamming": 63.973377926421406,
+        "mean_hamming_real": 64.11384615384615,
+        "valid_rows": 0.0
+      }
+    },
+    "REF copy of training rows": {
+      "framework (ignite, var=1)": 0.0,
+      "shared default (0.5, 1, 2)": 0.0,
+      "median heuristic (2.83)": 0.03671070910566479,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.041329488873645744,
+      "checks": {
+        "bit_mean_error": 0.0,
+        "adjacent_corr": 0.9686526111090047,
+        "adjacent_corr_real": 0.9686526111090047,
+        "mean_hamming": 64.11384615384615,
+        "mean_hamming_real": 64.11384615384615,
+        "valid_rows": 1.0
+      }
+    }
+  },
+  "bas": {
+    "LSTM (team, 30% train)": {
+      "framework (ignite, var=1)": 0.0019214453641325235,
+      "shared default (0.5, 1, 2)": 0.02178535311737501,
+      "median heuristic (2.83)": 0.08602481580569249,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.09747930409216234,
+      "checks": {
+        "bit_mean_error": 0.029640625000000018,
+        "adjacent_corr": 0.1472905545169731,
+        "adjacent_corr_real": 0.24921263167897253,
+        "mean_hamming": 63.99326644370123,
+        "mean_hamming_real": 63.977658862876254,
+        "valid_rows": 0.0
+      }
+    },
+    "Transformer (team, 30% train)": {
+      "framework (ignite, var=1)": 0.05303977429866791,
+      "shared default (0.5, 1, 2)": 0.05241355165138398,
+      "median heuristic (2.83)": 0.056414665835729336,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.05742354820207133,
+      "checks": {
+        "bit_mean_error": 0.025015625000000007,
+        "adjacent_corr": 0.2723398077726155,
+        "adjacent_corr_real": 0.24921263167897253,
+        "mean_hamming": 63.79636566332219,
+        "mean_hamming_real": 63.977658862876254,
+        "valid_rows": 0.832
+      }
+    },
+    "VAE (team, 30% train)": {
+      "framework (ignite, var=1)": 0.0019208929734304547,
+      "shared default (0.5, 1, 2)": 0.018307507642726328,
+      "median heuristic (2.83)": 0.06349716737686813,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.07269373677939373,
+      "checks": {
+        "bit_mean_error": 0.022078125000000007,
+        "adjacent_corr": 0.10551567978104529,
+        "adjacent_corr_real": 0.24921263167897253,
+        "mean_hamming": 63.79921962095875,
+        "mean_hamming_real": 63.977658862876254,
+        "valid_rows": 0.0
+      }
+    },
+    "bitflip (sprint 10, 50% train)": {
+      "framework (ignite, var=1)": 0.0019214453641325235,
+      "shared default (0.5, 1, 2)": 0.02253500825797194,
+      "median heuristic (2.83)": 0.09822294542496808,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.12072348540569651,
+      "checks": {
+        "bit_mean_error": 0.046968750000000004,
+        "adjacent_corr": 0.054020178902229946,
+        "adjacent_corr_real": 0.24921263167897253,
+        "mean_hamming": 62.57065774804905,
+        "mean_hamming_real": 63.977658862876254,
+        "valid_rows": 0.0
+      }
+    },
+    "iqpwindows (sprint 10, 50% train)": {
+      "framework (ignite, var=1)": 0.0019214452477172017,
+      "shared default (0.5, 1, 2)": 0.021960929206496223,
+      "median heuristic (2.83)": 0.0887855592279696,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.10274607244812181,
+      "checks": {
+        "bit_mean_error": 0.023687500000000007,
+        "adjacent_corr": 0.09655866099750852,
+        "adjacent_corr_real": 0.24921263167897253,
+        "mean_hamming": 63.81612040133779,
+        "mean_hamming_real": 63.977658862876254,
+        "valid_rows": 0.0
+      }
+    },
+    "REF coin flips": {
+      "framework (ignite, var=1)": 0.0019214455969631672,
+      "shared default (0.5, 1, 2)": 0.021879716167490165,
+      "median heuristic (2.83)": 0.08686922333003438,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.09870200284242456,
+      "checks": {
+        "bit_mean_error": 0.02504687500000001,
+        "adjacent_corr": 0.0331546716715024,
+        "adjacent_corr_real": 0.24921263167897253,
+        "mean_hamming": 63.973377926421406,
+        "mean_hamming_real": 63.977658862876254,
+        "valid_rows": 0.0
+      }
+    },
+    "REF copy of training rows": {
+      "framework (ignite, var=1)": 0.0009004819439724088,
+      "shared default (0.5, 1, 2)": 0.0,
+      "median heuristic (2.83)": 0.0033774609300352867,
+      "iqpopt sigma_heuristic x3 (4.0, 3.4, 2.8)": 0.011454891924224902,
+      "checks": {
+        "bit_mean_error": 0.0,
+        "adjacent_corr": 0.24921263167897253,
+        "adjacent_corr_real": 0.24921263167897253,
+        "mean_hamming": 63.977658862876254,
+        "mean_hamming_real": 63.977658862876254,
+        "valid_rows": 1.0
+      }
+    }
+  }
+}

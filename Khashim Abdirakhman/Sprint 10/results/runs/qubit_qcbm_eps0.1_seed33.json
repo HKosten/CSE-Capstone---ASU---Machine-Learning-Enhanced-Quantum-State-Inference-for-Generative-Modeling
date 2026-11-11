@@ -1,0 +1,14 @@
+{
+  "dataset": "qubit",
+  "model": "QCBM",
+  "epsilon": 0.1,
+  "seed": 33,
+  "n_train": 100,
+  "n_test": 900,
+  "epochs_asked": 2419,
+  "cap_seconds": 600.0,
+  "hit_cap": true,
+  "seconds": 607.4,
+  "mmd_framework_ignite": 0.4389280676841736,
+  "mmd2_shared_default_sigmas": 0.1449673051706981
+}

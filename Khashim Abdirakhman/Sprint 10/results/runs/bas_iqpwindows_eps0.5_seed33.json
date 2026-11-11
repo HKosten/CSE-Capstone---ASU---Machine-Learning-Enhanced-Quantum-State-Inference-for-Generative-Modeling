@@ -1,0 +1,18 @@
+{
+  "dataset": "bas",
+  "model": "IQP windows (iqpopt)",
+  "epsilon": 0.5,
+  "seed": 33,
+  "n_train": 500,
+  "n_test": 500,
+  "n_bits": 128,
+  "windows": 10,
+  "width": 20,
+  "overlap": 8,
+  "iters_per_window": 500,
+  "cap_seconds": 600.0,
+  "seconds": 380.0,
+  "hit_cap": false,
+  "mmd_framework_ignite": 0.0019214452477172017,
+  "mmd2_shared_default_sigmas": 0.0004822824116127389
+}

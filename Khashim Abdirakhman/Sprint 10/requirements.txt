@@ -1,0 +1,17 @@
+# versions Sprint 10 was run and tested with (Windows, Python 3.13.5)
+numpy==2.3.3
+pandas==2.3.2
+scipy==1.16.2
+scikit-learn==1.7.2
+torch==2.9.0
+pytorch-ignite==0.5.5
+pennylane==0.45.1
+pennylane-lightning==0.45.0
+jax==0.11.2
+jaxlib==0.11.2
+jaxopt==0.8.5
+optax==0.2.8
+networkx==3.5
+psutil==7.1.0
+# sponsor's iqpopt, installed copy reports 2024.7.0
+git+https://github.com/gdeluca1/iqpopt.git

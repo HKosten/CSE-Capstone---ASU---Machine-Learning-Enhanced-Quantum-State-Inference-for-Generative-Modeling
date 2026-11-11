@@ -1,0 +1,191 @@
+{
+  "Qubit (12 bits) | LSTM": {
+    "type": "list",
+    "dtype": "torch.int64",
+    "shape": [
+      137,
+      12
+    ],
+    "shape_ok": true,
+    "only_0_1": true,
+    "is_tensor": false,
+    "seconds": 4.9
+  },
+  "Qubit (12 bits) | Transformer": {
+    "type": "Tensor",
+    "dtype": "torch.int64",
+    "shape": [
+      137,
+      12
+    ],
+    "shape_ok": true,
+    "only_0_1": true,
+    "is_tensor": true,
+    "seconds": 0.5
+  },
+  "Qubit (12 bits) | VAE": {
+    "type": "Tensor",
+    "dtype": "torch.int64",
+    "shape": [
+      137,
+      12
+    ],
+    "shape_ok": true,
+    "only_0_1": true,
+    "is_tensor": true,
+    "seconds": 0.1
+  },
+  "Qubit (12 bits) | QCBM (mine)": {
+    "type": "Tensor",
+    "dtype": "torch.int64",
+    "shape": [
+      137,
+      12
+    ],
+    "shape_ok": true,
+    "only_0_1": true,
+    "is_tensor": true,
+    "seconds": 0.8
+  },
+  "DNA (100 bits) | LSTM": {
+    "type": "list",
+    "dtype": "torch.int64",
+    "shape": [
+      137,
+      100
+    ],
+    "shape_ok": true,
+    "only_0_1": true,
+    "is_tensor": false,
+    "seconds": 10.8
+  },
+  "DNA (100 bits) | Transformer": {
+    "type": "Tensor",
+    "dtype": "torch.int64",
+    "shape": [
+      137,
+      100
+    ],
+    "shape_ok": true,
+    "only_0_1": true,
+    "is_tensor": true,
+    "seconds": 5.0
+  },
+  "DNA (100 bits) | VAE": {
+    "type": "Tensor",
+    "dtype": "torch.int64",
+    "shape": [
+      137,
+      100
+    ],
+    "shape_ok": true,
+    "only_0_1": true,
+    "is_tensor": true,
+    "seconds": 0.1
+  },
+  "DNA (100 bits) | QCBM (mine)": {
+    "type": "Tensor",
+    "dtype": "torch.int64",
+    "shape": [
+      137,
+      100
+    ],
+    "shape_ok": true,
+    "only_0_1": true,
+    "is_tensor": true,
+    "seconds": 9.9
+  },
+  "saved_by_last_Main_run": {
+    "LSTM_Bars+Stripes": {
+      "shape": [
+        1000,
+        128
+      ],
+      "only_0_1": true
+    },
+    "LSTM_DNA": {
+      "shape": [
+        1000,
+        100
+      ],
+      "only_0_1": true
+    },
+    "LSTM_Qubit": {
+      "shape": [
+        1000,
+        12
+      ],
+      "only_0_1": true
+    },
+    "LSTM_Sin": {
+      "shape": [
+        1000,
+        128
+      ],
+      "only_0_1": true
+    },
+    "QCBM_Qubit": {
+      "shape": [
+        1000,
+        12
+      ],
+      "only_0_1": true
+    },
+    "Transformer_Bars+Stripes": {
+      "shape": [
+        1000,
+        128
+      ],
+      "only_0_1": true
+    },
+    "Transformer_DNA": {
+      "shape": [
+        1000,
+        100
+      ],
+      "only_0_1": true
+    },
+    "Transformer_Qubit": {
+      "shape": [
+        1000,
+        12
+      ],
+      "only_0_1": true
+    },
+    "Transformer_Sin": {
+      "shape": [
+        1000,
+        128
+      ],
+      "only_0_1": true
+    },
+    "VAE_Bars+Stripes": {
+      "shape": [
+        1000,
+        128
+      ],
+      "only_0_1": true
+    },
+    "VAE_DNA": {
+      "shape": [
+        1000,
+        100
+      ],
+      "only_0_1": true
+    },
+    "VAE_Qubit": {
+      "shape": [
+        1000,
+        12
+      ],
+      "only_0_1": true
+    },
+    "VAE_Sin": {
+      "shape": [
+        1000,
+        128
+      ],
+      "only_0_1": true
+    }
+  }
+}

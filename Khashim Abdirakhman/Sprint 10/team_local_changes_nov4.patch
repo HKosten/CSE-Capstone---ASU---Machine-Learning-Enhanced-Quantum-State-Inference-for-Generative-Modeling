@@ -1,0 +1,293 @@
+diff --git a/Team/Main.py b/Team/Main.py
+index 471c51d..8a8ad33 100644
+--- a/Team/Main.py
++++ b/Team/Main.py
+@@ -10,8 +10,9 @@ def print_separators(model_name, test_name):
+ 
+ def run_qcbm(settings, test_name):
+     """
+-    the QCBM simulates 2^n numbers, so it only runs on data up to 16 bits (the 12-bit qubit set).
+-    wider data raises a ValueError before training starts; print it and keep going with the other models
++    the QCBM simulates 2^n numbers, so one circuit only handles up to 18 bits (the 12-bit qubit set).
++    wider data runs as overlapping 20-bit iqpopt windows (iqp_windows.py), see Sprint 10 HOWTO for the packages it needs.
++    any ValueError is printed and the other models keep going
+     """
+     try:
+         ef.evaluate_model(qw.qcbm_function, settings, "QCBM", test_name)
+diff --git a/Team/mmd.py b/Team/mmd.py
+index 8f021c0..63d3da5 100644
+--- a/Team/mmd.py
++++ b/Team/mmd.py
+@@ -1,6 +1,10 @@
+-"""MMD for bitstrings (pytorch). run this file to do a quick sanity check"""
++"""MMD for bitstrings (pytorch). run this file to do a quick sanity check
++
++python mmd.py
++"""
+ 
+ import itertools
++import math
+ from typing import Sequence
+ 
+ import torch
+@@ -13,6 +17,11 @@ big sigma about overall shape changes from sprint 7:
+     - kernel uses |x|^2 + |y|^2 - 2x.y, same numbers but ~10x less memory (2000 x 2000 test samples was ~300MB per call)
+     - mmd_samples needs at least 2 samples (unbiased version divides by m-1)
+ 
++changes from sprint 9 (Nov 4):
++    - mmd_exact_product: the gaussian kernel on 0/1 strings is a product over bits, exp(-d/(2s^2)) = prod_i exp(-|x_i-y_i|/(2s^2)),
++      so K @ v is n small 2x2 steps. same numbers as mmd_exact, but no 2^n x 2^n matrix (16 bits was 32 GB)
++    - median_sigma / iqpopt_sigmas: kernel widths from the data instead of the fixed (0.5, 1, 2), same recipe as sponsor's iqpopt
++
+ """
+ DEFAULT_SIGMAS = (0.5, 1.0, 2.0)
+ 
+@@ -47,6 +56,21 @@ def mmd_exact(p: torch.Tensor, q: torch.Tensor, K: torch.Tensor) -> torch.Tensor
+     return diff @ K @ diff
+ 
+ 
++def kernel_apply(v: torch.Tensor, n_bits: int, sigma: float) -> torch.Tensor:
++    # K_sigma @ v without building K. K = kron of n copies of [[1, a], [a, 1]], a = exp(-1/(2 sigma^2))
++    a = math.exp(-1.0 / (2 * sigma ** 2))
++    for i in range(n_bits):
++        v = v.reshape(2 ** i, 2, 2 ** (n_bits - i - 1))
++        v = v + a * v.flip(1)   # 2x2 step on bit i
++    return v.reshape(-1)
++
++
++def mmd_exact_product(p: torch.Tensor, q: torch.Tensor, n_bits: int, sigmas: Sequence[float] = DEFAULT_SIGMAS) -> torch.Tensor:
++    # same as mmd_exact (avg over sigmas) but memory is 2^n, not 4^n. used for the loss at n > 12
++    diff = p.double() - q.double()
++    return sum(diff @ kernel_apply(diff, n_bits, s) for s in sigmas) / len(sigmas)
++
++
+ def mmd_samples(X: torch.Tensor, Y: torch.Tensor, sigmas: Sequence[float] = DEFAULT_SIGMAS, unbiased: bool = True) -> torch.Tensor:
+     """
+     same thing but from samples only (rows = bitstrings), works for any n
+@@ -72,6 +96,19 @@ def median_heuristic(X: torch.Tensor) -> float:
+     return d[iu[0], iu[1]].median().item()
+ 
+ 
++def median_sigma(X: torch.Tensor, n_max: int = 1000) -> float:
++    # sponsor's iqpopt: sqrt of the median L2 distance. for 0/1 strings L2 = sqrt(hamming), so this is hamming^(1/4)
++    return median_heuristic(X[:n_max].double()) ** 0.5
++
++
++def iqpopt_sigmas(X: torch.Tensor, n_sigmas: int = 1) -> list:
++    # iqpopt sigma_heuristic: from "mean operator weight 2" up to the median heuristic
++    n = X.shape[-1]
++    med = median_sigma(X)
++    low = math.sqrt(-1 / (2 * math.log(1 - 4 / n))) if n > 4 else med
++    return torch.linspace(low, med, n_sigmas).tolist()
++
++
+ def empirical_distribution(samples: torch.Tensor, n_bits: int) -> torch.Tensor:
+     # samples -> prob. vector of length 2^n (this is basically frequency counting)
+     weights = 2 ** torch.arange(n_bits - 1, -1, -1)
+@@ -95,3 +132,6 @@ if __name__ == "__main__":
+     # these 2 should match exactly (biased sample version == exact version on the counts)
+     print(f"exact vs biased sample MMD  : {mmd_exact(pa, pb, K).item():.5f} vs "
+           f"{mmd_samples(a1, b, unbiased=False).item():.5f} (should match)")
++    # product kernel has to give the same number as the matrix
++    print(f"matrix vs product kernel    : {mmd_exact(pa, pb, K).item():.12f} vs "
++          f"{mmd_exact_product(pa, pb, n).item():.12f} (should match)")
+diff --git a/Team/qcbm.py b/Team/qcbm.py
+index 1ccea64..728fe76 100644
+--- a/Team/qcbm.py
++++ b/Team/qcbm.py
+@@ -1,4 +1,4 @@
+-"""QCBM trained w/ MMD (sprint 8)
++"""QCBM trained w/ MMD (sprint 10)
+ 
+ python data_generator.py --all --out data
+ python qcbm.py --dataset bas --ansatz strong --layers 10 --steps 400
+@@ -15,7 +15,7 @@ import pennylane as qml
+ import torch
+ 
+ import data_generator as dg
+-from mmd import DEFAULT_SIGMAS, empirical_distribution, kernel_matrix, mmd_exact, mmd_samples
++from mmd import DEFAULT_SIGMAS, empirical_distribution, mmd_exact_product, mmd_samples
+ """
+ QCBM = quantum circuit used as a generative model measure the circuit -> get bitstrings, prob of each one = |amplitude|^2 (born rule)
+ We tune the angles so the circuit's dist. matches the data:
+@@ -27,6 +27,10 @@ We tune the angles so the circuit's dist. matches the data:
+     - validity only for bas
+     - training loop moved into fit() (only needs samples), train() calls it. qcbm_wrapper.py uses it too
+ 
++changes from sprint 9 (Nov 4):
++    - loss and metrics use mmd_exact_product, so no 2^n x 2^n kernel matrix anymore (same numbers, checked in mmd.py)
++    - Config.max_seconds: stop training when the time is up and keep the best params so far (0 = no limit)
++    - fit() keeps train_rows + the stop reason, so the wrapper can log rows and training time
+ """
+ 
+ 
+@@ -44,6 +48,7 @@ class Config:
+     test_shots: int = 2000 # fresh samples from the true dist. for the test MMD
+     smooth_alpha: float = 0.5
+     seed: int = 42
++    max_seconds: float = 0.0 # wall clock cap for fit(), 0 = no cap
+     log_every: int = 50
+     out_dir: str = "results"
+     tag: str = ""
+@@ -135,10 +140,10 @@ def smoothed(p_counts: torch.Tensor, n_train: int, alpha: float) -> torch.Tensor
+ 
+ # METRICS
+ # p = true dist, q = model (or counting)
+-def distribution_metrics(p: torch.Tensor, q: torch.Tensor, K: torch.Tensor, support=None) -> dict:
++def distribution_metrics(p: torch.Tensor, q: torch.Tensor, n_bits: int, sigmas: tuple, support=None) -> dict:
+     eps = 1e-12   # avoid log(0)
+     out = {
+-        "mmd": mmd_exact(p, q, K).item(),
++        "mmd": mmd_exact_product(p, q, n_bits, sigmas).item(),
+         "tvd": 0.5 * (p - q).abs().sum().item(), # 0 same, 1 no overlap at all
+         "kl": (p * (torch.log(p + eps) - torch.log(q + eps))).sum().item(),  # blows up if q=0 where p>0
+         "fidelity": torch.sqrt(p * q).sum().pow(2).item(), # 1 = same
+@@ -162,7 +167,6 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
+     train_x = train_x.double()
+     n, n_train = train_x.shape[1], len(train_x)
+     p_counts = empirical_distribution(train_x, n)
+-    K = kernel_matrix(n, cfg.sigmas)
+ 
+     torch.manual_seed(cfg.seed)
+     model = QCBM(n, cfg.ansatz, cfg.layers)
+@@ -177,9 +181,10 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
+ 
+     best = {"loss": float("inf"), "theta": None, "step": 0}
+     history, t0 = [], time.time()
++    model.stop = "steps"
+     for step in range(1, cfg.steps + 1):
+         opt.zero_grad()
+-        loss = mmd_exact(model(), p_counts, K) # loss only uses the samples
++        loss = mmd_exact_product(model(), p_counts, n, cfg.sigmas) # loss only uses the samples
+         loss.backward()
+         opt.step()
+         sched.step()
+@@ -197,6 +202,11 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
+             log(line + f" {sched.get_last_lr()[0]:>9.4f}")
+         if step - best["step"] >= cfg.patience:
+             log(f"early stop at step {step} (no improvement for {cfg.patience} steps)")
++            model.stop = "patience"
++            break
++        if cfg.max_seconds and time.time() - t0 >= cfg.max_seconds:
++            log(f"time cap at step {step} ({cfg.max_seconds:.0f}s), keeping best params from step {best['step']}")
++            model.stop = "time_cap"
+             break
+ 
+     with torch.no_grad():
+@@ -204,6 +214,7 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
+     #train() needs these for the json
+     model.history, model.best = history, best
+     model.train_seconds = time.time() - t0
++    model.train_rows = n_train
+     return model
+ 
+ 
+@@ -220,7 +231,6 @@ def train(cfg: Config, train_x: torch.Tensor = None, p_true: torch.Tensor = None
+     p_counts = empirical_distribution(train_x, n) # what frequency counting gives
+     p_smooth = smoothed(p_counts, n_train, cfg.smooth_alpha)
+     support = torch.nonzero(p_true > 1e-12).flatten()
+-    K = kernel_matrix(n, cfg.sigmas)
+ 
+     if verbose:
+         print(f"dataset={cfg.dataset}")
+@@ -242,7 +252,7 @@ def train(cfg: Config, train_x: torch.Tensor = None, p_true: torch.Tensor = None
+ 
+     metrics = {}
+     for name, q in [("qcbm", q_model), ("counting", p_counts), ("smoothed", p_smooth)]:
+-        m = distribution_metrics(p_true, q, K, support if is_bas else None)
++        m = distribution_metrics(p_true, q, n, cfg.sigmas, support if is_bas else None)
+         #same # of draws as training samples for everyone. counting = the training samples themselves
+         draws = train_x if name == "counting" else sample_bits(q, n_train, gen)
+         m["coverage"] = coverage(draws, support)
+@@ -251,7 +261,7 @@ def train(cfg: Config, train_x: torch.Tensor = None, p_true: torch.Tensor = None
+ 
+     result = {
+         "config": asdict(cfg), "dataset_meta": meta, "n_train": n_train,
+-        "n_parameters": model.theta.numel(), "steps_run": len(history), "best_step": best["step"],
++        "n_parameters": model.theta.numel(), "steps_run": len(history), "best_step": best["step"], "stop": model.stop,
+         "train_seconds": round(train_time, 1), "final_train_mmd": best["loss"],
+         **metrics, "loss_history_every_10": history[::10],
+     }
+diff --git a/Team/qcbm_wrapper.py b/Team/qcbm_wrapper.py
+index 673f4eb..6ea2570 100644
+--- a/Team/qcbm_wrapper.py
++++ b/Team/qcbm_wrapper.py
+@@ -17,10 +17,18 @@ qcbm_function(**settings) with:
+ 
+ It returns a torch.long tensor (num_samples, n_bits) of 0/1, the same format as the VAE and transformer wrappers.
+ Bit order: the first bit of a row is qubit 0 (the most significant bit).
+-Limit: the QCBM simulates the full quantum state (2^n numbers), so it only handles up to ~16 bits.
+-Wider data (the 100/128-bit datasets) raises a ValueError right away, before anything is built.
++Limit: the QCBM simulates the full quantum state (2^n numbers), so one circuit only handles up to 18 bits.
++Wider data (the 100/128-bit datasets) goes to iqp_windows.py instead: overlapping 20-bit windows, 1 iqpopt IQP circuit each,
++sampled window by window (exact given the shared bits). Same input, same output, nothing to switch on.
+ 
+ My own scripts can still call it the old way: qcbm_function(trainingData="data/bas.csv", steps=400).
++
++changes from sprint 9 (Nov 4):
++    - starts from the Team copy (has hederik's fix: show_output is dropped before Config), saved with LF endings again
++    - wide data no longer raises a ValueError, it runs iqp_windows.py (the 12-bit qubit set still uses the QCBM)
++    - max_qubits 16 -> 18, the loss has no 2^n x 2^n kernel matrix anymore (speed_check.py: 18 bits = 1.2 GB, ~1 s/step)
++    - logs the number of training rows and the training time on every call
++    - new max_seconds (whole run, 0 = no cap), window and overlap
+ """
+ 
+ from __future__ import annotations
+@@ -28,6 +36,7 @@ from __future__ import annotations
+ import csv
+ import os
+ import sys
++import time
+ from pathlib import Path
+ 
+ import numpy as np
+@@ -39,7 +48,7 @@ trainingData = csv path w/ a "bitstring" column, list of "0101" strings, list of
+ returns torch.long (n_samples, n_bits) of 0/1, 1 bitstring per input row by default bc the ignite MMD needs the same size
+ trains on every row it gets, splitting train/test is the framework's job
+ first char of a bitstring = qubit 0 = most significant bit (same as data_generator.py)
+-only up to ~16 bits, the qcbm simulates the full state (2^n numbers) so the 128 bit datasets get a ValueError
++only up to 18 bits per circuit, the qcbm simulates the full state (2^n numbers), the 100/128 bit datasets go to iqp_windows.py
+ need metrics vs the true dist. too? use qcbm.train()
+ """
+ 
+@@ -92,7 +101,8 @@ def to_bits(trainingData) -> torch.Tensor:
+ 
+ # WRAPPER
+ def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: str = "strong",
+-                  layers: int = 10, n_samples: int | None = None, max_qubits: int = 16, verbose: bool = False,
++                  layers: int = 10, n_samples: int | None = None, max_qubits: int = 18, verbose: bool = False,
++                  max_seconds: float = 0.0, window: int = 20, overlap: int = 8,
+                   *, trainingData=None, num_epochs: int | None = None, num_samples: int | None = None,
+                   epsilon: float | None = None, **settings) -> torch.Tensor:
+     """Train a QCBM on the bitstrings and return new bitstrings sampled from it.
+@@ -115,18 +125,22 @@ def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz:
+ 
+     x = to_bits(data)
+     n_rows, n_bits = x.shape
+-    #check before building anything, 128 bits would need 2^128 numbers
+-    if n_bits > max_qubits:
+-        raise ValueError(
+-            f"{n_bits} bits > {max_qubits}-qubit simulation limit. The QCBM simulates the full quantum state "
+-            f"(2^n numbers, memory doubles with every bit), so use a smaller dataset, like 3x3 (9-bit) "
+-            f"bars and stripes.")
+ 
+     settings = settings.copy()
+     settings.pop("show_output", None)
+-    
+-    cfg = Config(seed=seed, steps=steps, ansatz=ansatz, layers=layers, **settings)
++
++    #128 bits would need 2^128 numbers in 1 circuit, so cut it into windows (steps = iqpopt steps per window)
++    if n_bits > max_qubits:
++        import iqp_windows as iw
++        wm = iw.fit_windows(x.numpy(), width=window, overlap=overlap, iters=steps, seed=seed,
++                            max_seconds=max_seconds, verbose=verbose)
++        print(f"IQP windows: {n_rows} training rows, {n_bits} bits, {len(wm['starts'])} windows of {wm['width']}, "
++              f"trained in {wm['train_seconds']:.1f}s")
++        return iw.sample_windows(wm, n_rows if n_samples is None else n_samples, seed).long()
++
++    cfg = Config(seed=seed, steps=steps, ansatz=ansatz, layers=layers, max_seconds=max_seconds, **settings)
+     model = fit(x, cfg, verbose=verbose)
++    print(f"QCBM: {n_rows} training rows, {n_bits} bits, {len(model.history)} epochs, trained in {model.train_seconds:.1f}s")
+     with torch.no_grad():
+         p = model()
+     out = sample_bits(p, n_rows if n_samples is None else n_samples, torch.Generator().manual_seed(seed))

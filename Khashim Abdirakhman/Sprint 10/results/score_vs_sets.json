@@ -1,0 +1,206 @@
+{
+  "bas_bitflip_eps0.5_seed33": {
+    "test": {
+      "framework (ignite)": 0.0019214453641325235,
+      "shared default": 0.02253500825797194,
+      "median (2.83)": 0.09822294542496808
+    },
+    "train": {
+      "framework (ignite)": 0.0020579486154019833,
+      "shared default": 0.022335978187010903,
+      "median (2.83)": 0.09272790217383019
+    },
+    "whole": {
+      "framework (ignite)": 0.002640004735440016,
+      "shared default": 0.02247660780080597,
+      "median (2.83)": 0.09550000397648734
+    }
+  },
+  "bas_iqpwindows_eps0.5_seed33": {
+    "test": {
+      "framework (ignite)": 0.0019214452477172017,
+      "shared default": 0.021960929206496223,
+      "median (2.83)": 0.0887855592279696
+    },
+    "train": {
+      "framework (ignite)": 0.0020579483825713396,
+      "shared default": 0.021929444254882094,
+      "median (2.83)": 0.08569390723985813
+    },
+    "whole": {
+      "framework (ignite)": 0.002640004502609372,
+      "shared default": 0.021986998597418126,
+      "median (2.83)": 0.08723706762311319
+    }
+  },
+  "dna_bitflip_eps0.5_seed33": {
+    "test": {
+      "framework (ignite)": 0.0,
+      "shared default": 0.004324934478050999,
+      "median (2.66)": 0.01689034657134341
+    },
+    "train": {
+      "framework (ignite)": 0.0011122976429760456,
+      "shared default": 0.002230028115527576,
+      "median (2.66)": 0.0
+    },
+    "whole": {
+      "framework (ignite)": 0.0002338242338737473,
+      "shared default": 0.003341024747980254,
+      "median (2.66)": 0.010031177812022233
+    }
+  },
+  "dna_iqpwindows_eps0.5_seed33": {
+    "test": {
+      "framework (ignite)": 0.0,
+      "shared default": 0.004274951694681085,
+      "median (2.66)": 0.017921951303394242
+    },
+    "train": {
+      "framework (ignite)": 0.0011122690048068762,
+      "shared default": 0.001361815780009169,
+      "median (2.66)": 0.0
+    },
+    "whole": {
+      "framework (ignite)": 0.00023371896531898528,
+      "shared default": 0.003064030295892555,
+      "median (2.66)": 0.010151676610714986
+    }
+  },
+  "qubit_qcbm_eps0.1_seed33": {
+    "test": {
+      "framework (ignite)": 0.4389280676841736,
+      "shared default": 0.38074572245883226,
+      "median (1.19)": 0.459796175423355
+    },
+    "train": {
+      "framework (ignite)": 0.43194618821144104,
+      "shared default": 0.37031014723944694,
+      "median (1.19)": 0.4481389285514114
+    },
+    "whole": {
+      "framework (ignite)": 0.43600717186927795,
+      "shared default": 0.3798039210839349,
+      "median (1.19)": 0.4586865058088612
+    }
+  },
+  "qubit_qcbm_eps0.1_seed34": {
+    "test": {
+      "framework (ignite)": 0.4413306713104248,
+      "shared default": 0.38316163934555164,
+      "median (1.19)": 0.46256479734233
+    },
+    "train": {
+      "framework (ignite)": 0.3940449059009552,
+      "shared default": 0.3491190119364252,
+      "median (1.19)": 0.4265546716657613
+    },
+    "whole": {
+      "framework (ignite)": 0.43585190176963806,
+      "shared default": 0.38007927115839474,
+      "median (1.19)": 0.45921106133148715
+    }
+  },
+  "qubit_qcbm_eps0.5_seed33": {
+    "test": {
+      "framework (ignite)": 0.43145298957824707,
+      "shared default": 0.3762991233281221,
+      "median (1.19)": 0.45374812012339527
+    },
+    "train": {
+      "framework (ignite)": 0.428541362285614,
+      "shared default": 0.3725220350818857,
+      "median (1.19)": 0.4520156787791634
+    },
+    "whole": {
+      "framework (ignite)": 0.43838804960250854,
+      "shared default": 0.3744555596503098,
+      "median (1.19)": 0.4530096142458323
+    }
+  },
+  "qubit_qcbm_eps0.5_seed34": {
+    "test": {
+      "framework (ignite)": 0.43344029784202576,
+      "shared default": 0.3770805300069333,
+      "median (1.19)": 0.45590625226026327
+    },
+    "train": {
+      "framework (ignite)": 0.43113163113594055,
+      "shared default": 0.374909472312955,
+      "median (1.19)": 0.45393238863334634
+    },
+    "whole": {
+      "framework (ignite)": 0.4403834939002991,
+      "shared default": 0.3761062231744884,
+      "median (1.19)": 0.45500774260549454
+    }
+  },
+  "qubit_qcbm_eps0.9_seed33": {
+    "test": {
+      "framework (ignite)": 0.43287956714630127,
+      "shared default": 0.37449758286151574,
+      "median (1.19)": 0.45783170211928603
+    },
+    "train": {
+      "framework (ignite)": 0.447792649269104,
+      "shared default": 0.38595923917251074,
+      "median (1.19)": 0.46971328645667004
+    },
+    "whole": {
+      "framework (ignite)": 0.4902288317680359,
+      "shared default": 0.38503243204314885,
+      "median (1.19)": 0.46869301384742595
+    }
+  },
+  "qubit_qcbm_eps0.9_seed34": {
+    "test": {
+      "framework (ignite)": 0.4364323318004608,
+      "shared default": 0.37556372508211,
+      "median (1.19)": 0.4625302397085405
+    },
+    "train": {
+      "framework (ignite)": 0.4658418297767639,
+      "shared default": 0.38857309422985037,
+      "median (1.19)": 0.47369424686224876
+    },
+    "whole": {
+      "framework (ignite)": 0.4869791865348816,
+      "shared default": 0.3872028033933157,
+      "median (1.19)": 0.4725114735854757
+    }
+  },
+  "sin_bitflip_eps0.5_seed33": {
+    "test": {
+      "framework (ignite)": 0.1310545802116394,
+      "shared default": 0.16866138553882506,
+      "median (2.83)": 0.35536948930902096
+    },
+    "train": {
+      "framework (ignite)": 0.12910613417625427,
+      "shared default": 0.16270294345266015,
+      "median (2.83)": 0.329157379937973
+    },
+    "whole": {
+      "framework (ignite)": 0.12990930676460266,
+      "shared default": 0.16571568183144528,
+      "median (2.83)": 0.3420215944244391
+    }
+  },
+  "sin_iqpwindows_eps0.5_seed33": {
+    "test": {
+      "framework (ignite)": 0.13114804029464722,
+      "shared default": 0.19253554246581822,
+      "median (2.83)": 0.4788577997648589
+    },
+    "train": {
+      "framework (ignite)": 0.12921936810016632,
+      "shared default": 0.191504669596792,
+      "median (2.83)": 0.47853375265826975
+    },
+    "whole": {
+      "framework (ignite)": 0.1300271600484848,
+      "shared default": 0.19202660911924319,
+      "median (2.83)": 0.4783434081466647
+    }
+  }
+}

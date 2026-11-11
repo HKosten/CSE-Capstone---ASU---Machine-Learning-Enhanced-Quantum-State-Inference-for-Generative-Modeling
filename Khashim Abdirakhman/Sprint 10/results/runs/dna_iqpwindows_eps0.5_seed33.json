@@ -1,0 +1,18 @@
+{
+  "dataset": "dna",
+  "model": "IQP windows (iqpopt)",
+  "epsilon": 0.5,
+  "seed": 33,
+  "n_train": 500,
+  "n_test": 500,
+  "n_bits": 100,
+  "windows": 8,
+  "width": 20,
+  "overlap": 8,
+  "iters_per_window": 500,
+  "cap_seconds": 600.0,
+  "seconds": 349.8,
+  "hit_cap": false,
+  "mmd_framework_ignite": 0.0,
+  "mmd2_shared_default_sigmas": 1.8275211991856683e-05
+}

@@ -1,4 +1,4 @@
-"""QCBM trained w/ MMD (sprint 8)
+"""QCBM trained w/ MMD (sprint 10)
 
 python data_generator.py --all --out data
 python qcbm.py --dataset bas --ansatz strong --layers 10 --steps 400
@@ -15,7 +15,7 @@ import pennylane as qml
 import torch
 
 import data_generator as dg
-from mmd import DEFAULT_SIGMAS, empirical_distribution, kernel_matrix, mmd_exact, mmd_samples
+from mmd import DEFAULT_SIGMAS, empirical_distribution, mmd_exact_product, mmd_samples
 """
 QCBM = quantum circuit used as a generative model measure the circuit -> get bitstrings, prob of each one = |amplitude|^2 (born rule)
 We tune the angles so the circuit's dist. matches the data:
@@ -27,6 +27,12 @@ We tune the angles so the circuit's dist. matches the data:
     - validity only for bas
     - training loop moved into fit() (only needs samples), train() calls it. qcbm_wrapper.py uses it too
 
+changes from sprint 9 (Nov 4, merged w/ the team's Nov 10 version):
+    - loss and metrics use mmd_exact_product, so no 2^n x 2^n kernel matrix anymore (same numbers, checked in mmd.py)
+    - Config.max_seconds: stop training when the time is up and keep the best params so far (0 = no limit)
+    - fit() keeps train_rows + the stop reason, so the wrapper can log rows and training time
+    - keeps jacqui's quieter "Epoch N, Loss: x" printing, but early stopping is back on
+      (it ended up inside the silenced string, so patience did nothing)
 """
 
 
@@ -44,6 +50,7 @@ class Config:
     test_shots: int = 2000 # fresh samples from the true dist. for the test MMD
     smooth_alpha: float = 0.5
     seed: int = 42
+    max_seconds: float = 0.0 # wall clock cap for fit(), 0 = no cap
     log_every: int = 50
     out_dir: str = "results"
     tag: str = ""
@@ -135,10 +142,10 @@ def smoothed(p_counts: torch.Tensor, n_train: int, alpha: float) -> torch.Tensor
 
 # METRICS
 # p = true dist, q = model (or counting)
-def distribution_metrics(p: torch.Tensor, q: torch.Tensor, K: torch.Tensor, support=None) -> dict:
+def distribution_metrics(p: torch.Tensor, q: torch.Tensor, n_bits: int, sigmas: tuple, support=None) -> dict:
     eps = 1e-12   # avoid log(0)
     out = {
-        "mmd": mmd_exact(p, q, K).item(),
+        "mmd": mmd_exact_product(p, q, n_bits, sigmas).item(),
         "tvd": 0.5 * (p - q).abs().sum().item(), # 0 same, 1 no overlap at all
         "kl": (p * (torch.log(p + eps) - torch.log(q + eps))).sum().item(),  # blows up if q=0 where p>0
         "fidelity": torch.sqrt(p * q).sum().pow(2).item(), # 1 = same
@@ -162,7 +169,6 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
     train_x = train_x.double()
     n, n_train = train_x.shape[1], len(train_x)
     p_counts = empirical_distribution(train_x, n)
-    K = kernel_matrix(n, cfg.sigmas)
 
     torch.manual_seed(cfg.seed)
     model = QCBM(n, cfg.ansatz, cfg.layers)
@@ -178,9 +184,10 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
 
     best = {"loss": float("inf"), "theta": None, "step": 0}
     history, t0 = [], time.time()
+    model.stop = "steps"
     for step in range(1, cfg.steps + 1):
         opt.zero_grad()
-        loss = mmd_exact(model(), p_counts, K) # loss only uses the samples
+        loss = mmd_exact_product(model(), p_counts, n, cfg.sigmas) # loss only uses the samples
         loss.backward()
         opt.step()
         sched.step()
@@ -194,24 +201,21 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
         if verbose and step % 50 == 0:
             print(f"Epoch {step}, Loss: {loss.item():.6f}")
 
-        """
-        SILENCED FOR UNIVERSAL EVAL. FRAMEWORK !!!!
-
-            if p_true is not None:
-                with torch.no_grad():
-                    tvd = 0.5 * (model() - p_true).abs().sum().item()   # just printing, doesnt affect training
-                line += f" {tvd:>13.4f}"
-            log(line + f" {sched.get_last_lr()[0]:>9.4f}")
         if step - best["step"] >= cfg.patience:
             log(f"early stop at step {step} (no improvement for {cfg.patience} steps)")
+            model.stop = "patience"
             break
-        """
+        if cfg.max_seconds and time.time() - t0 >= cfg.max_seconds:
+            log(f"time cap at step {step} ({cfg.max_seconds:.0f}s), keeping best params from step {best['step']}")
+            model.stop = "time_cap"
+            break
 
     with torch.no_grad():
         model.theta.copy_(best["theta"])
     #train() needs these for the json
     model.history, model.best = history, best
     model.train_seconds = time.time() - t0
+    model.train_rows = n_train
     return model
 
 
@@ -228,7 +232,6 @@ def train(cfg: Config, train_x: torch.Tensor = None, p_true: torch.Tensor = None
     p_counts = empirical_distribution(train_x, n) # what frequency counting gives
     p_smooth = smoothed(p_counts, n_train, cfg.smooth_alpha)
     support = torch.nonzero(p_true > 1e-12).flatten()
-    K = kernel_matrix(n, cfg.sigmas)
 
     if verbose:
         print(f"dataset={cfg.dataset}")
@@ -250,7 +253,7 @@ def train(cfg: Config, train_x: torch.Tensor = None, p_true: torch.Tensor = None
 
     metrics = {}
     for name, q in [("qcbm", q_model), ("counting", p_counts), ("smoothed", p_smooth)]:
-        m = distribution_metrics(p_true, q, K, support if is_bas else None)
+        m = distribution_metrics(p_true, q, n, cfg.sigmas, support if is_bas else None)
         #same # of draws as training samples for everyone. counting = the training samples themselves
         draws = train_x if name == "counting" else sample_bits(q, n_train, gen)
         m["coverage"] = coverage(draws, support)
@@ -259,7 +262,7 @@ def train(cfg: Config, train_x: torch.Tensor = None, p_true: torch.Tensor = None
 
     result = {
         "config": asdict(cfg), "dataset_meta": meta, "n_train": n_train,
-        "n_parameters": model.theta.numel(), "steps_run": len(history), "best_step": best["step"],
+        "n_parameters": model.theta.numel(), "steps_run": len(history), "best_step": best["step"], "stop": model.stop,
         "train_seconds": round(train_time, 1), "final_train_mmd": best["loss"],
         **metrics, "loss_history_every_10": history[::10],
     }

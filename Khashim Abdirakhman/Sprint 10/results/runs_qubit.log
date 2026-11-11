@@ -1,0 +1,12 @@
+QCBM: 100 training rows, 12 bits, 1456 epochs, trained in 600.3s
+qubit_qcbm_eps0.1_seed33: 0.4389 framework MMD, 607s (hit cap)
+QCBM: 100 training rows, 12 bits, 1743 epochs, trained in 600.5s
+qubit_qcbm_eps0.1_seed34: 0.4413 framework MMD, 601s (hit cap)
+QCBM: 500 training rows, 12 bits, 2419 epochs, trained in 544.3s
+qubit_qcbm_eps0.5_seed33: 0.4315 framework MMD, 544s
+QCBM: 500 training rows, 12 bits, 2419 epochs, trained in 492.7s
+qubit_qcbm_eps0.5_seed34: 0.4334 framework MMD, 493s
+QCBM: 900 training rows, 12 bits, 2419 epochs, trained in 561.0s
+qubit_qcbm_eps0.9_seed33: 0.4329 framework MMD, 561s
+QCBM: 900 training rows, 12 bits, 2419 epochs, trained in 395.0s
+qubit_qcbm_eps0.9_seed34: 0.4364 framework MMD, 395s

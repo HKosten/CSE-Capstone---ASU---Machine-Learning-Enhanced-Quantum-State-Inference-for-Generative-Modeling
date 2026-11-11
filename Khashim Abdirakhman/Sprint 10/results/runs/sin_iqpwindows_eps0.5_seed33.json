@@ -1,0 +1,18 @@
+{
+  "dataset": "sin",
+  "model": "IQP windows (iqpopt)",
+  "epsilon": 0.5,
+  "seed": 33,
+  "n_train": 500,
+  "n_test": 500,
+  "n_bits": 128,
+  "windows": 10,
+  "width": 20,
+  "overlap": 8,
+  "iters_per_window": 500,
+  "cap_seconds": 600.0,
+  "seconds": 429.0,
+  "hit_cap": false,
+  "mmd_framework_ignite": 0.13114804029464722,
+  "mmd2_shared_default_sigmas": 0.03706993511260689
+}

@@ -1,0 +1,14 @@
+{
+  "dataset": "sin",
+  "model": "iqpopt bitflip (classical, extra baseline)",
+  "epsilon": 0.5,
+  "seed": 33,
+  "n_train": 500,
+  "n_test": 500,
+  "n_bits": 128,
+  "iters": 500,
+  "seconds_per_iter": 0.218,
+  "seconds": 127.6,
+  "mmd_framework_ignite": 0.1310545802116394,
+  "mmd2_shared_default_sigmas": 0.02844666297187619
+}

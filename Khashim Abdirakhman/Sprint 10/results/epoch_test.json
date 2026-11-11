@@ -1,0 +1,17 @@
+{
+  "dataset": "qubit (12 bits)",
+  "n_train": 500,
+  "epsilon": 0.5,
+  "seed": 33,
+  "epochs_run": 3419,
+  "plateau_epoch": 2419,
+  "stop": "patience",
+  "best_train_mmd": 0.149649370453567,
+  "train_seconds": 822.4,
+  "test_mmd_samples": 0.14181793338862492,
+  "train_mmd_every_1000": [
+    0.15033008082105548,
+    0.1496574759203105,
+    0.1496876883792074
+  ]
+}

@@ -1,0 +1,21 @@
+=================================================================================
+QCBM | 12 qubits, 500 training samples | ansatz=strong | 360 parameters | seed=33
+=================================================================================
+  step   train MMD        lr
+     1    0.234590    0.0500
+  1000    0.150330    0.0488
+  2000    0.149657    0.0455
+  3000    0.149688    0.0402
+early stop at step 3419 (no improvement for 1000 steps)
+{
+  "dataset": "qubit (12 bits)",
+  "n_train": 500,
+  "epsilon": 0.5,
+  "seed": 33,
+  "epochs_run": 3419,
+  "plateau_epoch": 2419,
+  "stop": "patience",
+  "best_train_mmd": 0.149649370453567,
+  "train_seconds": 822.4,
+  "test_mmd_samples": 0.14181793338862492
+}

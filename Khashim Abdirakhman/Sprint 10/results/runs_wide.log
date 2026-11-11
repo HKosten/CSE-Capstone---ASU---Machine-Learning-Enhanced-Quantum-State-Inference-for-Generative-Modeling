@@ -1,0 +1,9 @@
+IQP windows: 500 training rows, 100 bits, 8 windows of 20, trained in 345.1s
+dna windows: 0.00000 framework MMD, 350s
+dna bitflip: 0.00000 framework MMD, 500 iters at 0.24s
+IQP windows: 500 training rows, 128 bits, 10 windows of 20, trained in 428.2s
+sin windows: 0.13115 framework MMD, 429s
+sin bitflip: 0.13105 framework MMD, 500 iters at 0.22s
+IQP windows: 500 training rows, 128 bits, 10 windows of 20, trained in 379.3s
+bas windows: 0.00192 framework MMD, 380s
+bas bitflip: 0.00192 framework MMD, 500 iters at 0.17s

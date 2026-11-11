@@ -17,10 +17,18 @@ qcbm_function(**settings) with:
 
 It returns a torch.long tensor (num_samples, n_bits) of 0/1, the same format as the VAE and transformer wrappers.
 Bit order: the first bit of a row is qubit 0 (the most significant bit).
-Limit: the QCBM simulates the full quantum state (2^n numbers), so it only handles up to ~16 bits.
-Wider data (the 100/128-bit datasets) raises a ValueError right away, before anything is built.
+Limit: the QCBM simulates the full quantum state (2^n numbers), so one circuit only handles up to 18 bits.
+Wider data (the 100/128-bit datasets) goes to iqp_windows.py instead: overlapping 20-bit windows, 1 iqpopt IQP circuit each,
+sampled window by window (exact given the shared bits). Same input, same output, nothing to switch on.
 
 My own scripts can still call it the old way: qcbm_function(trainingData="data/bas.csv", steps=400).
+
+changes from sprint 9 (Nov 4, merged w/ the team's Nov 10 version):
+    - starts from the Team copy (has hederik's show_output fix and jacqui's verbose=True), saved with LF endings again
+    - wide data no longer raises a ValueError, it runs iqp_windows.py (the 12-bit qubit set still uses the QCBM)
+    - max_qubits 16 -> 18, the loss has no 2^n x 2^n kernel matrix anymore (speed_check.py: 18 bits = 1.2 GB, ~1 s/step)
+    - logs the number of training rows and the training time on every call
+    - new max_seconds (whole run, 0 = no cap), window and overlap
 """
 
 from __future__ import annotations
@@ -28,6 +36,7 @@ from __future__ import annotations
 import csv
 import os
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -39,7 +48,7 @@ trainingData = csv path w/ a "bitstring" column, list of "0101" strings, list of
 returns torch.long (n_samples, n_bits) of 0/1, 1 bitstring per input row by default bc the ignite MMD needs the same size
 trains on every row it gets, splitting train/test is the framework's job
 first char of a bitstring = qubit 0 = most significant bit (same as data_generator.py)
-only up to ~16 bits, the qcbm simulates the full state (2^n numbers) so the 128 bit datasets get a ValueError
+only up to 18 bits per circuit, the qcbm simulates the full state (2^n numbers), the 100/128 bit datasets go to iqp_windows.py
 need metrics vs the true dist. too? use qcbm.train()
 """
 
@@ -93,7 +102,8 @@ def to_bits(trainingData) -> torch.Tensor:
 # WRAPPER
 # verbose changed to True here so QCBM prints loss like other models for universal evaluation framework!!!!
 def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: str = "strong",
-                  layers: int = 10, n_samples: int | None = None, max_qubits: int = 16, verbose: bool = True,
+                  layers: int = 10, n_samples: int | None = None, max_qubits: int = 18, verbose: bool = True,
+                  max_seconds: float = 0.0, window: int = 20, overlap: int = 8,
                   *, trainingData=None, num_epochs: int | None = None, num_samples: int | None = None,
                   epsilon: float | None = None, **settings) -> torch.Tensor:
     """Train a QCBM on the bitstrings and return new bitstrings sampled from it.
@@ -116,18 +126,22 @@ def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: 
 
     x = to_bits(data)
     n_rows, n_bits = x.shape
-    #check before building anything, 128 bits would need 2^128 numbers
-    if n_bits > max_qubits:
-        raise ValueError(
-            f"{n_bits} bits > {max_qubits}-qubit simulation limit. The QCBM simulates the full quantum state "
-            f"(2^n numbers, memory doubles with every bit), so use a smaller dataset, like 3x3 (9-bit) "
-            f"bars and stripes.")
 
     settings = settings.copy()
     settings.pop("show_output", None)
-    
-    cfg = Config(seed=seed, steps=steps, ansatz=ansatz, layers=layers, **settings)
+
+    #128 bits would need 2^128 numbers in 1 circuit, so cut it into windows (steps = iqpopt steps per window)
+    if n_bits > max_qubits:
+        import iqp_windows as iw
+        wm = iw.fit_windows(x.numpy(), width=window, overlap=overlap, iters=steps, seed=seed,
+                            max_seconds=max_seconds, verbose=verbose)
+        print(f"IQP windows: {n_rows} training rows, {n_bits} bits, {len(wm['starts'])} windows of {wm['width']}, "
+              f"trained in {wm['train_seconds']:.1f}s")
+        return iw.sample_windows(wm, n_rows if n_samples is None else n_samples, seed).long()
+
+    cfg = Config(seed=seed, steps=steps, ansatz=ansatz, layers=layers, max_seconds=max_seconds, **settings)
     model = fit(x, cfg, verbose=verbose)
+    print(f"QCBM: {n_rows} training rows, {n_bits} bits, {len(model.history)} epochs, trained in {model.train_seconds:.1f}s")
     with torch.no_grad():
         p = model()
     out = sample_bits(p, n_rows if n_samples is None else n_samples, torch.Generator().manual_seed(seed))

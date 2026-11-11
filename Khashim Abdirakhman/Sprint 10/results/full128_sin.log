@@ -1,0 +1,29 @@
+trained 2500 steps in 486s, loss 0.2641 -> 0.0255
+{
+  "bits": 128,
+  "gates": "nearest neighbour",
+  "n_params": 255,
+  "train_rows": 500,
+  "test_rows": 500,
+  "train_seconds": 486.2,
+  "steps": 2500,
+  "loss_first": 0.2641176035250667,
+  "loss_last": 0.02546836471751256,
+  "full_circuit_iqpopt_mmd2": {
+    "mean": 0.028717832609528076,
+    "std": 0.0007700599031116337
+  },
+  "full_circuit_untrained_iqpopt_mmd2": {
+    "mean": 0.26209957032085335,
+    "std": 0.005305565863608251
+  },
+  "windows_iqpopt_sample_mmd2": 0.037069935112606894,
+  "windows_shared_mmd2": 0.03706993511260689,
+  "coin_flips_shared_mmd2": 0.029406864528247735,
+  "corr_bit0_bit127": {
+    "real_all_rows": 0.9799578340648536,
+    "real_train": 0.9800042526336451,
+    "windows_samples": 0.06375748725542288,
+    "full_circuit_op_expval": -0.002553444446483703
+  }
+}

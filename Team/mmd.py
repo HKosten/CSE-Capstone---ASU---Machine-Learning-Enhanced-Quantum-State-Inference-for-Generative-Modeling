@@ -1,6 +1,10 @@
-"""MMD for bitstrings (pytorch). run this file to do a quick sanity check"""
+"""MMD for bitstrings (pytorch). run this file to do a quick sanity check
+
+python mmd.py
+"""
 
 import itertools
+import math
 from typing import Sequence
 
 import torch
@@ -12,6 +16,11 @@ Same kernel form as Sponsor's iqpopt so we can compare numbers w/ it using a few
 big sigma about overall shape changes from sprint 7:
     - kernel uses |x|^2 + |y|^2 - 2x.y, same numbers but ~10x less memory (2000 x 2000 test samples was ~300MB per call)
     - mmd_samples needs at least 2 samples (unbiased version divides by m-1)
+
+changes from sprint 9 (Nov 4):
+    - mmd_exact_product: the gaussian kernel on 0/1 strings is a product over bits, exp(-d/(2s^2)) = prod_i exp(-|x_i-y_i|/(2s^2)),
+      so K @ v is n small 2x2 steps. same numbers as mmd_exact, but no 2^n x 2^n matrix (16 bits was 32 GB)
+    - median_sigma / iqpopt_sigmas: kernel widths from the data instead of the fixed (0.5, 1, 2), same recipe as sponsor's iqpopt
 
 """
 DEFAULT_SIGMAS = (0.5, 1.0, 2.0)
@@ -47,6 +56,21 @@ def mmd_exact(p: torch.Tensor, q: torch.Tensor, K: torch.Tensor) -> torch.Tensor
     return diff @ K @ diff
 
 
+def kernel_apply(v: torch.Tensor, n_bits: int, sigma: float) -> torch.Tensor:
+    # K_sigma @ v without building K. K = kron of n copies of [[1, a], [a, 1]], a = exp(-1/(2 sigma^2))
+    a = math.exp(-1.0 / (2 * sigma ** 2))
+    for i in range(n_bits):
+        v = v.reshape(2 ** i, 2, 2 ** (n_bits - i - 1))
+        v = v + a * v.flip(1)   # 2x2 step on bit i
+    return v.reshape(-1)
+
+
+def mmd_exact_product(p: torch.Tensor, q: torch.Tensor, n_bits: int, sigmas: Sequence[float] = DEFAULT_SIGMAS) -> torch.Tensor:
+    # same as mmd_exact (avg over sigmas) but memory is 2^n, not 4^n. used for the loss at n > 12
+    diff = p.double() - q.double()
+    return sum(diff @ kernel_apply(diff, n_bits, s) for s in sigmas) / len(sigmas)
+
+
 def mmd_samples(X: torch.Tensor, Y: torch.Tensor, sigmas: Sequence[float] = DEFAULT_SIGMAS, unbiased: bool = True) -> torch.Tensor:
     """
     same thing but from samples only (rows = bitstrings), works for any n
@@ -72,6 +96,19 @@ def median_heuristic(X: torch.Tensor) -> float:
     return d[iu[0], iu[1]].median().item()
 
 
+def median_sigma(X: torch.Tensor, n_max: int = 1000) -> float:
+    # sponsor's iqpopt: sqrt of the median L2 distance. for 0/1 strings L2 = sqrt(hamming), so this is hamming^(1/4)
+    return median_heuristic(X[:n_max].double()) ** 0.5
+
+
+def iqpopt_sigmas(X: torch.Tensor, n_sigmas: int = 1) -> list:
+    # iqpopt sigma_heuristic: from "mean operator weight 2" up to the median heuristic
+    n = X.shape[-1]
+    med = median_sigma(X)
+    low = math.sqrt(-1 / (2 * math.log(1 - 4 / n))) if n > 4 else med
+    return torch.linspace(low, med, n_sigmas).tolist()
+
+
 def empirical_distribution(samples: torch.Tensor, n_bits: int) -> torch.Tensor:
     # samples -> prob. vector of length 2^n (this is basically frequency counting)
     weights = 2 ** torch.arange(n_bits - 1, -1, -1)
@@ -95,3 +132,6 @@ if __name__ == "__main__":
     # these 2 should match exactly (biased sample version == exact version on the counts)
     print(f"exact vs biased sample MMD  : {mmd_exact(pa, pb, K).item():.5f} vs "
           f"{mmd_samples(a1, b, unbiased=False).item():.5f} (should match)")
+    # product kernel has to give the same number as the matrix
+    print(f"matrix vs product kernel    : {mmd_exact(pa, pb, K).item():.12f} vs "
+          f"{mmd_exact_product(pa, pb, n).item():.12f} (should match)")
