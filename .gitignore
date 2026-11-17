@@ -1,0 +1,11 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Files Team/Main.py writes into Team/ on every run.
+# Copies meant for GitHub go in Team/Generated Data and Team/Test Scores, which are not affected.
+Team/*_generated_data_*
+Team/*_mmd_scores.csv
+
+# Team/Main.py sweep output: mmd_three_sets.csv, loss/*.csv, plots/*.png
+Team/results/

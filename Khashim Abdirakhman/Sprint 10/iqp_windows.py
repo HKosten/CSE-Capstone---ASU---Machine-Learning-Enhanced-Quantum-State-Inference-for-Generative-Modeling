@@ -97,7 +97,7 @@ def fit_windows(x: np.ndarray, width: int = 20, overlap: int = 8, iters: int = 3
         params, losses = train_iqp(sim, x[:, s:s + w], len(glist), iters, seed + i, per_window, **train_kw)
         p = np.asarray(sim.probs(params), dtype=np.float64) # numpy params: jax arrays crash pennylane 0.45 + jax 0.11
         probs.append(p / p.sum())
-        curves.append({"start": s, "iters": len(losses), "loss_first": losses[0], "loss_last": losses[-1]})
+        curves.append({"start": s, "iters": len(losses), "loss_first": losses[0], "loss_last": losses[-1], "losses": losses})
         if verbose:
             print(f"  window {i + 1}/{len(starts)} bits {s}-{s + w - 1}: {len(losses)} iters, "
                   f"loss {losses[0]:.4f} -> {losses[-1]:.4f}, {time.time() - t0:.0f}s so far", flush=True)

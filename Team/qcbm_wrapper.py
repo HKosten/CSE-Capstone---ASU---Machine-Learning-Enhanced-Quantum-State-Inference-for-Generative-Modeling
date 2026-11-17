@@ -29,6 +29,10 @@ changes from sprint 9 (Nov 4, merged w/ the team's Nov 10 version):
     - max_qubits 16 -> 18, the loss has no 2^n x 2^n kernel matrix anymore (speed_check.py: 18 bits = 1.2 GB, ~1 s/step)
     - logs the number of training rows and the training time on every call
     - new max_seconds (whole run, 0 = no cap), window and overlap
+
+changes (Nov 17):
+    - default ansatz "strong" -> "iqp". on the 12-bit qubit set strong (10 layers) got stuck at MMD vs test 0.165,
+      iqp gets 0.0036 at 100 epochs and is ~4x faster per step (qcbm_fix.py, results/qcbm_fix). ansatz="strong" still works
 """
 
 from __future__ import annotations
@@ -58,6 +62,8 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
 from qcbm import Config, fit, sample_bits
+
+last_history = None # loss of every training step of the last QCBM call (None after a wide / windows call), Main.py plots it
 
 
 # LOADING
@@ -101,7 +107,7 @@ def to_bits(trainingData) -> torch.Tensor:
 
 # WRAPPER
 # verbose changed to True here so QCBM prints loss like other models for universal evaluation framework!!!!
-def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: str = "strong",
+def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: str = "iqp",
                   layers: int = 10, n_samples: int | None = None, max_qubits: int = 18, verbose: bool = True,
                   max_seconds: float = 0.0, window: int = 20, overlap: int = 8,
                   *, trainingData=None, num_epochs: int | None = None, num_samples: int | None = None,
@@ -124,6 +130,8 @@ def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: 
     steps = steps if num_epochs is None else int(num_epochs)
     n_samples = n_samples if num_samples is None else int(num_samples)
 
+    global last_history
+    last_history = None
     x = to_bits(data)
     n_rows, n_bits = x.shape
 
@@ -141,6 +149,7 @@ def qcbm_function(training_data=None, seed: int = 42, steps: int = 400, ansatz: 
 
     cfg = Config(seed=seed, steps=steps, ansatz=ansatz, layers=layers, max_seconds=max_seconds, **settings)
     model = fit(x, cfg, verbose=verbose)
+    last_history = list(model.history)
     print(f"QCBM: {n_rows} training rows, {n_bits} bits, {len(model.history)} epochs, trained in {model.train_seconds:.1f}s")
     with torch.no_grad():
         p = model()

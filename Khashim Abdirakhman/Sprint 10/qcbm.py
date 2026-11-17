@@ -27,10 +27,15 @@ We tune the angles so the circuit's dist. matches the data:
     - validity only for bas
     - training loop moved into fit() (only needs samples), train() calls it. qcbm_wrapper.py uses it too
 
-changes from sprint 9 (Nov 4):
+changes from sprint 9 (Nov 4, merged w/ the team's Nov 10 version):
     - loss and metrics use mmd_exact_product, so no 2^n x 2^n kernel matrix anymore (same numbers, checked in mmd.py)
     - Config.max_seconds: stop training when the time is up and keep the best params so far (0 = no limit)
     - fit() keeps train_rows + the stop reason, so the wrapper can log rows and training time
+    - keeps jacqui's quieter "Epoch N, Loss: x" printing, but early stopping is back on
+      (it ended up inside the silenced string, so patience did nothing)
+
+changes (Nov 17):
+    - Config.init_scale: starting angles in +-init_scale. 0 = old default (+-pi, iqp +-0.5), so nothing changes unless it is set
 """
 
 
@@ -49,6 +54,7 @@ class Config:
     smooth_alpha: float = 0.5
     seed: int = 42
     max_seconds: float = 0.0 # wall clock cap for fit(), 0 = no cap
+    init_scale: float = 0.0 # starting angles in +-init_scale, 0 = default below (pi, iqp 0.5)
     log_every: int = 50
     out_dir: str = "results"
     tag: str = ""
@@ -107,12 +113,12 @@ def build_circuit(ansatz: str, n_qubits: int):
 
 
 class QCBM(torch.nn.Module):
-    def __init__(self, n_qubits: int, ansatz: str, layers: int):
+    def __init__(self, n_qubits: int, ansatz: str, layers: int, init_scale: float = 0.0):
         super().__init__()
         self.n_qubits, self.ansatz = n_qubits, ansatz
         shape = n_params(ansatz, n_qubits, layers)
         # iqp starts w/ smaller angles, big random ones made it start way off
-        scale = 0.5 if ansatz == "iqp" else np.pi
+        scale = init_scale or (0.5 if ansatz == "iqp" else np.pi)
         self.theta = torch.nn.Parameter(scale * (2 * torch.rand(shape, dtype=torch.float64) - 1))
         self.circuit = build_circuit(ansatz, n_qubits)
 
@@ -169,15 +175,16 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
     p_counts = empirical_distribution(train_x, n)
 
     torch.manual_seed(cfg.seed)
-    model = QCBM(n, cfg.ansatz, cfg.layers)
+    model = QCBM(n, cfg.ansatz, cfg.layers, cfg.init_scale)
     opt = torch.optim.Adam(model.parameters(), lr=cfg.lr)
     # cosine lr - big steps at first, small at the end so it settles down
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=cfg.steps, eta_min=cfg.lr * 0.05)
 
+    #Silenced this header from printing out to universal eval. framework!!!
     title = f"QCBM | {n} qubits, {n_train} training samples | " \
             f"ansatz={cfg.ansatz} | {model.theta.numel()} parameters | seed={cfg.seed}"
-    log("=" * len(title) + f"\n{title}\n" + "=" * len(title))
-    log(f"{'step':>6} {'train MMD':>11}" + (f" {'TVD vs truth':>13}" if p_true is not None else "") + f" {'lr':>9}")
+    #log("=" * len(title) + f"\n{title}\n" + "=" * len(title))
+    #log(f"{'step':>6} {'train MMD':>11}" + (f" {'TVD vs truth':>13}" if p_true is not None else "") + f" {'lr':>9}")
 
     best = {"loss": float("inf"), "theta": None, "step": 0}
     history, t0 = [], time.time()
@@ -193,13 +200,11 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
         # keep the best params (by train loss) in case it gets worse later
         if loss.item() < best["loss"] - 1e-9:
             best = {"loss": loss.item(), "theta": model.theta.detach().clone(), "step": step}
-        if verbose and (step % cfg.log_every == 0 or step == 1):
-            line = f"{step:>6} {loss.item():>11.6f}"
-            if p_true is not None:
-                with torch.no_grad():
-                    tvd = 0.5 * (model() - p_true).abs().sum().item()   # just printing, doesnt affect training
-                line += f" {tvd:>13.4f}"
-            log(line + f" {sched.get_last_lr()[0]:>9.4f}")
+
+        #formatted printing differently for universal eval. framework!
+        if verbose and step % 50 == 0:
+            print(f"Epoch {step}, Loss: {loss.item():.6f}")
+
         if step - best["step"] >= cfg.patience:
             log(f"early stop at step {step} (no improvement for {cfg.patience} steps)")
             model.stop = "patience"

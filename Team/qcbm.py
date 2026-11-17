@@ -33,6 +33,9 @@ changes from sprint 9 (Nov 4, merged w/ the team's Nov 10 version):
     - fit() keeps train_rows + the stop reason, so the wrapper can log rows and training time
     - keeps jacqui's quieter "Epoch N, Loss: x" printing, but early stopping is back on
       (it ended up inside the silenced string, so patience did nothing)
+
+changes (Nov 17):
+    - Config.init_scale: starting angles in +-init_scale. 0 = old default (+-pi, iqp +-0.5), so nothing changes unless it is set
 """
 
 
@@ -51,6 +54,7 @@ class Config:
     smooth_alpha: float = 0.5
     seed: int = 42
     max_seconds: float = 0.0 # wall clock cap for fit(), 0 = no cap
+    init_scale: float = 0.0 # starting angles in +-init_scale, 0 = default below (pi, iqp 0.5)
     log_every: int = 50
     out_dir: str = "results"
     tag: str = ""
@@ -109,12 +113,12 @@ def build_circuit(ansatz: str, n_qubits: int):
 
 
 class QCBM(torch.nn.Module):
-    def __init__(self, n_qubits: int, ansatz: str, layers: int):
+    def __init__(self, n_qubits: int, ansatz: str, layers: int, init_scale: float = 0.0):
         super().__init__()
         self.n_qubits, self.ansatz = n_qubits, ansatz
         shape = n_params(ansatz, n_qubits, layers)
         # iqp starts w/ smaller angles, big random ones made it start way off
-        scale = 0.5 if ansatz == "iqp" else np.pi
+        scale = init_scale or (0.5 if ansatz == "iqp" else np.pi)
         self.theta = torch.nn.Parameter(scale * (2 * torch.rand(shape, dtype=torch.float64) - 1))
         self.circuit = build_circuit(ansatz, n_qubits)
 
@@ -171,7 +175,7 @@ def fit(train_x: torch.Tensor, cfg: Config, p_true: torch.Tensor = None, verbose
     p_counts = empirical_distribution(train_x, n)
 
     torch.manual_seed(cfg.seed)
-    model = QCBM(n, cfg.ansatz, cfg.layers)
+    model = QCBM(n, cfg.ansatz, cfg.layers, cfg.init_scale)
     opt = torch.optim.Adam(model.parameters(), lr=cfg.lr)
     # cosine lr - big steps at first, small at the end so it settles down
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=cfg.steps, eta_min=cfg.lr * 0.05)

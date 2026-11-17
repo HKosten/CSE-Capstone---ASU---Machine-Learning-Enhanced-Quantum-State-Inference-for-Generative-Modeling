@@ -1,0 +1,234 @@
+
+ --------------------------------- Test #1 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/8 bits 0-19: 50 iters, loss 0.1982 -> 0.0007, 5s so far
+  window 2/8 bits 12-31: 50 iters, loss 0.3400 -> 0.0018, 7s so far
+  window 3/8 bits 24-43: 50 iters, loss 0.1162 -> 0.0005, 10s so far
+  window 4/8 bits 36-55: 50 iters, loss 0.3476 -> 0.0018, 12s so far
+  window 5/8 bits 48-67: 50 iters, loss 0.2308 -> 0.0014, 14s so far
+  window 6/8 bits 60-79: 50 iters, loss 0.1804 -> 0.0002, 17s so far
+  window 7/8 bits 72-91: 50 iters, loss 0.2120 -> 0.0005, 19s so far
+  window 8/8 bits 80-99: 50 iters, loss 0.2549 -> 0.0005, 22s so far
+IQPopt: 300 training rows, 100 bits, 8 window(s) of 20, trained in 21.6s
+MMD: 0.000026
+MMD vs test: 0.000026 | whole dataset: 0.000027 | train: 0.000031
+
+ --------------------------------- Test #2 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/8 bits 0-19: 50 iters, loss 0.1965 -> 0.0009, 4s so far
+  window 2/8 bits 12-31: 50 iters, loss 0.3372 -> 0.0019, 6s so far
+  window 3/8 bits 24-43: 50 iters, loss 0.1156 -> 0.0007, 9s so far
+  window 4/8 bits 36-55: 50 iters, loss 0.3442 -> 0.0015, 11s so far
+  window 5/8 bits 48-67: 50 iters, loss 0.2317 -> 0.0011, 14s so far
+  window 6/8 bits 60-79: 50 iters, loss 0.1788 -> 0.0006, 17s so far
+  window 7/8 bits 72-91: 50 iters, loss 0.2170 -> 0.0008, 19s so far
+  window 8/8 bits 80-99: 50 iters, loss 0.2584 -> 0.0007, 22s so far
+IQPopt: 700 training rows, 100 bits, 8 window(s) of 20, trained in 21.6s
+MMD: 0.000024
+MMD vs test: 0.000024 | whole dataset: 0.000028 | train: 0.000032
+
+ --------------------------------- Test #3 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/8 bits 0-19: 100 iters, loss 0.1982 -> -0.0002, 6s so far
+  window 2/8 bits 12-31: 100 iters, loss 0.3400 -> -0.0001, 11s so far
+  window 3/8 bits 24-43: 100 iters, loss 0.1162 -> -0.0002, 15s so far
+  window 4/8 bits 36-55: 100 iters, loss 0.3476 -> -0.0000, 20s so far
+  window 5/8 bits 48-67: 100 iters, loss 0.2308 -> 0.0000, 25s so far
+  window 6/8 bits 60-79: 100 iters, loss 0.1804 -> -0.0003, 30s so far
+  window 7/8 bits 72-91: 100 iters, loss 0.2120 -> -0.0001, 35s so far
+  window 8/8 bits 80-99: 100 iters, loss 0.2549 -> -0.0004, 40s so far
+IQPopt: 300 training rows, 100 bits, 8 window(s) of 20, trained in 39.8s
+MMD: 0.000023
+MMD vs test: 0.000023 | whole dataset: 0.000016 | train: 0.000003
+
+ --------------------------------- Test #4 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/8 bits 0-19: 100 iters, loss 0.1965 -> 0.0001, 6s so far
+  window 2/8 bits 12-31: 100 iters, loss 0.3372 -> 0.0002, 12s so far
+  window 3/8 bits 24-43: 100 iters, loss 0.1156 -> 0.0001, 17s so far
+  window 4/8 bits 36-55: 100 iters, loss 0.3442 -> 0.0001, 23s so far
+  window 5/8 bits 48-67: 100 iters, loss 0.2317 -> 0.0000, 28s so far
+  window 6/8 bits 60-79: 100 iters, loss 0.1788 -> 0.0000, 33s so far
+  window 7/8 bits 72-91: 100 iters, loss 0.2170 -> 0.0003, 39s so far
+  window 8/8 bits 80-99: 100 iters, loss 0.2584 -> -0.0000, 44s so far
+IQPopt: 700 training rows, 100 bits, 8 window(s) of 20, trained in 44.1s
+MMD: 0.000019
+MMD vs test: 0.000019 | whole dataset: 0.000007 | train: 0.000004
+
+ --------------------------------- Test #5 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/1 bits 0-11: 50 iters, loss 0.1226 -> 0.0148, 5s so far
+IQPopt: 300 training rows, 12 bits, 1 window(s) of 12, trained in 5.5s
+MMD: 0.012483
+MMD vs test: 0.012483 | whole dataset: 0.011613 | train: 0.009483
+
+ --------------------------------- Test #6 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/1 bits 0-11: 50 iters, loss 0.1285 -> 0.0174, 4s so far
+IQPopt: 700 training rows, 12 bits, 1 window(s) of 12, trained in 4.1s
+MMD: 0.013944
+MMD vs test: 0.013944 | whole dataset: 0.012350 | train: 0.011780
+
+ --------------------------------- Test #7 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/1 bits 0-11: 100 iters, loss 0.1226 -> 0.0077, 6s so far
+IQPopt: 300 training rows, 12 bits, 1 window(s) of 12, trained in 5.9s
+MMD: 0.012114
+MMD vs test: 0.012114 | whole dataset: 0.011399 | train: 0.009629
+
+ --------------------------------- Test #8 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/1 bits 0-11: 100 iters, loss 0.1285 -> 0.0098, 6s so far
+IQPopt: 700 training rows, 12 bits, 1 window(s) of 12, trained in 6.0s
+MMD: 0.013335
+MMD vs test: 0.013335 | whole dataset: 0.011944 | train: 0.011460
+
+ --------------------------------- Test #9 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/10 bits 0-19: 50 iters, loss 0.2506 -> 0.2234, 4s so far
+  window 2/10 bits 12-31: 50 iters, loss 0.2998 -> 0.2201, 7s so far
+  window 3/10 bits 24-43: 50 iters, loss 0.2298 -> 0.2088, 9s so far
+  window 4/10 bits 36-55: 50 iters, loss 0.2427 -> 0.1761, 12s so far
+  window 5/10 bits 48-67: 50 iters, loss 0.2086 -> 0.1643, 14s so far
+  window 6/10 bits 60-79: 50 iters, loss 0.1874 -> 0.1639, 17s so far
+  window 7/10 bits 72-91: 50 iters, loss 0.1751 -> 0.1547, 19s so far
+  window 8/10 bits 84-103: 50 iters, loss 0.1842 -> 0.1450, 22s so far
+  window 9/10 bits 96-115: 50 iters, loss 0.1867 -> 0.1580, 25s so far
+  window 10/10 bits 108-127: 50 iters, loss 0.2320 -> 0.1845, 27s so far
+IQPopt: 300 training rows, 128 bits, 10 window(s) of 20, trained in 27.1s
+MMD: 0.037496
+MMD vs test: 0.037496 | whole dataset: 0.037138 | train: 0.036505
+
+ --------------------------------- Test #10 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/10 bits 0-19: 50 iters, loss 0.2071 -> 0.1845, 4s so far
+  window 2/10 bits 12-31: 50 iters, loss 0.2457 -> 0.1838, 7s so far
+  window 3/10 bits 24-43: 50 iters, loss 0.2018 -> 0.1813, 10s so far
+  window 4/10 bits 36-55: 50 iters, loss 0.2383 -> 0.1792, 12s so far
+  window 5/10 bits 48-67: 50 iters, loss 0.2280 -> 0.1806, 15s so far
+  window 6/10 bits 60-79: 50 iters, loss 0.2173 -> 0.1949, 18s so far
+  window 7/10 bits 72-91: 50 iters, loss 0.2108 -> 0.1859, 21s so far
+  window 8/10 bits 84-103: 50 iters, loss 0.2171 -> 0.1736, 23s so far
+  window 9/10 bits 96-115: 50 iters, loss 0.2028 -> 0.1700, 26s so far
+  window 10/10 bits 108-127: 50 iters, loss 0.2207 -> 0.1797, 29s so far
+IQPopt: 700 training rows, 128 bits, 10 window(s) of 20, trained in 29.0s
+MMD: 0.038731
+MMD vs test: 0.038731 | whole dataset: 0.038106 | train: 0.038086
+
+ --------------------------------- Test #11 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/10 bits 0-19: 100 iters, loss 0.2506 -> 0.2159, 7s so far
+  window 2/10 bits 12-31: 100 iters, loss 0.2998 -> 0.2222, 12s so far
+  window 3/10 bits 24-43: 100 iters, loss 0.2298 -> 0.2054, 17s so far
+  window 4/10 bits 36-55: 100 iters, loss 0.2427 -> 0.1673, 22s so far
+  window 5/10 bits 48-67: 100 iters, loss 0.2086 -> 0.1658, 27s so far
+  window 6/10 bits 60-79: 100 iters, loss 0.1874 -> 0.1658, 32s so far
+  window 7/10 bits 72-91: 100 iters, loss 0.1751 -> 0.1485, 37s so far
+  window 8/10 bits 84-103: 100 iters, loss 0.1842 -> 0.1461, 42s so far
+  window 9/10 bits 96-115: 100 iters, loss 0.1867 -> 0.1507, 47s so far
+  window 10/10 bits 108-127: 100 iters, loss 0.2320 -> 0.1864, 52s so far
+IQPopt: 300 training rows, 128 bits, 10 window(s) of 20, trained in 51.8s
+MMD: 0.037775
+MMD vs test: 0.037775 | whole dataset: 0.037417 | train: 0.036783
+
+ --------------------------------- Test #12 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/10 bits 0-19: 100 iters, loss 0.2071 -> 0.1783, 7s so far
+  window 2/10 bits 12-31: 100 iters, loss 0.2457 -> 0.1902, 12s so far
+  window 3/10 bits 24-43: 100 iters, loss 0.2018 -> 0.1771, 18s so far
+  window 4/10 bits 36-55: 100 iters, loss 0.2383 -> 0.1706, 23s so far
+  window 5/10 bits 48-67: 100 iters, loss 0.2280 -> 0.1840, 28s so far
+  window 6/10 bits 60-79: 100 iters, loss 0.2173 -> 0.1961, 34s so far
+  window 7/10 bits 72-91: 100 iters, loss 0.2108 -> 0.1787, 39s so far
+  window 8/10 bits 84-103: 100 iters, loss 0.2171 -> 0.1736, 45s so far
+  window 9/10 bits 96-115: 100 iters, loss 0.2028 -> 0.1640, 50s so far
+  window 10/10 bits 108-127: 100 iters, loss 0.2207 -> 0.1811, 56s so far
+IQPopt: 700 training rows, 128 bits, 10 window(s) of 20, trained in 56.0s
+MMD: 0.038645
+MMD vs test: 0.038645 | whole dataset: 0.038022 | train: 0.038003
+
+ --------------------------------- Test #13 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/10 bits 0-19: 50 iters, loss 0.1415 -> 0.0170, 4s so far
+  window 2/10 bits 12-31: 50 iters, loss 0.2665 -> 0.0206, 7s so far
+  window 3/10 bits 24-43: 50 iters, loss 0.1082 -> 0.0146, 10s so far
+  window 4/10 bits 36-55: 50 iters, loss 0.3085 -> 0.0147, 12s so far
+  window 5/10 bits 48-67: 50 iters, loss 0.2005 -> 0.0165, 15s so far
+  window 6/10 bits 60-79: 50 iters, loss 0.1583 -> 0.0157, 18s so far
+  window 7/10 bits 72-91: 50 iters, loss 0.1796 -> 0.0146, 21s so far
+  window 8/10 bits 84-103: 50 iters, loss 0.2190 -> 0.0153, 23s so far
+  window 9/10 bits 96-115: 50 iters, loss 0.1975 -> 0.0155, 26s so far
+  window 10/10 bits 108-127: 50 iters, loss 0.2189 -> 0.0177, 29s so far
+IQPopt: 300 training rows, 128 bits, 10 window(s) of 20, trained in 28.6s
+MMD: 0.000492
+MMD vs test: 0.000492 | whole dataset: 0.000489 | train: 0.000482
+
+ --------------------------------- Test #14 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/10 bits 0-19: 50 iters, loss 0.1637 -> 0.0153, 4s so far
+  window 2/10 bits 12-31: 50 iters, loss 0.2882 -> 0.0193, 7s so far
+  window 3/10 bits 24-43: 50 iters, loss 0.1096 -> 0.0135, 9s so far
+  window 4/10 bits 36-55: 50 iters, loss 0.3051 -> 0.0136, 12s so far
+  window 5/10 bits 48-67: 50 iters, loss 0.2014 -> 0.0158, 15s so far
+  window 6/10 bits 60-79: 50 iters, loss 0.1593 -> 0.0148, 18s so far
+  window 7/10 bits 72-91: 50 iters, loss 0.1874 -> 0.0134, 21s so far
+  window 8/10 bits 84-103: 50 iters, loss 0.2159 -> 0.0140, 24s so far
+  window 9/10 bits 96-115: 50 iters, loss 0.1968 -> 0.0137, 26s so far
+  window 10/10 bits 108-127: 50 iters, loss 0.2295 -> 0.0162, 29s so far
+IQPopt: 700 training rows, 128 bits, 10 window(s) of 20, trained in 29.2s
+MMD: 0.000480
+MMD vs test: 0.000480 | whole dataset: 0.000488 | train: 0.000485
+
+ --------------------------------- Test #15 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/10 bits 0-19: 100 iters, loss 0.1415 -> 0.0147, 6s so far
+  window 2/10 bits 12-31: 100 iters, loss 0.2665 -> 0.0166, 12s so far
+  window 3/10 bits 24-43: 100 iters, loss 0.1082 -> 0.0135, 17s so far
+  window 4/10 bits 36-55: 100 iters, loss 0.3085 -> 0.0147, 22s so far
+  window 5/10 bits 48-67: 100 iters, loss 0.2005 -> 0.0150, 27s so far
+  window 6/10 bits 60-79: 100 iters, loss 0.1583 -> 0.0134, 33s so far
+  window 7/10 bits 72-91: 100 iters, loss 0.1796 -> 0.0130, 38s so far
+  window 8/10 bits 84-103: 100 iters, loss 0.2190 -> 0.0137, 44s so far
+  window 9/10 bits 96-115: 100 iters, loss 0.1975 -> 0.0141, 49s so far
+  window 10/10 bits 108-127: 100 iters, loss 0.2189 -> 0.0150, 54s so far
+IQPopt: 300 training rows, 128 bits, 10 window(s) of 20, trained in 54.4s
+MMD: 0.000490
+MMD vs test: 0.000490 | whole dataset: 0.000486 | train: 0.000476
+
+ --------------------------------- Test #16 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+  window 1/10 bits 0-19: 100 iters, loss 0.1637 -> 0.0126, 7s so far
+  window 2/10 bits 12-31: 100 iters, loss 0.2882 -> 0.0147, 13s so far
+  window 3/10 bits 24-43: 100 iters, loss 0.1096 -> 0.0129, 18s so far
+  window 4/10 bits 36-55: 100 iters, loss 0.3051 -> 0.0144, 24s so far
+  window 5/10 bits 48-67: 100 iters, loss 0.2014 -> 0.0142, 30s so far
+  window 6/10 bits 60-79: 100 iters, loss 0.1593 -> 0.0126, 36s so far
+  window 7/10 bits 72-91: 100 iters, loss 0.1874 -> 0.0123, 41s so far
+  window 8/10 bits 84-103: 100 iters, loss 0.2159 -> 0.0126, 46s so far
+  window 9/10 bits 96-115: 100 iters, loss 0.1968 -> 0.0129, 52s so far
+  window 10/10 bits 108-127: 100 iters, loss 0.2295 -> 0.0137, 57s so far
+IQPopt: 700 training rows, 128 bits, 10 window(s) of 20, trained in 57.1s
+MMD: 0.000474
+MMD vs test: 0.000474 | whole dataset: 0.000482 | train: 0.000480
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\loss_IQPopt.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\loss_LSTM.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\loss_QCBM.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\loss_Transformer.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\loss_VAE.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Bars+Stripes_epochs50_eps0.3.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Bars+Stripes_epochs50_eps0.7.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Bars+Stripes_epochs100_eps0.3.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Bars+Stripes_epochs100_eps0.7.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_DNA_epochs50_eps0.3.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_DNA_epochs50_eps0.7.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_DNA_epochs100_eps0.3.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_DNA_epochs100_eps0.7.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Qubit_epochs50_eps0.3.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Qubit_epochs50_eps0.7.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Qubit_epochs100_eps0.3.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Qubit_epochs100_eps0.7.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Sin_epochs50_eps0.3.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Sin_epochs50_eps0.7.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Sin_epochs100_eps0.3.png
+saved C:\Users\sk9tt\Desktop\CSE-Capstone---ASU---Machine-Learning-Enhanced-Quantum-State-Inference-for-Generative-Modeling\Khashim Abdirakhman\Sprint 10\results\poster\plots\mmd_bars_Sin_epochs100_eps0.7.png
+total 515s
