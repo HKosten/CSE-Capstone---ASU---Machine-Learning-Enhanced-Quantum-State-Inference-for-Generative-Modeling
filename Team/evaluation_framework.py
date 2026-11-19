@@ -44,6 +44,8 @@ def evaluate_model(model_function, settings, model_name, test_name):
     else:
         generated_samples = np.asarray(generated_samples)
 
+    generated_samples = generated_samples.astype(int)
+
     torch.set_printoptions(threshold=float("inf"))
 
     file_name = (f"{model_name}_"f"{test_name}_"f"generated_data_epsilon_{settings["epsilon"]}_epochs_"

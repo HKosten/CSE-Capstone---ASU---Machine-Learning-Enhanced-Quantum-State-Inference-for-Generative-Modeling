@@ -1,0 +1,2 @@
+Model,MMD,Epsilon,Epochs,Seed,Samples
+LSTM,  0.002453,0.3,50,33,1000
