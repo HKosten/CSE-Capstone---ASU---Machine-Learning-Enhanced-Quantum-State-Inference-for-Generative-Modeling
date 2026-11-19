@@ -19,7 +19,7 @@ def three_mmds(gen, csv, epsilon: float, seed: int) -> dict:
     data = torch.tensor(pd.read_csv(csv, header=None).values, dtype=torch.long)
     train, test = train_test_split(data, train_size=epsilon, random_state=seed) # same split the framework made
     gen = torch.as_tensor(gen).double() # the LSTM returns a list
-    return {f"mmd_{k}": mmd_samples(gen, ref.double()).item() for k, ref in (("test", test), ("full", data), ("train", train))}
+    return {f"mmd_{k}": mmd_samples(gen, ref.double(), unbiased=False).item() for k, ref in (("test", test), ("full", data), ("train", train))}
 
 
 def add_csv_row(path, row: dict):
