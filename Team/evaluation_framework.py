@@ -47,7 +47,7 @@ def evaluate_model(model_function, settings, model_name, test_name):
     torch.set_printoptions(threshold=float("inf"))
 
     file_name = (f"{model_name}_"f"{test_name}_"f"generated_data_epsilon_{settings["epsilon"]}_epochs_"
-    f"{settings["num_epochs"]}_seed_{settings["seed"]}_samples_{settings["num_samples"]}")
+    f"{settings["num_epochs"]}_seed_{settings["seed"]}_samples_{settings["num_samples"]}.csv")
 
     pd.DataFrame(generated_samples).to_csv(file_name, index=False, header=False)
 
