@@ -1,0 +1,1190 @@
+ --------------------------------- Test #1 | Model: LSTM | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.697050
+MMD: 0.002453
+MMD vs test: 0.002453 | whole dataset: 0.002025 | train: 0.004362
+
+ --------------------------------- Test #2 | Model: Transformer | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.753350
+MMD: 0.004971
+MMD vs test: 0.004971 | whole dataset: 0.002803 | train: 0.001079
+
+ --------------------------------- Test #3 | Model: VAE | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 69.362396
+MMD: 0.002455
+MMD vs test: 0.002455 | whole dataset: 0.002017 | train: 0.004329
+
+ --------------------------------- Test #4 | Model: QCBM | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 100 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #5 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #6 | Model: LSTM | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.699235
+MMD: 0.004366
+MMD vs test: 0.004366 | whole dataset: 0.002025 | train: 0.002451
+
+ --------------------------------- Test #7 | Model: Transformer | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.754133
+MMD: 0.005421
+MMD vs test: 0.005421 | whole dataset: 0.001352 | train: 0.001037
+
+ --------------------------------- Test #8 | Model: VAE | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 69.370872
+MMD: 0.004356
+MMD vs test: 0.004356 | whole dataset: 0.002009 | train: 0.002433
+
+ --------------------------------- Test #9 | Model: QCBM | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 100 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #10 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #11 | Model: LSTM | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.697050
+Epoch 50, Loss: 0.688408
+MMD: 0.002453
+MMD vs test: 0.002453 | whole dataset: 0.002025 | train: 0.004362
+
+ --------------------------------- Test #12 | Model: Transformer | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.753350
+Epoch 50, Loss: 0.004861
+MMD: 0.005377
+MMD vs test: 0.005377 | whole dataset: 0.003063 | train: 0.001000
+
+ --------------------------------- Test #13 | Model: VAE | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 69.362396
+Epoch 100, Loss: 69.197517
+MMD: 0.002459
+MMD vs test: 0.002459 | whole dataset: 0.002020 | train: 0.004329
+
+ --------------------------------- Test #14 | Model: QCBM | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 100 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #15 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #16 | Model: LSTM | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.699235
+Epoch 50, Loss: 0.686678
+MMD: 0.004362
+MMD vs test: 0.004362 | whole dataset: 0.002024 | train: 0.002451
+
+ --------------------------------- Test #17 | Model: Transformer | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.754133
+Epoch 50, Loss: 0.004879
+MMD: 0.005576
+MMD vs test: 0.005576 | whole dataset: 0.001367 | train: 0.000992
+
+ --------------------------------- Test #18 | Model: VAE | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 69.370872
+Epoch 100, Loss: 69.304642
+MMD: 0.004352
+MMD vs test: 0.004352 | whole dataset: 0.002007 | train: 0.002431
+
+ --------------------------------- Test #19 | Model: QCBM | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 100 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #20 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #21 | Model: LSTM | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.697050
+Epoch 50, Loss: 0.688408
+Epoch 100, Loss: 0.688621
+Epoch 150, Loss: 0.683552
+Epoch 200, Loss: 0.676917
+Epoch 250, Loss: 0.676391
+Epoch 300, Loss: 0.677212
+Epoch 350, Loss: 0.677937
+Epoch 400, Loss: 0.672416
+Epoch 450, Loss: 0.676824
+Epoch 500, Loss: 0.673201
+Epoch 550, Loss: 0.669422
+Epoch 600, Loss: 0.673994
+Epoch 650, Loss: 0.672296
+Epoch 700, Loss: 0.674196
+Epoch 750, Loss: 0.674885
+Epoch 800, Loss: 0.672345
+Epoch 850, Loss: 0.668157
+Epoch 900, Loss: 0.668882
+Epoch 950, Loss: 0.659108
+MMD: 0.002436
+MMD vs test: 0.002436 | whole dataset: 0.002009 | train: 0.004347
+
+ --------------------------------- Test #22 | Model: Transformer | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.753350
+Epoch 50, Loss: 0.004861
+Epoch 100, Loss: 0.002051
+Epoch 150, Loss: 0.001191
+Epoch 200, Loss: 0.000740
+Epoch 250, Loss: 0.000462
+Epoch 300, Loss: 0.000288
+Epoch 350, Loss: 0.000181
+Epoch 400, Loss: 0.000114
+Epoch 450, Loss: 0.000071
+Epoch 500, Loss: 0.000045
+Epoch 550, Loss: 0.000028
+Epoch 600, Loss: 0.000017
+Epoch 650, Loss: 0.000011
+Epoch 700, Loss: 0.000006
+Epoch 750, Loss: 0.000004
+Epoch 800, Loss: 0.000002
+Epoch 850, Loss: 0.000002
+Epoch 900, Loss: 0.000001
+Epoch 950, Loss: 0.000001
+MMD: 0.005599
+MMD vs test: 0.005599 | whole dataset: 0.003170 | train: 0.000837
+
+ --------------------------------- Test #23 | Model: VAE | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 69.362396
+Epoch 100, Loss: 69.197517
+Epoch 150, Loss: 69.254570
+Epoch 200, Loss: 69.231644
+Epoch 250, Loss: 69.311058
+Epoch 300, Loss: 69.150223
+Epoch 350, Loss: 69.137764
+Epoch 400, Loss: 69.214378
+Epoch 450, Loss: 69.162910
+Epoch 500, Loss: 69.149467
+Epoch 550, Loss: 69.199280
+Epoch 600, Loss: 69.081390
+Epoch 650, Loss: 69.212158
+Epoch 700, Loss: 68.952415
+Epoch 750, Loss: 69.196144
+Epoch 800, Loss: 68.943039
+Epoch 850, Loss: 68.950272
+Epoch 900, Loss: 69.015266
+Epoch 950, Loss: 68.986237
+Epoch 1000, Loss: 68.777702
+MMD: 0.002456
+MMD vs test: 0.002456 | whole dataset: 0.002016 | train: 0.004321
+
+ --------------------------------- Test #24 | Model: QCBM | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 100 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #25 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #26 | Model: LSTM | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.699235
+Epoch 50, Loss: 0.686678
+Epoch 100, Loss: 0.682372
+Epoch 150, Loss: 0.674508
+Epoch 200, Loss: 0.674527
+Epoch 250, Loss: 0.678711
+Epoch 300, Loss: 0.676473
+Epoch 350, Loss: 0.672463
+Epoch 400, Loss: 0.672854
+Epoch 450, Loss: 0.677089
+Epoch 500, Loss: 0.670309
+Epoch 550, Loss: 0.674932
+Epoch 600, Loss: 0.673787
+Epoch 650, Loss: 0.673028
+Epoch 700, Loss: 0.672745
+Epoch 750, Loss: 0.672608
+Epoch 800, Loss: 0.666506
+Epoch 850, Loss: 0.671934
+Epoch 900, Loss: 0.670482
+Epoch 950, Loss: 0.670715
+MMD: 0.004348
+MMD vs test: 0.004348 | whole dataset: 0.002014 | train: 0.002442
+
+ --------------------------------- Test #27 | Model: Transformer | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.754133
+Epoch 50, Loss: 0.004879
+Epoch 100, Loss: 0.002053
+Epoch 150, Loss: 0.001193
+Epoch 200, Loss: 0.000739
+Epoch 250, Loss: 0.000463
+Epoch 300, Loss: 0.000289
+Epoch 350, Loss: 0.000182
+Epoch 400, Loss: 0.000114
+Epoch 450, Loss: 0.000071
+Epoch 500, Loss: 0.000045
+Epoch 550, Loss: 0.000028
+Epoch 600, Loss: 0.000017
+Epoch 650, Loss: 0.000011
+Epoch 700, Loss: 0.000007
+Epoch 750, Loss: 0.000004
+Epoch 800, Loss: 0.000002
+Epoch 850, Loss: 0.000002
+Epoch 900, Loss: 0.000001
+Epoch 950, Loss: 0.000001
+MMD: 0.005801
+MMD vs test: 0.005801 | whole dataset: 0.001465 | train: 0.001036
+
+ --------------------------------- Test #28 | Model: VAE | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 69.370872
+Epoch 100, Loss: 69.304642
+Epoch 150, Loss: 69.311783
+Epoch 200, Loss: 69.233368
+Epoch 250, Loss: 69.217308
+Epoch 300, Loss: 69.220322
+Epoch 350, Loss: 69.237083
+Epoch 400, Loss: 69.286964
+Epoch 450, Loss: 69.198494
+Epoch 500, Loss: 69.285797
+Epoch 550, Loss: 69.183273
+Epoch 600, Loss: 69.243729
+Epoch 650, Loss: 69.214020
+Epoch 700, Loss: 69.205437
+Epoch 750, Loss: 69.216751
+Epoch 800, Loss: 69.211945
+Epoch 850, Loss: 69.216125
+Epoch 900, Loss: 69.166092
+Epoch 950, Loss: 69.165779
+Epoch 1000, Loss: 69.254097
+MMD: 0.004352
+MMD vs test: 0.004352 | whole dataset: 0.002007 | train: 0.002432
+
+ --------------------------------- Test #29 | Model: QCBM | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 100 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #30 | Model: IQPopt | dataset: training_sequences_DNA.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #31 | Model: LSTM | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.765468
+MMD: 0.185974
+MMD vs test: 0.185974 | whole dataset: 0.183476 | train: 0.179485
+
+ --------------------------------- Test #32 | Model: Transformer | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.867345
+MMD: 0.004704
+MMD vs test: 0.004704 | whole dataset: 0.003233 | train: 0.001640
+
+ --------------------------------- Test #33 | Model: VAE | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 3.819143
+MMD: 0.017863
+MMD vs test: 0.017863 | whole dataset: 0.016393 | train: 0.014802
+
+ --------------------------------- Test #34 | Model: QCBM | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 0.006665
+QCBM: 300 training rows, 12 bits, 50 epochs, trained in 1.6s
+MMD: 0.007183
+MMD vs test: 0.007183 | whole dataset: 0.006552 | train: 0.006917
+
+ --------------------------------- Test #35 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #36 | Model: LSTM | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.767984
+MMD: 0.180999
+MMD vs test: 0.180999 | whole dataset: 0.183657 | train: 0.185740
+
+ --------------------------------- Test #37 | Model: Transformer | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.857363
+MMD: 0.002621
+MMD vs test: 0.002621 | whole dataset: 0.000701 | train: 0.000822
+
+ --------------------------------- Test #38 | Model: VAE | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 3.775134
+MMD: 0.016528
+MMD vs test: 0.016528 | whole dataset: 0.014187 | train: 0.014126
+
+ --------------------------------- Test #39 | Model: QCBM | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 0.006990
+QCBM: 700 training rows, 12 bits, 50 epochs, trained in 1.6s
+MMD: 0.008294
+MMD vs test: 0.008294 | whole dataset: 0.006727 | train: 0.006998
+
+ --------------------------------- Test #40 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #41 | Model: LSTM | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.765468
+Epoch 50, Loss: 0.378440
+MMD: 0.150732
+MMD vs test: 0.150732 | whole dataset: 0.148300 | train: 0.144466
+
+ --------------------------------- Test #42 | Model: Transformer | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.867345
+Epoch 50, Loss: 0.004889
+MMD: 0.002943
+MMD vs test: 0.002943 | whole dataset: 0.001642 | train: 0.000444
+
+ --------------------------------- Test #43 | Model: VAE | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 3.819143
+Epoch 100, Loss: 3.853415
+MMD: 0.013680
+MMD vs test: 0.013680 | whole dataset: 0.012356 | train: 0.011105
+
+ --------------------------------- Test #44 | Model: QCBM | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 0.005773
+Epoch 100, Loss: 0.004425
+QCBM: 300 training rows, 12 bits, 100 epochs, trained in 3.2s
+MMD: 0.005065
+MMD vs test: 0.005065 | whole dataset: 0.004532 | train: 0.005126
+
+ --------------------------------- Test #45 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #46 | Model: LSTM | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.767984
+Epoch 50, Loss: 0.394854
+MMD: 0.145245
+MMD vs test: 0.145245 | whole dataset: 0.147283 | train: 0.149100
+
+ --------------------------------- Test #47 | Model: Transformer | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.857363
+Epoch 50, Loss: 0.004854
+MMD: 0.003410
+MMD vs test: 0.003410 | whole dataset: 0.000837 | train: 0.000678
+
+ --------------------------------- Test #48 | Model: VAE | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 3.775134
+Epoch 100, Loss: 3.759956
+MMD: 0.017822
+MMD vs test: 0.017822 | whole dataset: 0.015801 | train: 0.015879
+
+ --------------------------------- Test #49 | Model: QCBM | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 0.005310
+Epoch 100, Loss: 0.003371
+QCBM: 700 training rows, 12 bits, 100 epochs, trained in 3.2s
+MMD: 0.005392
+MMD vs test: 0.005392 | whole dataset: 0.003160 | train: 0.003147
+
+ --------------------------------- Test #50 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #51 | Model: LSTM | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.765468
+Epoch 50, Loss: 0.378440
+Epoch 100, Loss: 0.312065
+Epoch 150, Loss: 0.275324
+Epoch 200, Loss: 0.322261
+Epoch 250, Loss: 0.321384
+Epoch 300, Loss: 0.298572
+Epoch 350, Loss: 0.306001
+Epoch 400, Loss: 0.337989
+Epoch 450, Loss: 0.270983
+Epoch 500, Loss: 0.294156
+Epoch 550, Loss: 0.259875
+Epoch 600, Loss: 0.237995
+Epoch 650, Loss: 0.249403
+Epoch 700, Loss: 0.224847
+Epoch 750, Loss: 0.239320
+Epoch 800, Loss: 0.215991
+Epoch 850, Loss: 0.220304
+Epoch 900, Loss: 0.230624
+Epoch 950, Loss: 0.244360
+MMD: 0.095266
+MMD vs test: 0.095266 | whole dataset: 0.092839 | train: 0.089015
+
+ --------------------------------- Test #52 | Model: Transformer | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.867345
+Epoch 50, Loss: 0.004889
+Epoch 100, Loss: 0.002159
+Epoch 150, Loss: 0.001283
+Epoch 200, Loss: 0.000802
+Epoch 250, Loss: 0.000510
+Epoch 300, Loss: 0.000323
+Epoch 350, Loss: 0.000204
+Epoch 400, Loss: 0.000128
+Epoch 450, Loss: 0.000079
+Epoch 500, Loss: 0.000049
+Epoch 550, Loss: 0.000030
+Epoch 600, Loss: 0.000019
+Epoch 650, Loss: 0.000012
+Epoch 700, Loss: 0.000007
+Epoch 750, Loss: 0.000004
+Epoch 800, Loss: 0.000003
+Epoch 850, Loss: 0.000002
+Epoch 900, Loss: 0.000001
+Epoch 950, Loss: 0.000001
+MMD: 0.003033
+MMD vs test: 0.003033 | whole dataset: 0.001706 | train: 0.000449
+
+ --------------------------------- Test #53 | Model: VAE | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 3.819143
+Epoch 100, Loss: 3.853415
+Epoch 150, Loss: 3.847615
+Epoch 200, Loss: 3.842633
+Epoch 250, Loss: 3.826497
+Epoch 300, Loss: 3.823175
+Epoch 350, Loss: 3.862859
+Epoch 400, Loss: 3.833092
+Epoch 450, Loss: 3.807524
+Epoch 500, Loss: 3.822076
+Epoch 550, Loss: 3.836924
+Epoch 600, Loss: 3.851340
+Epoch 650, Loss: 3.797528
+Epoch 700, Loss: 3.819598
+Epoch 750, Loss: 3.835737
+Epoch 800, Loss: 3.838207
+Epoch 850, Loss: 3.854548
+Epoch 900, Loss: 3.817973
+Epoch 950, Loss: 3.836472
+Epoch 1000, Loss: 3.842284
+MMD: 0.016262
+MMD vs test: 0.016262 | whole dataset: 0.014846 | train: 0.013378
+
+ --------------------------------- Test #54 | Model: QCBM | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 0.005452
+Epoch 100, Loss: 0.001837
+Epoch 150, Loss: 0.000376
+Epoch 200, Loss: 0.000337
+Epoch 250, Loss: 0.000329
+Epoch 300, Loss: 0.000325
+Epoch 350, Loss: 0.000323
+Epoch 400, Loss: 0.000321
+Epoch 450, Loss: 0.000319
+Epoch 500, Loss: 0.000318
+Epoch 550, Loss: 0.000317
+Epoch 600, Loss: 0.000317
+Epoch 650, Loss: 0.000317
+Epoch 700, Loss: 0.000316
+Epoch 750, Loss: 0.000316
+Epoch 800, Loss: 0.000316
+Epoch 850, Loss: 0.000315
+Epoch 900, Loss: 0.000315
+Epoch 950, Loss: 0.000315
+Epoch 1000, Loss: 0.000315
+QCBM: 300 training rows, 12 bits, 1000 epochs, trained in 32.7s
+MMD: 0.001581
+MMD vs test: 0.001581 | whole dataset: 0.000829 | train: 0.000911
+
+ --------------------------------- Test #55 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #56 | Model: LSTM | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.767984
+Epoch 50, Loss: 0.394854
+Epoch 100, Loss: 0.324110
+Epoch 150, Loss: 0.272259
+Epoch 200, Loss: 0.287385
+Epoch 250, Loss: 0.320368
+Epoch 300, Loss: 0.299517
+Epoch 350, Loss: 0.276658
+Epoch 400, Loss: 0.287185
+Epoch 450, Loss: 0.263385
+Epoch 500, Loss: 0.297748
+Epoch 550, Loss: 0.266171
+Epoch 600, Loss: 0.269827
+Epoch 650, Loss: 0.245270
+Epoch 700, Loss: 0.260239
+Epoch 750, Loss: 0.242833
+Epoch 800, Loss: 0.201576
+Epoch 850, Loss: 0.213651
+Epoch 900, Loss: 0.275885
+Epoch 950, Loss: 0.246946
+MMD: 0.097434
+MMD vs test: 0.097434 | whole dataset: 0.097594 | train: 0.098606
+
+ --------------------------------- Test #57 | Model: Transformer | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.857363
+Epoch 50, Loss: 0.004854
+Epoch 100, Loss: 0.002152
+Epoch 150, Loss: 0.001271
+Epoch 200, Loss: 0.000796
+Epoch 250, Loss: 0.000506
+Epoch 300, Loss: 0.000322
+Epoch 350, Loss: 0.000203
+Epoch 400, Loss: 0.000127
+Epoch 450, Loss: 0.000079
+Epoch 500, Loss: 0.000049
+Epoch 550, Loss: 0.000030
+Epoch 600, Loss: 0.000019
+Epoch 650, Loss: 0.000012
+Epoch 700, Loss: 0.000007
+Epoch 750, Loss: 0.000004
+Epoch 800, Loss: 0.000003
+Epoch 850, Loss: 0.000002
+Epoch 900, Loss: 0.000001
+Epoch 950, Loss: 0.000001
+MMD: 0.004991
+MMD vs test: 0.004991 | whole dataset: 0.001416 | train: 0.000827
+
+ --------------------------------- Test #58 | Model: VAE | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 3.775134
+Epoch 100, Loss: 3.759956
+Epoch 150, Loss: 3.764057
+Epoch 200, Loss: 3.768317
+Epoch 250, Loss: 3.764035
+Epoch 300, Loss: 3.774072
+Epoch 350, Loss: 3.756681
+Epoch 400, Loss: 3.772835
+Epoch 450, Loss: 3.753318
+Epoch 500, Loss: 3.770466
+Epoch 550, Loss: 3.746710
+Epoch 600, Loss: 3.765506
+Epoch 650, Loss: 3.747073
+Epoch 700, Loss: 3.759921
+Epoch 750, Loss: 3.763810
+Epoch 800, Loss: 3.748732
+Epoch 850, Loss: 3.748373
+Epoch 900, Loss: 3.753550
+Epoch 950, Loss: 3.757189
+Epoch 1000, Loss: 3.744333
+MMD: 0.016241
+MMD vs test: 0.016241 | whole dataset: 0.014200 | train: 0.014269
+
+ --------------------------------- Test #59 | Model: QCBM | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 0.004666
+Epoch 100, Loss: 0.000743
+Epoch 150, Loss: 0.000205
+Epoch 200, Loss: 0.000152
+Epoch 250, Loss: 0.000134
+Epoch 300, Loss: 0.000127
+Epoch 350, Loss: 0.000125
+Epoch 400, Loss: 0.000124
+Epoch 450, Loss: 0.000124
+Epoch 500, Loss: 0.000124
+Epoch 550, Loss: 0.000123
+Epoch 600, Loss: 0.000123
+Epoch 650, Loss: 0.000123
+Epoch 700, Loss: 0.000122
+Epoch 750, Loss: 0.000122
+Epoch 800, Loss: 0.000122
+Epoch 850, Loss: 0.000122
+Epoch 900, Loss: 0.000122
+Epoch 950, Loss: 0.000122
+Epoch 1000, Loss: 0.000122
+QCBM: 700 training rows, 12 bits, 1000 epochs, trained in 32.2s
+MMD: 0.003413
+MMD vs test: 0.003413 | whole dataset: 0.000711 | train: 0.000497
+
+ --------------------------------- Test #60 | Model: IQPopt | dataset: training_sequences_qubit.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #61 | Model: LSTM | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.704913
+MMD: 0.031922
+MMD vs test: 0.031922 | whole dataset: 0.031153 | train: 0.032796
+
+ --------------------------------- Test #62 | Model: Transformer | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.760669
+MMD: 0.004877
+MMD vs test: 0.004877 | whole dataset: 0.002825 | train: 0.001475
+
+ --------------------------------- Test #63 | Model: VAE | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 30.859186
+MMD: 0.023776
+MMD vs test: 0.023776 | whole dataset: 0.022837 | train: 0.024082
+
+ --------------------------------- Test #64 | Model: QCBM | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #65 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #66 | Model: LSTM | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.704965
+MMD: 0.034040
+MMD vs test: 0.034040 | whole dataset: 0.031152 | train: 0.031548
+
+ --------------------------------- Test #67 | Model: Transformer | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.758968
+MMD: 0.007106
+MMD vs test: 0.007106 | whole dataset: 0.001924 | train: 0.001337
+
+ --------------------------------- Test #68 | Model: VAE | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 25.352682
+MMD: 0.022660
+MMD vs test: 0.022660 | whole dataset: 0.019389 | train: 0.019621
+
+ --------------------------------- Test #69 | Model: QCBM | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #70 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #71 | Model: LSTM | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.704913
+Epoch 50, Loss: 0.149072
+MMD: 0.031915
+MMD vs test: 0.031915 | whole dataset: 0.031146 | train: 0.032789
+
+ --------------------------------- Test #72 | Model: Transformer | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.760669
+Epoch 50, Loss: 0.005225
+MMD: 0.005166
+MMD vs test: 0.005166 | whole dataset: 0.002857 | train: 0.000907
+
+ --------------------------------- Test #73 | Model: VAE | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 30.859186
+Epoch 100, Loss: 27.083597
+MMD: 0.021638
+MMD vs test: 0.021638 | whole dataset: 0.020672 | train: 0.021855
+
+ --------------------------------- Test #74 | Model: QCBM | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #75 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #76 | Model: LSTM | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.704965
+Epoch 50, Loss: 0.148879
+MMD: 0.034021
+MMD vs test: 0.034021 | whole dataset: 0.031135 | train: 0.031531
+
+ --------------------------------- Test #77 | Model: Transformer | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.758968
+Epoch 50, Loss: 0.005245
+MMD: 0.007196
+MMD vs test: 0.007196 | whole dataset: 0.002014 | train: 0.001426
+
+ --------------------------------- Test #78 | Model: VAE | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 25.352682
+Epoch 100, Loss: 18.531418
+MMD: 0.017808
+MMD vs test: 0.017808 | whole dataset: 0.014135 | train: 0.014195
+
+ --------------------------------- Test #79 | Model: QCBM | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #80 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #81 | Model: LSTM | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.704913
+Epoch 50, Loss: 0.149072
+Epoch 100, Loss: 0.094331
+Epoch 150, Loss: 0.075415
+Epoch 200, Loss: 0.066794
+Epoch 250, Loss: 0.064662
+Epoch 300, Loss: 0.063282
+Epoch 350, Loss: 0.063499
+Epoch 400, Loss: 0.059325
+Epoch 450, Loss: 0.056655
+Epoch 500, Loss: 0.057598
+Epoch 550, Loss: 0.054116
+Epoch 600, Loss: 0.054293
+Epoch 650, Loss: 0.059190
+Epoch 700, Loss: 0.052118
+Epoch 750, Loss: 0.050350
+Epoch 800, Loss: 0.064900
+Epoch 850, Loss: 0.059664
+Epoch 900, Loss: 0.057882
+Epoch 950, Loss: 0.054694
+MMD: 0.030777
+MMD vs test: 0.030777 | whole dataset: 0.030011 | train: 0.031660
+
+ --------------------------------- Test #82 | Model: Transformer | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.760669
+Epoch 50, Loss: 0.005225
+Epoch 100, Loss: 0.002135
+Epoch 150, Loss: 0.001207
+Epoch 200, Loss: 0.000737
+Epoch 250, Loss: 0.000457
+Epoch 300, Loss: 0.000286
+Epoch 350, Loss: 0.000180
+Epoch 400, Loss: 0.000113
+Epoch 450, Loss: 0.000071
+Epoch 500, Loss: 0.000044
+Epoch 550, Loss: 0.000027
+Epoch 600, Loss: 0.000017
+Epoch 650, Loss: 0.000011
+Epoch 700, Loss: 0.000006
+Epoch 750, Loss: 0.000004
+Epoch 800, Loss: 0.000002
+Epoch 850, Loss: 0.000002
+Epoch 900, Loss: 0.000001
+Epoch 950, Loss: 0.000001
+MMD: 0.004997
+MMD vs test: 0.004997 | whole dataset: 0.002838 | train: 0.001238
+
+ --------------------------------- Test #83 | Model: VAE | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 30.859186
+Epoch 100, Loss: 27.083597
+Epoch 150, Loss: 23.708744
+Epoch 200, Loss: 22.074993
+Epoch 250, Loss: 19.354635
+Epoch 300, Loss: 18.070478
+Epoch 350, Loss: 17.251940
+Epoch 400, Loss: 16.762506
+Epoch 450, Loss: 16.131315
+Epoch 500, Loss: 15.648672
+Epoch 550, Loss: 15.417321
+Epoch 600, Loss: 15.060143
+Epoch 650, Loss: 14.990916
+Epoch 700, Loss: 14.388722
+Epoch 750, Loss: 14.122570
+Epoch 800, Loss: 14.079334
+Epoch 850, Loss: 13.881587
+Epoch 900, Loss: 14.340396
+Epoch 950, Loss: 13.821780
+Epoch 1000, Loss: 13.520620
+MMD: 0.009478
+MMD vs test: 0.009478 | whole dataset: 0.008041 | train: 0.008123
+
+ --------------------------------- Test #84 | Model: QCBM | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #85 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #86 | Model: LSTM | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.704965
+Epoch 50, Loss: 0.148879
+Epoch 100, Loss: 0.093628
+Epoch 150, Loss: 0.072081
+Epoch 200, Loss: 0.069310
+Epoch 250, Loss: 0.066134
+Epoch 300, Loss: 0.065332
+Epoch 350, Loss: 0.064722
+Epoch 400, Loss: 0.064248
+Epoch 450, Loss: 0.057236
+Epoch 500, Loss: 0.057717
+Epoch 550, Loss: 0.062675
+Epoch 600, Loss: 0.056937
+Epoch 650, Loss: 0.057275
+Epoch 700, Loss: 0.054598
+Epoch 750, Loss: 0.058499
+Epoch 800, Loss: 0.051455
+Epoch 850, Loss: 0.061093
+Epoch 900, Loss: 0.050971
+Epoch 950, Loss: 0.049398
+MMD: 0.032872
+MMD vs test: 0.032872 | whole dataset: 0.029995 | train: 0.030396
+
+ --------------------------------- Test #87 | Model: Transformer | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.758968
+Epoch 50, Loss: 0.005245
+Epoch 100, Loss: 0.002139
+Epoch 150, Loss: 0.001208
+Epoch 200, Loss: 0.000735
+Epoch 250, Loss: 0.000455
+Epoch 300, Loss: 0.000284
+Epoch 350, Loss: 0.000179
+Epoch 400, Loss: 0.000113
+Epoch 450, Loss: 0.000071
+Epoch 500, Loss: 0.000044
+Epoch 550, Loss: 0.000027
+Epoch 600, Loss: 0.000017
+Epoch 650, Loss: 0.000011
+Epoch 700, Loss: 0.000006
+Epoch 750, Loss: 0.000004
+Epoch 800, Loss: 0.000002
+Epoch 850, Loss: 0.000002
+Epoch 900, Loss: 0.000001
+Epoch 950, Loss: 0.000001
+MMD: 0.005773
+MMD vs test: 0.005773 | whole dataset: 0.001203 | train: 0.000878
+
+ --------------------------------- Test #88 | Model: VAE | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 25.352682
+Epoch 100, Loss: 18.531418
+Epoch 150, Loss: 15.637970
+Epoch 200, Loss: 14.302123
+Epoch 250, Loss: 13.822462
+Epoch 300, Loss: 13.749255
+Epoch 350, Loss: 13.446815
+Epoch 400, Loss: 13.493246
+Epoch 450, Loss: 12.908691
+Epoch 500, Loss: 13.278742
+Epoch 550, Loss: 12.711212
+Epoch 600, Loss: 12.804268
+Epoch 650, Loss: 12.784316
+Epoch 700, Loss: 12.800965
+Epoch 750, Loss: 12.418061
+Epoch 800, Loss: 12.268434
+Epoch 850, Loss: 12.307409
+Epoch 900, Loss: 12.126200
+Epoch 950, Loss: 12.187528
+Epoch 1000, Loss: 12.242225
+MMD: 0.008712
+MMD vs test: 0.008712 | whole dataset: 0.004958 | train: 0.004982
+
+ --------------------------------- Test #89 | Model: QCBM | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #90 | Model: IQPopt | dataset: sin_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #91 | Model: LSTM | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.698866
+MMD: 0.002908
+MMD vs test: 0.002908 | whole dataset: 0.002481 | train: 0.004815
+
+ --------------------------------- Test #92 | Model: Transformer | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.757735
+MMD: 0.004724
+MMD vs test: 0.004724 | whole dataset: 0.002629 | train: 0.001071
+
+ --------------------------------- Test #93 | Model: VAE | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 73.755821
+MMD: 0.002834
+MMD vs test: 0.002834 | whole dataset: 0.002395 | train: 0.004702
+
+ --------------------------------- Test #94 | Model: QCBM | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #95 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #96 | Model: LSTM | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.697389
+MMD: 0.004801
+MMD vs test: 0.004801 | whole dataset: 0.002482 | train: 0.002910
+
+ --------------------------------- Test #97 | Model: Transformer | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.759576
+MMD: 0.005309
+MMD vs test: 0.005309 | whole dataset: 0.001353 | train: 0.001079
+
+ --------------------------------- Test #98 | Model: VAE | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 58.160145
+MMD: 0.004617
+MMD vs test: 0.004617 | whole dataset: 0.002279 | train: 0.002699
+
+ --------------------------------- Test #99 | Model: QCBM | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #100 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 50 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #101 | Model: LSTM | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.698866
+Epoch 50, Loss: 0.638230
+MMD: 0.002908
+MMD vs test: 0.002908 | whole dataset: 0.002480 | train: 0.004812
+
+ --------------------------------- Test #102 | Model: Transformer | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.757735
+Epoch 50, Loss: 0.004952
+MMD: 0.005251
+MMD vs test: 0.005251 | whole dataset: 0.002993 | train: 0.001054
+
+ --------------------------------- Test #103 | Model: VAE | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 73.755821
+Epoch 100, Loss: 59.369862
+MMD: 0.002759
+MMD vs test: 0.002759 | whole dataset: 0.002313 | train: 0.004602
+
+ --------------------------------- Test #104 | Model: QCBM | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #105 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #106 | Model: LSTM | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.697389
+Epoch 50, Loss: 0.638782
+MMD: 0.004802
+MMD vs test: 0.004802 | whole dataset: 0.002481 | train: 0.002908
+
+ --------------------------------- Test #107 | Model: Transformer | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.759576
+Epoch 50, Loss: 0.004991
+MMD: 0.005676
+MMD vs test: 0.005676 | whole dataset: 0.001516 | train: 0.001154
+
+ --------------------------------- Test #108 | Model: VAE | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 58.160145
+Epoch 100, Loss: 48.774834
+MMD: 0.004578
+MMD vs test: 0.004578 | whole dataset: 0.002231 | train: 0.002647
+
+ --------------------------------- Test #109 | Model: QCBM | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #110 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 100 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #111 | Model: LSTM | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.698866
+Epoch 50, Loss: 0.638230
+Epoch 100, Loss: 0.525514
+Epoch 150, Loss: 0.559780
+Epoch 200, Loss: 0.502597
+Epoch 250, Loss: 0.553753
+Epoch 300, Loss: 0.531202
+Epoch 350, Loss: 0.485180
+Epoch 400, Loss: 0.441157
+Epoch 450, Loss: 0.421975
+Epoch 500, Loss: 0.373140
+Epoch 550, Loss: 0.299276
+Epoch 600, Loss: 0.249227
+Epoch 650, Loss: 0.297347
+Epoch 700, Loss: 0.240619
+Epoch 750, Loss: 0.254478
+Epoch 800, Loss: 0.225124
+Epoch 850, Loss: 0.214609
+Epoch 900, Loss: 0.200455
+Epoch 950, Loss: 0.202472
+MMD: 0.002907
+MMD vs test: 0.002907 | whole dataset: 0.002479 | train: 0.004810
+
+ --------------------------------- Test #112 | Model: Transformer | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.757735
+Epoch 50, Loss: 0.004952
+Epoch 100, Loss: 0.002071
+Epoch 150, Loss: 0.001179
+Epoch 200, Loss: 0.000713
+Epoch 250, Loss: 0.000440
+Epoch 300, Loss: 0.000275
+Epoch 350, Loss: 0.000174
+Epoch 400, Loss: 0.000110
+Epoch 450, Loss: 0.000069
+Epoch 500, Loss: 0.000043
+Epoch 550, Loss: 0.000027
+Epoch 600, Loss: 0.000017
+Epoch 650, Loss: 0.000010
+Epoch 700, Loss: 0.000006
+Epoch 750, Loss: 0.000004
+Epoch 800, Loss: 0.000002
+Epoch 850, Loss: 0.000001
+Epoch 900, Loss: 0.000001
+Epoch 950, Loss: 0.000001
+MMD: 0.005866
+MMD vs test: 0.005866 | whole dataset: 0.003437 | train: 0.001100
+
+ --------------------------------- Test #113 | Model: VAE | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 73.755821
+Epoch 100, Loss: 59.369862
+Epoch 150, Loss: 51.228283
+Epoch 200, Loss: 48.947098
+Epoch 250, Loss: 45.993614
+Epoch 300, Loss: 43.410950
+Epoch 350, Loss: 42.068199
+Epoch 400, Loss: 40.671288
+Epoch 450, Loss: 39.018330
+Epoch 500, Loss: 38.463791
+Epoch 550, Loss: 37.557873
+Epoch 600, Loss: 37.409302
+Epoch 650, Loss: 36.576897
+Epoch 700, Loss: 36.615112
+Epoch 750, Loss: 36.169270
+Epoch 800, Loss: 36.082947
+Epoch 850, Loss: 36.332138
+Epoch 900, Loss: 35.873753
+Epoch 950, Loss: 35.530472
+Epoch 1000, Loss: 34.798080
+MMD: 0.002594
+MMD vs test: 0.002594 | whole dataset: 0.002131 | train: 0.004382
+
+ --------------------------------- Test #114 | Model: QCBM | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #115 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.3 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+
+ --------------------------------- Test #116 | Model: LSTM | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.697389
+Epoch 50, Loss: 0.638782
+Epoch 100, Loss: 0.582304
+Epoch 150, Loss: 0.583530
+Epoch 200, Loss: 0.565445
+Epoch 250, Loss: 0.537781
+Epoch 300, Loss: 0.583667
+Epoch 350, Loss: 0.592961
+Epoch 400, Loss: 0.558007
+Epoch 450, Loss: 0.575844
+Epoch 500, Loss: 0.533699
+Epoch 550, Loss: 0.564227
+Epoch 600, Loss: 0.476379
+Epoch 650, Loss: 0.501355
+Epoch 700, Loss: 0.413985
+Epoch 750, Loss: 0.385292
+Epoch 800, Loss: 0.384891
+Epoch 850, Loss: 0.423554
+Epoch 900, Loss: 0.357447
+Epoch 950, Loss: 0.327224
+MMD: 0.004804
+MMD vs test: 0.004804 | whole dataset: 0.002480 | train: 0.002906
+
+ --------------------------------- Test #117 | Model: Transformer | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 0, Loss: 0.759576
+Epoch 50, Loss: 0.004991
+Epoch 100, Loss: 0.002093
+Epoch 150, Loss: 0.001198
+Epoch 200, Loss: 0.000736
+Epoch 250, Loss: 0.000459
+Epoch 300, Loss: 0.000284
+Epoch 350, Loss: 0.000177
+Epoch 400, Loss: 0.000110
+Epoch 450, Loss: 0.000069
+Epoch 500, Loss: 0.000043
+Epoch 550, Loss: 0.000027
+Epoch 600, Loss: 0.000017
+Epoch 650, Loss: 0.000010
+Epoch 700, Loss: 0.000006
+Epoch 750, Loss: 0.000004
+Epoch 800, Loss: 0.000002
+Epoch 850, Loss: 0.000001
+Epoch 900, Loss: 0.000001
+Epoch 950, Loss: 0.000001
+MMD: 0.005767
+MMD vs test: 0.005767 | whole dataset: 0.001442 | train: 0.001011
+
+ --------------------------------- Test #118 | Model: VAE | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+Epoch 50, Loss: 58.160145
+Epoch 100, Loss: 48.774834
+Epoch 150, Loss: 44.782753
+Epoch 200, Loss: 42.386002
+Epoch 250, Loss: 39.717949
+Epoch 300, Loss: 39.703442
+Epoch 350, Loss: 37.527649
+Epoch 400, Loss: 36.482925
+Epoch 450, Loss: 36.165138
+Epoch 500, Loss: 36.344589
+Epoch 550, Loss: 35.940758
+Epoch 600, Loss: 34.989594
+Epoch 650, Loss: 35.364708
+Epoch 700, Loss: 35.367065
+Epoch 750, Loss: 34.934299
+Epoch 800, Loss: 34.778999
+Epoch 850, Loss: 34.982430
+Epoch 900, Loss: 34.289692
+Epoch 950, Loss: 34.153091
+Epoch 1000, Loss: 34.445602
+MMD: 0.004405
+MMD vs test: 0.004405 | whole dataset: 0.002057 | train: 0.002472
+
+ --------------------------------- Test #119 | Model: QCBM | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+QCBM skipped: 128 bits > 18-qubit simulation limit, see the IQPopt rows for this dataset
+
+ --------------------------------- Test #120 | Model: IQPopt | dataset: bars_stripes_bitstrings.csv | epochs count: 1000 | seed: 33 | epsilon: 0.7 | sample count: 1000 | show_output: False | ----------------------------------- 
+
+IQPopt skipped: No module named 'jax'
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/loss_LSTM.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/loss_QCBM.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/loss_Transformer.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/loss_VAE.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Bars+Stripes_epochs50_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Bars+Stripes_epochs50_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Bars+Stripes_epochs100_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Bars+Stripes_epochs100_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Bars+Stripes_epochs1000_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Bars+Stripes_epochs1000_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_DNA_epochs50_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_DNA_epochs50_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_DNA_epochs100_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_DNA_epochs100_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_DNA_epochs1000_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_DNA_epochs1000_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Qubit_epochs50_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Qubit_epochs50_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Qubit_epochs100_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Qubit_epochs100_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Qubit_epochs1000_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Qubit_epochs1000_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Sin_epochs50_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Sin_epochs50_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Sin_epochs100_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Sin_epochs100_eps0.7.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Sin_epochs1000_eps0.3.png
+saved /Users/jacquiperson/Desktop/school/CSE486/Capstone/Team/results/plots/mmd_bars_Sin_epochs1000_eps0.7.png
+jacquiperson@Jacquis-MacBook-Air Team % 
