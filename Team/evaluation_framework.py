@@ -36,8 +36,8 @@ def evaluate_model(model_function, settings, model_name, test_name):
     generated_samples = torch.as_tensor(generated_samples, dtype=torch.float64)
     test_data = torch.as_tensor(test_data, dtype=torch.float64)
 
-    count = min(len(generated_samples), len(test_data))
-    mmd = mmd_samples(generated_samples, test_data).item()
+    #count = min(len(generated_samples), len(test_data))
+    mmd = mmd_samples(generated_samples, test_data, unbiased=False).item()
 
     if isinstance(generated_samples, torch.Tensor):
         generated_samples = generated_samples.detach().cpu().numpy()

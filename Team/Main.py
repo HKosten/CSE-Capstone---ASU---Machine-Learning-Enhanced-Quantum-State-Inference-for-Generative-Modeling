@@ -83,6 +83,7 @@ def qcbm_small(**model_settings):
         raise ValueError(f"{n_bits} bits > 18-qubit simulation limit, see the IQPopt rows for this dataset")
     return qw.qcbm_function(**model_settings)
 
+
 # EPSILON TEST: varies epsilon from 0.1 to 0.9, incrementing by 0.1 each time
 def epsilon_test(model, settings, model_name, test_name):
     
@@ -92,6 +93,7 @@ def epsilon_test(model, settings, model_name, test_name):
         test_settings["epsilon"] = round(float(i), 1) # np.arange gives 0.30000000000000004
         print_separators(model_name, test_settings)
         ef.evaluate_model(model, test_settings, model_name, test_name)
+
 
 # EPOCHS TEST: varies num_epochs from 0 to 10000, incrementing every 100 for now to test for flattening
 def epochs_test(model, settings, model_name, test_name):
@@ -116,9 +118,10 @@ curr_dataset_name = "DNA"
 for model_name, model in models.items():
     epsilon_test(model, settings, model_name, curr_dataset_name)
 """
+
 # SWEEP (sponsor, Nov 5): several settings in 1 run. every model on every dataset for every epochs x epsilon x seed below.
 # every test adds 1 row to the same csv (RESULTS/mmd_three_sets.csv), the loss graphs and bar charts are made at the end
-EPOCHS = [50, 100]
+EPOCHS = [50, 100, 1000]
 EPSILONS = [0.3, 0.7]
 SEEDS = [33]
 DATASETS = {"DNA": "training_sequences_DNA.csv", "Qubit": "training_sequences_qubit.csv", "Sin": "sin_bitstrings.csv",
@@ -135,6 +138,7 @@ for test_name, csv in DATASETS.items():
 
 for f in plots.plot_loss(RESULTS) + plots.plot_bars(RESULTS):
     print(f"saved {f}")
+
 
 # the older tests are switched off so 1 run of this file is the sweep above. take the quotes away to run them again
 """
